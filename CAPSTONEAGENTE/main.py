@@ -7,12 +7,13 @@ from herramientas.bd_sqlite import (
     crear_bd_demo,
     obtener_esquema
 )
+from herramientas.test import(saluda_test)
 
 
 def main():
 
     # Primera prueba
-    print(saludar())
+    print(saluda_test())
 
     # Segunda prueba (cuando indiquemos "esquema")
     if len(sys.argv) > 1 and sys.argv[1] == "esquema":
