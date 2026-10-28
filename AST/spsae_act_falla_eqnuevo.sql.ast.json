@@ -1,0 +1,2632 @@
+{
+  "archivo_origen": "spsae_act_falla_eqnuevo.sql",
+  "parser": "SQLFluff (dialecto tsql)",
+  "tipo_arbol": "arbol_de_segmentos_sintacticos",
+  "estado": "ok",
+  "errores": [],
+  "zonas_no_analizadas": [],
+  "arbol": {
+    "tipo": "file",
+    "linea": 1,
+    "columna": 1,
+    "hijos": [
+      {
+        "tipo": "batch",
+        "linea": 1,
+        "columna": 1,
+        "hijos": [
+          {
+            "tipo": "statement",
+            "linea": 1,
+            "columna": 1,
+            "hijos": [
+              {
+                "tipo": "use_statement",
+                "linea": 1,
+                "columna": 1,
+                "hijos": [
+                  {
+                    "tipo": "keyword",
+                    "linea": 1,
+                    "columna": 1,
+                    "texto": "use"
+                  },
+                  {
+                    "tipo": "whitespace",
+                    "linea": 1,
+                    "columna": 4,
+                    "texto": " "
+                  },
+                  {
+                    "tipo": "database_reference",
+                    "linea": 1,
+                    "columna": 5,
+                    "hijos": [
+                      {
+                        "tipo": "identifier",
+                        "linea": 1,
+                        "columna": 5,
+                        "texto": "asigna_etb"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "tipo": "newline",
+        "linea": 1,
+        "columna": 15,
+        "texto": "\n"
+      },
+      {
+        "tipo": "go_statement",
+        "linea": 2,
+        "columna": 1,
+        "hijos": [
+          {
+            "tipo": "keyword",
+            "linea": 2,
+            "columna": 1,
+            "texto": "go"
+          }
+        ]
+      },
+      {
+        "tipo": "newline",
+        "linea": 2,
+        "columna": 3,
+        "texto": "\n"
+      },
+      {
+        "tipo": "batch",
+        "linea": 3,
+        "columna": 1,
+        "hijos": [
+          {
+            "tipo": "statement",
+            "linea": 3,
+            "columna": 1,
+            "hijos": [
+              {
+                "tipo": "drop_procedure_statement",
+                "linea": 3,
+                "columna": 1,
+                "hijos": [
+                  {
+                    "tipo": "keyword",
+                    "linea": 3,
+                    "columna": 1,
+                    "texto": "drop"
+                  },
+                  {
+                    "tipo": "whitespace",
+                    "linea": 3,
+                    "columna": 5,
+                    "texto": " "
+                  },
+                  {
+                    "tipo": "keyword",
+                    "linea": 3,
+                    "columna": 6,
+                    "texto": "proc"
+                  },
+                  {
+                    "tipo": "whitespace",
+                    "linea": 3,
+                    "columna": 10,
+                    "texto": " "
+                  },
+                  {
+                    "tipo": "object_reference",
+                    "linea": 3,
+                    "columna": 11,
+                    "hijos": [
+                      {
+                        "tipo": "identifier",
+                        "linea": 3,
+                        "columna": 11,
+                        "texto": "spsae_act_falla_eqnuevo"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "tipo": "newline",
+        "linea": 3,
+        "columna": 34,
+        "texto": "\n"
+      },
+      {
+        "tipo": "go_statement",
+        "linea": 4,
+        "columna": 1,
+        "hijos": [
+          {
+            "tipo": "keyword",
+            "linea": 4,
+            "columna": 1,
+            "texto": "go"
+          }
+        ]
+      },
+      {
+        "tipo": "newline",
+        "linea": 4,
+        "columna": 3,
+        "texto": "\n"
+      },
+      {
+        "tipo": "batch",
+        "linea": 5,
+        "columna": 1,
+        "hijos": [
+          {
+            "tipo": "create_procedure_statement",
+            "linea": 5,
+            "columna": 1,
+            "hijos": [
+              {
+                "tipo": "keyword",
+                "linea": 5,
+                "columna": 1,
+                "texto": "create"
+              },
+              {
+                "tipo": "whitespace",
+                "linea": 5,
+                "columna": 7,
+                "texto": " "
+              },
+              {
+                "tipo": "keyword",
+                "linea": 5,
+                "columna": 8,
+                "texto": "proc"
+              },
+              {
+                "tipo": "whitespace",
+                "linea": 5,
+                "columna": 12,
+                "texto": " "
+              },
+              {
+                "tipo": "object_reference",
+                "linea": 5,
+                "columna": 13,
+                "hijos": [
+                  {
+                    "tipo": "identifier",
+                    "linea": 5,
+                    "columna": 13,
+                    "texto": "spsae_act_falla_eqnuevo"
+                  }
+                ]
+              },
+              {
+                "tipo": "indent",
+                "linea": 5,
+                "columna": 36,
+                "texto": ""
+              },
+              {
+                "tipo": "newline",
+                "linea": 5,
+                "columna": 36,
+                "texto": "\n"
+              },
+              {
+                "tipo": "whitespace",
+                "linea": 6,
+                "columna": 1,
+                "texto": "            "
+              },
+              {
+                "tipo": "procedure_parameter_list",
+                "linea": 6,
+                "columna": 13,
+                "hijos": [
+                  {
+                    "tipo": "raw",
+                    "linea": 6,
+                    "columna": 13,
+                    "texto": "@incitdente"
+                  },
+                  {
+                    "tipo": "whitespace",
+                    "linea": 6,
+                    "columna": 24,
+                    "texto": "    "
+                  },
+                  {
+                    "tipo": "data_type",
+                    "linea": 6,
+                    "columna": 28,
+                    "hijos": [
+                      {
+                        "tipo": "raw",
+                        "linea": 6,
+                        "columna": 28,
+                        "texto": "int"
+                      }
+                    ]
+                  },
+                  {
+                    "tipo": "symbol",
+                    "linea": 6,
+                    "columna": 31,
+                    "texto": ","
+                  },
+                  {
+                    "tipo": "whitespace",
+                    "linea": 6,
+                    "columna": 32,
+                    "texto": " "
+                  },
+                  {
+                    "tipo": "newline",
+                    "linea": 6,
+                    "columna": 33,
+                    "texto": "\n"
+                  },
+                  {
+                    "tipo": "whitespace",
+                    "linea": 7,
+                    "columna": 1,
+                    "texto": "\t\t\t"
+                  },
+                  {
+                    "tipo": "raw",
+                    "linea": 7,
+                    "columna": 4,
+                    "texto": "@num_inventario"
+                  },
+                  {
+                    "tipo": "whitespace",
+                    "linea": 7,
+                    "columna": 19,
+                    "texto": "  "
+                  },
+                  {
+                    "tipo": "data_type",
+                    "linea": 7,
+                    "columna": 21,
+                    "hijos": [
+                      {
+                        "tipo": "raw",
+                        "linea": 7,
+                        "columna": 21,
+                        "texto": "varchar"
+                      },
+                      {
+                        "tipo": "bracketed_arguments",
+                        "linea": 7,
+                        "columna": 28,
+                        "hijos": [
+                          {
+                            "tipo": "bracketed",
+                            "linea": 7,
+                            "columna": 28,
+                            "hijos": [
+                              {
+                                "tipo": "symbol",
+                                "linea": 7,
+                                "columna": 28,
+                                "texto": "("
+                              },
+                              {
+                                "tipo": "indent",
+                                "linea": 7,
+                                "columna": 29,
+                                "texto": ""
+                              },
+                              {
+                                "tipo": "expression",
+                                "linea": 7,
+                                "columna": 29,
+                                "hijos": [
+                                  {
+                                    "tipo": "literal",
+                                    "linea": 7,
+                                    "columna": 29,
+                                    "texto": "20"
+                                  }
+                                ]
+                              },
+                              {
+                                "tipo": "dedent",
+                                "linea": 7,
+                                "columna": 31,
+                                "texto": ""
+                              },
+                              {
+                                "tipo": "symbol",
+                                "linea": 7,
+                                "columna": 31,
+                                "texto": ")"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "tipo": "symbol",
+                    "linea": 7,
+                    "columna": 32,
+                    "texto": ","
+                  },
+                  {
+                    "tipo": "newline",
+                    "linea": 7,
+                    "columna": 33,
+                    "texto": "\n"
+                  },
+                  {
+                    "tipo": "whitespace",
+                    "linea": 8,
+                    "columna": 1,
+                    "texto": "\t\t\t"
+                  },
+                  {
+                    "tipo": "raw",
+                    "linea": 8,
+                    "columna": 4,
+                    "texto": "@solucion"
+                  },
+                  {
+                    "tipo": "whitespace",
+                    "linea": 8,
+                    "columna": 13,
+                    "texto": "        "
+                  },
+                  {
+                    "tipo": "data_type",
+                    "linea": 8,
+                    "columna": 21,
+                    "hijos": [
+                      {
+                        "tipo": "raw",
+                        "linea": 8,
+                        "columna": 21,
+                        "texto": "varchar"
+                      },
+                      {
+                        "tipo": "bracketed_arguments",
+                        "linea": 8,
+                        "columna": 28,
+                        "hijos": [
+                          {
+                            "tipo": "bracketed",
+                            "linea": 8,
+                            "columna": 28,
+                            "hijos": [
+                              {
+                                "tipo": "symbol",
+                                "linea": 8,
+                                "columna": 28,
+                                "texto": "("
+                              },
+                              {
+                                "tipo": "indent",
+                                "linea": 8,
+                                "columna": 29,
+                                "texto": ""
+                              },
+                              {
+                                "tipo": "expression",
+                                "linea": 8,
+                                "columna": 29,
+                                "hijos": [
+                                  {
+                                    "tipo": "literal",
+                                    "linea": 8,
+                                    "columna": 29,
+                                    "texto": "700"
+                                  }
+                                ]
+                              },
+                              {
+                                "tipo": "dedent",
+                                "linea": 8,
+                                "columna": 32,
+                                "texto": ""
+                              },
+                              {
+                                "tipo": "symbol",
+                                "linea": 8,
+                                "columna": 32,
+                                "texto": ")"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "tipo": "symbol",
+                    "linea": 8,
+                    "columna": 33,
+                    "texto": ","
+                  },
+                  {
+                    "tipo": "newline",
+                    "linea": 8,
+                    "columna": 34,
+                    "texto": "\n"
+                  },
+                  {
+                    "tipo": "whitespace",
+                    "linea": 9,
+                    "columna": 1,
+                    "texto": "\t\t\t"
+                  },
+                  {
+                    "tipo": "raw",
+                    "linea": 9,
+                    "columna": 4,
+                    "texto": "@clave_cambio"
+                  },
+                  {
+                    "tipo": "whitespace",
+                    "linea": 9,
+                    "columna": 17,
+                    "texto": "    "
+                  },
+                  {
+                    "tipo": "data_type",
+                    "linea": 9,
+                    "columna": 21,
+                    "hijos": [
+                      {
+                        "tipo": "raw",
+                        "linea": 9,
+                        "columna": 21,
+                        "texto": "char"
+                      },
+                      {
+                        "tipo": "bracketed_arguments",
+                        "linea": 9,
+                        "columna": 25,
+                        "hijos": [
+                          {
+                            "tipo": "bracketed",
+                            "linea": 9,
+                            "columna": 25,
+                            "hijos": [
+                              {
+                                "tipo": "symbol",
+                                "linea": 9,
+                                "columna": 25,
+                                "texto": "("
+                              },
+                              {
+                                "tipo": "indent",
+                                "linea": 9,
+                                "columna": 26,
+                                "texto": ""
+                              },
+                              {
+                                "tipo": "expression",
+                                "linea": 9,
+                                "columna": 26,
+                                "hijos": [
+                                  {
+                                    "tipo": "literal",
+                                    "linea": 9,
+                                    "columna": 26,
+                                    "texto": "1"
+                                  }
+                                ]
+                              },
+                              {
+                                "tipo": "dedent",
+                                "linea": 9,
+                                "columna": 27,
+                                "texto": ""
+                              },
+                              {
+                                "tipo": "symbol",
+                                "linea": 9,
+                                "columna": 27,
+                                "texto": ")"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "tipo": "whitespace",
+                "linea": 9,
+                "columna": 28,
+                "texto": " "
+              },
+              {
+                "tipo": "newline",
+                "linea": 9,
+                "columna": 29,
+                "texto": "\n"
+              },
+              {
+                "tipo": "dedent",
+                "linea": 10,
+                "columna": 1,
+                "texto": ""
+              },
+              {
+                "tipo": "keyword",
+                "linea": 10,
+                "columna": 1,
+                "texto": "as"
+              },
+              {
+                "tipo": "newline",
+                "linea": 10,
+                "columna": 3,
+                "texto": "\n"
+              },
+              {
+                "tipo": "procedure_statement",
+                "linea": 11,
+                "columna": 1,
+                "hijos": [
+                  {
+                    "tipo": "statement",
+                    "linea": 11,
+                    "columna": 1,
+                    "hijos": [
+                      {
+                        "tipo": "declare_segment",
+                        "linea": 11,
+                        "columna": 1,
+                        "hijos": [
+                          {
+                            "tipo": "keyword",
+                            "linea": 11,
+                            "columna": 1,
+                            "texto": "declare"
+                          },
+                          {
+                            "tipo": "indent",
+                            "linea": 11,
+                            "columna": 8,
+                            "texto": ""
+                          },
+                          {
+                            "tipo": "whitespace",
+                            "linea": 11,
+                            "columna": 8,
+                            "texto": " "
+                          },
+                          {
+                            "tipo": "raw",
+                            "linea": 11,
+                            "columna": 9,
+                            "texto": "@status"
+                          },
+                          {
+                            "tipo": "whitespace",
+                            "linea": 11,
+                            "columna": 16,
+                            "texto": " "
+                          },
+                          {
+                            "tipo": "data_type",
+                            "linea": 11,
+                            "columna": 17,
+                            "hijos": [
+                              {
+                                "tipo": "raw",
+                                "linea": 11,
+                                "columna": 17,
+                                "texto": "int"
+                              }
+                            ]
+                          },
+                          {
+                            "tipo": "dedent",
+                            "linea": 11,
+                            "columna": 20,
+                            "texto": ""
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "tipo": "newline",
+                    "linea": 11,
+                    "columna": 20,
+                    "texto": "\n"
+                  },
+                  {
+                    "tipo": "newline",
+                    "linea": 12,
+                    "columna": 1,
+                    "texto": "\n"
+                  },
+                  {
+                    "tipo": "statement",
+                    "linea": 13,
+                    "columna": 1,
+                    "hijos": [
+                      {
+                        "tipo": "transaction_statement",
+                        "linea": 13,
+                        "columna": 1,
+                        "hijos": [
+                          {
+                            "tipo": "keyword",
+                            "linea": 13,
+                            "columna": 1,
+                            "texto": "begin"
+                          },
+                          {
+                            "tipo": "whitespace",
+                            "linea": 13,
+                            "columna": 6,
+                            "texto": " "
+                          },
+                          {
+                            "tipo": "keyword",
+                            "linea": 13,
+                            "columna": 7,
+                            "texto": "tran"
+                          },
+                          {
+                            "tipo": "whitespace",
+                            "linea": 13,
+                            "columna": 11,
+                            "texto": " "
+                          },
+                          {
+                            "tipo": "identifier",
+                            "linea": 13,
+                            "columna": 12,
+                            "texto": "actEQUIPO_NUEVO"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "tipo": "newline",
+                    "linea": 13,
+                    "columna": 27,
+                    "texto": "\n"
+                  },
+                  {
+                    "tipo": "newline",
+                    "linea": 14,
+                    "columna": 1,
+                    "texto": "\n"
+                  },
+                  {
+                    "tipo": "statement",
+                    "linea": 15,
+                    "columna": 1,
+                    "hijos": [
+                      {
+                        "tipo": "update_statement",
+                        "linea": 15,
+                        "columna": 1,
+                        "hijos": [
+                          {
+                            "tipo": "keyword",
+                            "linea": 15,
+                            "columna": 1,
+                            "texto": "update"
+                          },
+                          {
+                            "tipo": "indent",
+                            "linea": 15,
+                            "columna": 7,
+                            "texto": ""
+                          },
+                          {
+                            "tipo": "whitespace",
+                            "linea": 15,
+                            "columna": 7,
+                            "texto": " "
+                          },
+                          {
+                            "tipo": "table_reference",
+                            "linea": 15,
+                            "columna": 8,
+                            "hijos": [
+                              {
+                                "tipo": "identifier",
+                                "linea": 15,
+                                "columna": 8,
+                                "texto": "EQUIPO_NUEVO"
+                              }
+                            ]
+                          },
+                          {
+                            "tipo": "whitespace",
+                            "linea": 15,
+                            "columna": 20,
+                            "texto": " "
+                          },
+                          {
+                            "tipo": "newline",
+                            "linea": 15,
+                            "columna": 21,
+                            "texto": "\n"
+                          },
+                          {
+                            "tipo": "whitespace",
+                            "linea": 16,
+                            "columna": 1,
+                            "texto": "   "
+                          },
+                          {
+                            "tipo": "dedent",
+                            "linea": 16,
+                            "columna": 4,
+                            "texto": ""
+                          },
+                          {
+                            "tipo": "set_clause_list",
+                            "linea": 16,
+                            "columna": 4,
+                            "hijos": [
+                              {
+                                "tipo": "keyword",
+                                "linea": 16,
+                                "columna": 4,
+                                "texto": "set"
+                              },
+                              {
+                                "tipo": "indent",
+                                "linea": 16,
+                                "columna": 7,
+                                "texto": ""
+                              },
+                              {
+                                "tipo": "whitespace",
+                                "linea": 16,
+                                "columna": 7,
+                                "texto": " "
+                              },
+                              {
+                                "tipo": "set_clause",
+                                "linea": 16,
+                                "columna": 8,
+                                "hijos": [
+                                  {
+                                    "tipo": "column_reference",
+                                    "linea": 16,
+                                    "columna": 8,
+                                    "hijos": [
+                                      {
+                                        "tipo": "identifier",
+                                        "linea": 16,
+                                        "columna": 8,
+                                        "texto": "status"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "tipo": "whitespace",
+                                    "linea": 16,
+                                    "columna": 14,
+                                    "texto": " "
+                                  },
+                                  {
+                                    "tipo": "assignment_operator",
+                                    "linea": 16,
+                                    "columna": 15,
+                                    "hijos": [
+                                      {
+                                        "tipo": "symbol",
+                                        "linea": 16,
+                                        "columna": 15,
+                                        "texto": "="
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "tipo": "whitespace",
+                                    "linea": 16,
+                                    "columna": 16,
+                                    "texto": " "
+                                  },
+                                  {
+                                    "tipo": "expression",
+                                    "linea": 16,
+                                    "columna": 17,
+                                    "hijos": [
+                                      {
+                                        "tipo": "literal",
+                                        "linea": 16,
+                                        "columna": 17,
+                                        "texto": "'N'"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "tipo": "dedent",
+                                "linea": 16,
+                                "columna": 20,
+                                "texto": ""
+                              }
+                            ]
+                          },
+                          {
+                            "tipo": "newline",
+                            "linea": 16,
+                            "columna": 20,
+                            "texto": "\n"
+                          },
+                          {
+                            "tipo": "whitespace",
+                            "linea": 17,
+                            "columna": 1,
+                            "texto": " "
+                          },
+                          {
+                            "tipo": "where_clause",
+                            "linea": 17,
+                            "columna": 2,
+                            "hijos": [
+                              {
+                                "tipo": "keyword",
+                                "linea": 17,
+                                "columna": 2,
+                                "texto": "where"
+                              },
+                              {
+                                "tipo": "indent",
+                                "linea": 17,
+                                "columna": 7,
+                                "texto": ""
+                              },
+                              {
+                                "tipo": "whitespace",
+                                "linea": 17,
+                                "columna": 7,
+                                "texto": " "
+                              },
+                              {
+                                "tipo": "expression",
+                                "linea": 17,
+                                "columna": 8,
+                                "hijos": [
+                                  {
+                                    "tipo": "column_reference",
+                                    "linea": 17,
+                                    "columna": 8,
+                                    "hijos": [
+                                      {
+                                        "tipo": "identifier",
+                                        "linea": 17,
+                                        "columna": 8,
+                                        "texto": "num_inventario"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "tipo": "whitespace",
+                                    "linea": 17,
+                                    "columna": 22,
+                                    "texto": " "
+                                  },
+                                  {
+                                    "tipo": "comparison_operator",
+                                    "linea": 17,
+                                    "columna": 23,
+                                    "hijos": [
+                                      {
+                                        "tipo": "symbol",
+                                        "linea": 17,
+                                        "columna": 23,
+                                        "texto": "="
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "tipo": "whitespace",
+                                    "linea": 17,
+                                    "columna": 24,
+                                    "texto": " "
+                                  },
+                                  {
+                                    "tipo": "raw",
+                                    "linea": 17,
+                                    "columna": 25,
+                                    "texto": "@num_inventario"
+                                  }
+                                ]
+                              },
+                              {
+                                "tipo": "dedent",
+                                "linea": 17,
+                                "columna": 40,
+                                "texto": ""
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "tipo": "whitespace",
+                    "linea": 17,
+                    "columna": 40,
+                    "texto": " "
+                  },
+                  {
+                    "tipo": "newline",
+                    "linea": 17,
+                    "columna": 41,
+                    "texto": "\n"
+                  },
+                  {
+                    "tipo": "whitespace",
+                    "linea": 18,
+                    "columna": 1,
+                    "texto": " "
+                  },
+                  {
+                    "tipo": "newline",
+                    "linea": 18,
+                    "columna": 2,
+                    "texto": "\n"
+                  },
+                  {
+                    "tipo": "whitespace",
+                    "linea": 19,
+                    "columna": 1,
+                    "texto": " "
+                  },
+                  {
+                    "tipo": "newline",
+                    "linea": 19,
+                    "columna": 2,
+                    "texto": "\n"
+                  },
+                  {
+                    "tipo": "statement",
+                    "linea": 20,
+                    "columna": 1,
+                    "hijos": [
+                      {
+                        "tipo": "select_statement",
+                        "linea": 20,
+                        "columna": 1,
+                        "hijos": [
+                          {
+                            "tipo": "select_clause",
+                            "linea": 20,
+                            "columna": 1,
+                            "hijos": [
+                              {
+                                "tipo": "keyword",
+                                "linea": 20,
+                                "columna": 1,
+                                "texto": "select"
+                              },
+                              {
+                                "tipo": "indent",
+                                "linea": 20,
+                                "columna": 7,
+                                "texto": ""
+                              },
+                              {
+                                "tipo": "whitespace",
+                                "linea": 20,
+                                "columna": 7,
+                                "texto": " "
+                              },
+                              {
+                                "tipo": "select_clause_element",
+                                "linea": 20,
+                                "columna": 8,
+                                "hijos": [
+                                  {
+                                    "tipo": "expression",
+                                    "linea": 20,
+                                    "columna": 8,
+                                    "hijos": [
+                                      {
+                                        "tipo": "raw",
+                                        "linea": 20,
+                                        "columna": 8,
+                                        "texto": "@status"
+                                      },
+                                      {
+                                        "tipo": "whitespace",
+                                        "linea": 20,
+                                        "columna": 15,
+                                        "texto": " "
+                                      },
+                                      {
+                                        "tipo": "comparison_operator",
+                                        "linea": 20,
+                                        "columna": 16,
+                                        "hijos": [
+                                          {
+                                            "tipo": "symbol",
+                                            "linea": 20,
+                                            "columna": 16,
+                                            "texto": "="
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "tipo": "whitespace",
+                                        "linea": 20,
+                                        "columna": 17,
+                                        "texto": " "
+                                      },
+                                      {
+                                        "tipo": "raw",
+                                        "linea": 20,
+                                        "columna": 18,
+                                        "texto": "@@error"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "tipo": "dedent",
+                                "linea": 20,
+                                "columna": 25,
+                                "texto": ""
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "tipo": "newline",
+                    "linea": 20,
+                    "columna": 25,
+                    "texto": "\n"
+                  },
+                  {
+                    "tipo": "statement",
+                    "linea": 21,
+                    "columna": 1,
+                    "hijos": [
+                      {
+                        "tipo": "if_then_statement",
+                        "linea": 21,
+                        "columna": 1,
+                        "hijos": [
+                          {
+                            "tipo": "if_clause",
+                            "linea": 21,
+                            "columna": 1,
+                            "hijos": [
+                              {
+                                "tipo": "keyword",
+                                "linea": 21,
+                                "columna": 1,
+                                "texto": "if"
+                              },
+                              {
+                                "tipo": "indent",
+                                "linea": 21,
+                                "columna": 3,
+                                "texto": ""
+                              },
+                              {
+                                "tipo": "whitespace",
+                                "linea": 21,
+                                "columna": 3,
+                                "texto": " "
+                              },
+                              {
+                                "tipo": "expression",
+                                "linea": 21,
+                                "columna": 4,
+                                "hijos": [
+                                  {
+                                    "tipo": "bracketed",
+                                    "linea": 21,
+                                    "columna": 4,
+                                    "hijos": [
+                                      {
+                                        "tipo": "symbol",
+                                        "linea": 21,
+                                        "columna": 4,
+                                        "texto": "("
+                                      },
+                                      {
+                                        "tipo": "indent",
+                                        "linea": 21,
+                                        "columna": 5,
+                                        "texto": ""
+                                      },
+                                      {
+                                        "tipo": "whitespace",
+                                        "linea": 21,
+                                        "columna": 5,
+                                        "texto": " "
+                                      },
+                                      {
+                                        "tipo": "expression",
+                                        "linea": 21,
+                                        "columna": 6,
+                                        "hijos": [
+                                          {
+                                            "tipo": "raw",
+                                            "linea": 21,
+                                            "columna": 6,
+                                            "texto": "@status"
+                                          },
+                                          {
+                                            "tipo": "whitespace",
+                                            "linea": 21,
+                                            "columna": 13,
+                                            "texto": " "
+                                          },
+                                          {
+                                            "tipo": "comparison_operator",
+                                            "linea": 21,
+                                            "columna": 14,
+                                            "hijos": [
+                                              {
+                                                "tipo": "symbol",
+                                                "linea": 21,
+                                                "columna": 14,
+                                                "texto": "<"
+                                              },
+                                              {
+                                                "tipo": "symbol",
+                                                "linea": 21,
+                                                "columna": 15,
+                                                "texto": ">"
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "tipo": "whitespace",
+                                            "linea": 21,
+                                            "columna": 16,
+                                            "texto": " "
+                                          },
+                                          {
+                                            "tipo": "literal",
+                                            "linea": 21,
+                                            "columna": 17,
+                                            "texto": "0"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "tipo": "whitespace",
+                                        "linea": 21,
+                                        "columna": 18,
+                                        "texto": " "
+                                      },
+                                      {
+                                        "tipo": "dedent",
+                                        "linea": 21,
+                                        "columna": 19,
+                                        "texto": ""
+                                      },
+                                      {
+                                        "tipo": "symbol",
+                                        "linea": 21,
+                                        "columna": 19,
+                                        "texto": ")"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "tipo": "dedent",
+                                "linea": 21,
+                                "columna": 20,
+                                "texto": ""
+                              }
+                            ]
+                          },
+                          {
+                            "tipo": "indent",
+                            "linea": 21,
+                            "columna": 20,
+                            "texto": ""
+                          },
+                          {
+                            "tipo": "whitespace",
+                            "linea": 21,
+                            "columna": 20,
+                            "texto": " "
+                          },
+                          {
+                            "tipo": "newline",
+                            "linea": 21,
+                            "columna": 21,
+                            "texto": "\n"
+                          },
+                          {
+                            "tipo": "whitespace",
+                            "linea": 22,
+                            "columna": 1,
+                            "texto": "   "
+                          },
+                          {
+                            "tipo": "statement",
+                            "linea": 22,
+                            "columna": 4,
+                            "hijos": [
+                              {
+                                "tipo": "begin_end_block",
+                                "linea": 22,
+                                "columna": 4,
+                                "hijos": [
+                                  {
+                                    "tipo": "keyword",
+                                    "linea": 22,
+                                    "columna": 4,
+                                    "texto": "begin"
+                                  },
+                                  {
+                                    "tipo": "indent",
+                                    "linea": 22,
+                                    "columna": 9,
+                                    "texto": ""
+                                  },
+                                  {
+                                    "tipo": "newline",
+                                    "linea": 22,
+                                    "columna": 9,
+                                    "texto": "\n"
+                                  },
+                                  {
+                                    "tipo": "whitespace",
+                                    "linea": 23,
+                                    "columna": 1,
+                                    "texto": "   "
+                                  },
+                                  {
+                                    "tipo": "statement",
+                                    "linea": 23,
+                                    "columna": 4,
+                                    "hijos": [
+                                      {
+                                        "tipo": "transaction_statement",
+                                        "linea": 23,
+                                        "columna": 4,
+                                        "hijos": [
+                                          {
+                                            "tipo": "keyword",
+                                            "linea": 23,
+                                            "columna": 4,
+                                            "texto": "rollback"
+                                          },
+                                          {
+                                            "tipo": "whitespace",
+                                            "linea": 23,
+                                            "columna": 12,
+                                            "texto": " "
+                                          },
+                                          {
+                                            "tipo": "identifier",
+                                            "linea": 23,
+                                            "columna": 13,
+                                            "texto": "actEQUIPO_NUEVO"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "tipo": "newline",
+                                    "linea": 23,
+                                    "columna": 28,
+                                    "texto": "\n"
+                                  },
+                                  {
+                                    "tipo": "whitespace",
+                                    "linea": 24,
+                                    "columna": 1,
+                                    "texto": "   "
+                                  },
+                                  {
+                                    "tipo": "statement",
+                                    "linea": 24,
+                                    "columna": 4,
+                                    "hijos": [
+                                      {
+                                        "tipo": "return_segment",
+                                        "linea": 24,
+                                        "columna": 4,
+                                        "hijos": [
+                                          {
+                                            "tipo": "keyword",
+                                            "linea": 24,
+                                            "columna": 4,
+                                            "texto": "return"
+                                          },
+                                          {
+                                            "tipo": "whitespace",
+                                            "linea": 24,
+                                            "columna": 10,
+                                            "texto": " "
+                                          },
+                                          {
+                                            "tipo": "expression",
+                                            "linea": 24,
+                                            "columna": 11,
+                                            "hijos": [
+                                              {
+                                                "tipo": "raw",
+                                                "linea": 24,
+                                                "columna": 11,
+                                                "texto": "@status"
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "tipo": "newline",
+                                    "linea": 24,
+                                    "columna": 18,
+                                    "texto": "\n"
+                                  },
+                                  {
+                                    "tipo": "whitespace",
+                                    "linea": 25,
+                                    "columna": 1,
+                                    "texto": "   "
+                                  },
+                                  {
+                                    "tipo": "dedent",
+                                    "linea": 25,
+                                    "columna": 4,
+                                    "texto": ""
+                                  },
+                                  {
+                                    "tipo": "keyword",
+                                    "linea": 25,
+                                    "columna": 4,
+                                    "texto": "end"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "tipo": "dedent",
+                            "linea": 25,
+                            "columna": 7,
+                            "texto": ""
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "tipo": "newline",
+                    "linea": 25,
+                    "columna": 7,
+                    "texto": "\n"
+                  },
+                  {
+                    "tipo": "newline",
+                    "linea": 26,
+                    "columna": 1,
+                    "texto": "\n"
+                  },
+                  {
+                    "tipo": "newline",
+                    "linea": 27,
+                    "columna": 1,
+                    "texto": "\n"
+                  },
+                  {
+                    "tipo": "statement",
+                    "linea": 28,
+                    "columna": 1,
+                    "hijos": [
+                      {
+                        "tipo": "update_statement",
+                        "linea": 28,
+                        "columna": 1,
+                        "hijos": [
+                          {
+                            "tipo": "keyword",
+                            "linea": 28,
+                            "columna": 1,
+                            "texto": "update"
+                          },
+                          {
+                            "tipo": "indent",
+                            "linea": 28,
+                            "columna": 7,
+                            "texto": ""
+                          },
+                          {
+                            "tipo": "whitespace",
+                            "linea": 28,
+                            "columna": 7,
+                            "texto": " "
+                          },
+                          {
+                            "tipo": "table_reference",
+                            "linea": 28,
+                            "columna": 8,
+                            "hijos": [
+                              {
+                                "tipo": "identifier",
+                                "linea": 28,
+                                "columna": 8,
+                                "texto": "EQUIPO_NUEVO_FALLA"
+                              }
+                            ]
+                          },
+                          {
+                            "tipo": "whitespace",
+                            "linea": 28,
+                            "columna": 26,
+                            "texto": " "
+                          },
+                          {
+                            "tipo": "newline",
+                            "linea": 28,
+                            "columna": 27,
+                            "texto": "\n"
+                          },
+                          {
+                            "tipo": "whitespace",
+                            "linea": 29,
+                            "columna": 1,
+                            "texto": "  "
+                          },
+                          {
+                            "tipo": "dedent",
+                            "linea": 29,
+                            "columna": 3,
+                            "texto": ""
+                          },
+                          {
+                            "tipo": "set_clause_list",
+                            "linea": 29,
+                            "columna": 3,
+                            "hijos": [
+                              {
+                                "tipo": "keyword",
+                                "linea": 29,
+                                "columna": 3,
+                                "texto": "set"
+                              },
+                              {
+                                "tipo": "indent",
+                                "linea": 29,
+                                "columna": 6,
+                                "texto": ""
+                              },
+                              {
+                                "tipo": "whitespace",
+                                "linea": 29,
+                                "columna": 6,
+                                "texto": " "
+                              },
+                              {
+                                "tipo": "set_clause",
+                                "linea": 29,
+                                "columna": 7,
+                                "hijos": [
+                                  {
+                                    "tipo": "column_reference",
+                                    "linea": 29,
+                                    "columna": 7,
+                                    "hijos": [
+                                      {
+                                        "tipo": "identifier",
+                                        "linea": 29,
+                                        "columna": 7,
+                                        "texto": "solucion"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "tipo": "whitespace",
+                                    "linea": 29,
+                                    "columna": 15,
+                                    "texto": " "
+                                  },
+                                  {
+                                    "tipo": "assignment_operator",
+                                    "linea": 29,
+                                    "columna": 16,
+                                    "hijos": [
+                                      {
+                                        "tipo": "symbol",
+                                        "linea": 29,
+                                        "columna": 16,
+                                        "texto": "="
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "tipo": "whitespace",
+                                    "linea": 29,
+                                    "columna": 17,
+                                    "texto": " "
+                                  },
+                                  {
+                                    "tipo": "expression",
+                                    "linea": 29,
+                                    "columna": 18,
+                                    "hijos": [
+                                      {
+                                        "tipo": "raw",
+                                        "linea": 29,
+                                        "columna": 18,
+                                        "texto": "@solucion"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "tipo": "symbol",
+                                "linea": 29,
+                                "columna": 27,
+                                "texto": ","
+                              },
+                              {
+                                "tipo": "newline",
+                                "linea": 29,
+                                "columna": 28,
+                                "texto": "\n"
+                              },
+                              {
+                                "tipo": "whitespace",
+                                "linea": 30,
+                                "columna": 1,
+                                "texto": "      "
+                              },
+                              {
+                                "tipo": "set_clause",
+                                "linea": 30,
+                                "columna": 7,
+                                "hijos": [
+                                  {
+                                    "tipo": "column_reference",
+                                    "linea": 30,
+                                    "columna": 7,
+                                    "hijos": [
+                                      {
+                                        "tipo": "identifier",
+                                        "linea": 30,
+                                        "columna": 7,
+                                        "texto": "status"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "tipo": "whitespace",
+                                    "linea": 30,
+                                    "columna": 13,
+                                    "texto": " "
+                                  },
+                                  {
+                                    "tipo": "assignment_operator",
+                                    "linea": 30,
+                                    "columna": 14,
+                                    "hijos": [
+                                      {
+                                        "tipo": "symbol",
+                                        "linea": 30,
+                                        "columna": 14,
+                                        "texto": "="
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "tipo": "whitespace",
+                                    "linea": 30,
+                                    "columna": 15,
+                                    "texto": " "
+                                  },
+                                  {
+                                    "tipo": "expression",
+                                    "linea": 30,
+                                    "columna": 16,
+                                    "hijos": [
+                                      {
+                                        "tipo": "literal",
+                                        "linea": 30,
+                                        "columna": 16,
+                                        "texto": "'E'"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "tipo": "dedent",
+                                "linea": 30,
+                                "columna": 19,
+                                "texto": ""
+                              }
+                            ]
+                          },
+                          {
+                            "tipo": "whitespace",
+                            "linea": 30,
+                            "columna": 19,
+                            "texto": "       "
+                          },
+                          {
+                            "tipo": "newline",
+                            "linea": 30,
+                            "columna": 26,
+                            "texto": "\n"
+                          },
+                          {
+                            "tipo": "whitespace",
+                            "linea": 31,
+                            "columna": 1,
+                            "texto": " "
+                          },
+                          {
+                            "tipo": "where_clause",
+                            "linea": 31,
+                            "columna": 2,
+                            "hijos": [
+                              {
+                                "tipo": "keyword",
+                                "linea": 31,
+                                "columna": 2,
+                                "texto": "where"
+                              },
+                              {
+                                "tipo": "indent",
+                                "linea": 31,
+                                "columna": 7,
+                                "texto": ""
+                              },
+                              {
+                                "tipo": "whitespace",
+                                "linea": 31,
+                                "columna": 7,
+                                "texto": "  "
+                              },
+                              {
+                                "tipo": "expression",
+                                "linea": 31,
+                                "columna": 9,
+                                "hijos": [
+                                  {
+                                    "tipo": "column_reference",
+                                    "linea": 31,
+                                    "columna": 9,
+                                    "hijos": [
+                                      {
+                                        "tipo": "identifier",
+                                        "linea": 31,
+                                        "columna": 9,
+                                        "texto": "incidente"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "tipo": "whitespace",
+                                    "linea": 31,
+                                    "columna": 18,
+                                    "texto": " "
+                                  },
+                                  {
+                                    "tipo": "comparison_operator",
+                                    "linea": 31,
+                                    "columna": 19,
+                                    "hijos": [
+                                      {
+                                        "tipo": "symbol",
+                                        "linea": 31,
+                                        "columna": 19,
+                                        "texto": "="
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "tipo": "whitespace",
+                                    "linea": 31,
+                                    "columna": 20,
+                                    "texto": " "
+                                  },
+                                  {
+                                    "tipo": "raw",
+                                    "linea": 31,
+                                    "columna": 21,
+                                    "texto": "@incitdente"
+                                  },
+                                  {
+                                    "tipo": "newline",
+                                    "linea": 31,
+                                    "columna": 32,
+                                    "texto": "\n"
+                                  },
+                                  {
+                                    "tipo": "whitespace",
+                                    "linea": 32,
+                                    "columna": 1,
+                                    "texto": "   "
+                                  },
+                                  {
+                                    "tipo": "binary_operator",
+                                    "linea": 32,
+                                    "columna": 4,
+                                    "texto": "and"
+                                  },
+                                  {
+                                    "tipo": "whitespace",
+                                    "linea": 32,
+                                    "columna": 7,
+                                    "texto": " "
+                                  },
+                                  {
+                                    "tipo": "column_reference",
+                                    "linea": 32,
+                                    "columna": 8,
+                                    "hijos": [
+                                      {
+                                        "tipo": "identifier",
+                                        "linea": 32,
+                                        "columna": 8,
+                                        "texto": "num_inventario"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "tipo": "whitespace",
+                                    "linea": 32,
+                                    "columna": 22,
+                                    "texto": " "
+                                  },
+                                  {
+                                    "tipo": "comparison_operator",
+                                    "linea": 32,
+                                    "columna": 23,
+                                    "hijos": [
+                                      {
+                                        "tipo": "symbol",
+                                        "linea": 32,
+                                        "columna": 23,
+                                        "texto": "="
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "tipo": "whitespace",
+                                    "linea": 32,
+                                    "columna": 24,
+                                    "texto": " "
+                                  },
+                                  {
+                                    "tipo": "raw",
+                                    "linea": 32,
+                                    "columna": 25,
+                                    "texto": "@num_inventario"
+                                  }
+                                ]
+                              },
+                              {
+                                "tipo": "dedent",
+                                "linea": 32,
+                                "columna": 40,
+                                "texto": ""
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "tipo": "whitespace",
+                    "linea": 32,
+                    "columna": 40,
+                    "texto": " "
+                  },
+                  {
+                    "tipo": "newline",
+                    "linea": 32,
+                    "columna": 41,
+                    "texto": "\n"
+                  },
+                  {
+                    "tipo": "whitespace",
+                    "linea": 33,
+                    "columna": 1,
+                    "texto": "   "
+                  },
+                  {
+                    "tipo": "newline",
+                    "linea": 33,
+                    "columna": 4,
+                    "texto": "\n"
+                  },
+                  {
+                    "tipo": "whitespace",
+                    "linea": 34,
+                    "columna": 1,
+                    "texto": "   "
+                  },
+                  {
+                    "tipo": "newline",
+                    "linea": 34,
+                    "columna": 4,
+                    "texto": "\n"
+                  },
+                  {
+                    "tipo": "whitespace",
+                    "linea": 35,
+                    "columna": 1,
+                    "texto": "   "
+                  },
+                  {
+                    "tipo": "newline",
+                    "linea": 35,
+                    "columna": 4,
+                    "texto": "\n"
+                  },
+                  {
+                    "tipo": "statement",
+                    "linea": 36,
+                    "columna": 1,
+                    "hijos": [
+                      {
+                        "tipo": "select_statement",
+                        "linea": 36,
+                        "columna": 1,
+                        "hijos": [
+                          {
+                            "tipo": "select_clause",
+                            "linea": 36,
+                            "columna": 1,
+                            "hijos": [
+                              {
+                                "tipo": "keyword",
+                                "linea": 36,
+                                "columna": 1,
+                                "texto": "select"
+                              },
+                              {
+                                "tipo": "indent",
+                                "linea": 36,
+                                "columna": 7,
+                                "texto": ""
+                              },
+                              {
+                                "tipo": "whitespace",
+                                "linea": 36,
+                                "columna": 7,
+                                "texto": " "
+                              },
+                              {
+                                "tipo": "select_clause_element",
+                                "linea": 36,
+                                "columna": 8,
+                                "hijos": [
+                                  {
+                                    "tipo": "expression",
+                                    "linea": 36,
+                                    "columna": 8,
+                                    "hijos": [
+                                      {
+                                        "tipo": "raw",
+                                        "linea": 36,
+                                        "columna": 8,
+                                        "texto": "@status"
+                                      },
+                                      {
+                                        "tipo": "whitespace",
+                                        "linea": 36,
+                                        "columna": 15,
+                                        "texto": " "
+                                      },
+                                      {
+                                        "tipo": "comparison_operator",
+                                        "linea": 36,
+                                        "columna": 16,
+                                        "hijos": [
+                                          {
+                                            "tipo": "symbol",
+                                            "linea": 36,
+                                            "columna": 16,
+                                            "texto": "="
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "tipo": "whitespace",
+                                        "linea": 36,
+                                        "columna": 17,
+                                        "texto": " "
+                                      },
+                                      {
+                                        "tipo": "raw",
+                                        "linea": 36,
+                                        "columna": 18,
+                                        "texto": "@@error"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "tipo": "dedent",
+                                "linea": 36,
+                                "columna": 25,
+                                "texto": ""
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "tipo": "newline",
+                    "linea": 36,
+                    "columna": 25,
+                    "texto": "\n"
+                  },
+                  {
+                    "tipo": "statement",
+                    "linea": 37,
+                    "columna": 1,
+                    "hijos": [
+                      {
+                        "tipo": "if_then_statement",
+                        "linea": 37,
+                        "columna": 1,
+                        "hijos": [
+                          {
+                            "tipo": "if_clause",
+                            "linea": 37,
+                            "columna": 1,
+                            "hijos": [
+                              {
+                                "tipo": "keyword",
+                                "linea": 37,
+                                "columna": 1,
+                                "texto": "if"
+                              },
+                              {
+                                "tipo": "indent",
+                                "linea": 37,
+                                "columna": 3,
+                                "texto": ""
+                              },
+                              {
+                                "tipo": "whitespace",
+                                "linea": 37,
+                                "columna": 3,
+                                "texto": " "
+                              },
+                              {
+                                "tipo": "expression",
+                                "linea": 37,
+                                "columna": 4,
+                                "hijos": [
+                                  {
+                                    "tipo": "bracketed",
+                                    "linea": 37,
+                                    "columna": 4,
+                                    "hijos": [
+                                      {
+                                        "tipo": "symbol",
+                                        "linea": 37,
+                                        "columna": 4,
+                                        "texto": "("
+                                      },
+                                      {
+                                        "tipo": "indent",
+                                        "linea": 37,
+                                        "columna": 5,
+                                        "texto": ""
+                                      },
+                                      {
+                                        "tipo": "whitespace",
+                                        "linea": 37,
+                                        "columna": 5,
+                                        "texto": " "
+                                      },
+                                      {
+                                        "tipo": "expression",
+                                        "linea": 37,
+                                        "columna": 6,
+                                        "hijos": [
+                                          {
+                                            "tipo": "raw",
+                                            "linea": 37,
+                                            "columna": 6,
+                                            "texto": "@status"
+                                          },
+                                          {
+                                            "tipo": "whitespace",
+                                            "linea": 37,
+                                            "columna": 13,
+                                            "texto": " "
+                                          },
+                                          {
+                                            "tipo": "comparison_operator",
+                                            "linea": 37,
+                                            "columna": 14,
+                                            "hijos": [
+                                              {
+                                                "tipo": "symbol",
+                                                "linea": 37,
+                                                "columna": 14,
+                                                "texto": "<"
+                                              },
+                                              {
+                                                "tipo": "symbol",
+                                                "linea": 37,
+                                                "columna": 15,
+                                                "texto": ">"
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "tipo": "whitespace",
+                                            "linea": 37,
+                                            "columna": 16,
+                                            "texto": " "
+                                          },
+                                          {
+                                            "tipo": "literal",
+                                            "linea": 37,
+                                            "columna": 17,
+                                            "texto": "0"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "tipo": "whitespace",
+                                        "linea": 37,
+                                        "columna": 18,
+                                        "texto": " "
+                                      },
+                                      {
+                                        "tipo": "dedent",
+                                        "linea": 37,
+                                        "columna": 19,
+                                        "texto": ""
+                                      },
+                                      {
+                                        "tipo": "symbol",
+                                        "linea": 37,
+                                        "columna": 19,
+                                        "texto": ")"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "tipo": "dedent",
+                                "linea": 37,
+                                "columna": 20,
+                                "texto": ""
+                              }
+                            ]
+                          },
+                          {
+                            "tipo": "indent",
+                            "linea": 37,
+                            "columna": 20,
+                            "texto": ""
+                          },
+                          {
+                            "tipo": "whitespace",
+                            "linea": 37,
+                            "columna": 20,
+                            "texto": " "
+                          },
+                          {
+                            "tipo": "newline",
+                            "linea": 37,
+                            "columna": 21,
+                            "texto": "\n"
+                          },
+                          {
+                            "tipo": "whitespace",
+                            "linea": 38,
+                            "columna": 1,
+                            "texto": "   "
+                          },
+                          {
+                            "tipo": "statement",
+                            "linea": 38,
+                            "columna": 4,
+                            "hijos": [
+                              {
+                                "tipo": "begin_end_block",
+                                "linea": 38,
+                                "columna": 4,
+                                "hijos": [
+                                  {
+                                    "tipo": "keyword",
+                                    "linea": 38,
+                                    "columna": 4,
+                                    "texto": "begin"
+                                  },
+                                  {
+                                    "tipo": "indent",
+                                    "linea": 38,
+                                    "columna": 9,
+                                    "texto": ""
+                                  },
+                                  {
+                                    "tipo": "newline",
+                                    "linea": 38,
+                                    "columna": 9,
+                                    "texto": "\n"
+                                  },
+                                  {
+                                    "tipo": "whitespace",
+                                    "linea": 39,
+                                    "columna": 1,
+                                    "texto": "   "
+                                  },
+                                  {
+                                    "tipo": "statement",
+                                    "linea": 39,
+                                    "columna": 4,
+                                    "hijos": [
+                                      {
+                                        "tipo": "transaction_statement",
+                                        "linea": 39,
+                                        "columna": 4,
+                                        "hijos": [
+                                          {
+                                            "tipo": "keyword",
+                                            "linea": 39,
+                                            "columna": 4,
+                                            "texto": "rollback"
+                                          },
+                                          {
+                                            "tipo": "whitespace",
+                                            "linea": 39,
+                                            "columna": 12,
+                                            "texto": " "
+                                          },
+                                          {
+                                            "tipo": "identifier",
+                                            "linea": 39,
+                                            "columna": 13,
+                                            "texto": "actEQUIPO_NUEVO"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "tipo": "newline",
+                                    "linea": 39,
+                                    "columna": 28,
+                                    "texto": "\n"
+                                  },
+                                  {
+                                    "tipo": "whitespace",
+                                    "linea": 40,
+                                    "columna": 1,
+                                    "texto": "   "
+                                  },
+                                  {
+                                    "tipo": "statement",
+                                    "linea": 40,
+                                    "columna": 4,
+                                    "hijos": [
+                                      {
+                                        "tipo": "return_segment",
+                                        "linea": 40,
+                                        "columna": 4,
+                                        "hijos": [
+                                          {
+                                            "tipo": "keyword",
+                                            "linea": 40,
+                                            "columna": 4,
+                                            "texto": "return"
+                                          },
+                                          {
+                                            "tipo": "whitespace",
+                                            "linea": 40,
+                                            "columna": 10,
+                                            "texto": " "
+                                          },
+                                          {
+                                            "tipo": "expression",
+                                            "linea": 40,
+                                            "columna": 11,
+                                            "hijos": [
+                                              {
+                                                "tipo": "raw",
+                                                "linea": 40,
+                                                "columna": 11,
+                                                "texto": "@status"
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "tipo": "newline",
+                                    "linea": 40,
+                                    "columna": 18,
+                                    "texto": "\n"
+                                  },
+                                  {
+                                    "tipo": "whitespace",
+                                    "linea": 41,
+                                    "columna": 1,
+                                    "texto": "   "
+                                  },
+                                  {
+                                    "tipo": "dedent",
+                                    "linea": 41,
+                                    "columna": 4,
+                                    "texto": ""
+                                  },
+                                  {
+                                    "tipo": "keyword",
+                                    "linea": 41,
+                                    "columna": 4,
+                                    "texto": "end"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "tipo": "dedent",
+                            "linea": 41,
+                            "columna": 7,
+                            "texto": ""
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "tipo": "newline",
+                    "linea": 41,
+                    "columna": 7,
+                    "texto": "\n"
+                  },
+                  {
+                    "tipo": "whitespace",
+                    "linea": 42,
+                    "columna": 1,
+                    "texto": "    \t  "
+                  },
+                  {
+                    "tipo": "newline",
+                    "linea": 42,
+                    "columna": 8,
+                    "texto": "\n"
+                  },
+                  {
+                    "tipo": "whitespace",
+                    "linea": 43,
+                    "columna": 1,
+                    "texto": "   "
+                  },
+                  {
+                    "tipo": "newline",
+                    "linea": 43,
+                    "columna": 4,
+                    "texto": "\n"
+                  },
+                  {
+                    "tipo": "newline",
+                    "linea": 44,
+                    "columna": 1,
+                    "texto": "\n"
+                  },
+                  {
+                    "tipo": "newline",
+                    "linea": 45,
+                    "columna": 1,
+                    "texto": "\n"
+                  },
+                  {
+                    "tipo": "statement",
+                    "linea": 46,
+                    "columna": 1,
+                    "hijos": [
+                      {
+                        "tipo": "transaction_statement",
+                        "linea": 46,
+                        "columna": 1,
+                        "hijos": [
+                          {
+                            "tipo": "keyword",
+                            "linea": 46,
+                            "columna": 1,
+                            "texto": "commit"
+                          },
+                          {
+                            "tipo": "whitespace",
+                            "linea": 46,
+                            "columna": 7,
+                            "texto": " "
+                          },
+                          {
+                            "tipo": "identifier",
+                            "linea": 46,
+                            "columna": 8,
+                            "texto": "actEQUIPO_NUEVO"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "tipo": "newline",
+                    "linea": 46,
+                    "columna": 23,
+                    "texto": "\n"
+                  },
+                  {
+                    "tipo": "newline",
+                    "linea": 47,
+                    "columna": 1,
+                    "texto": "\n"
+                  },
+                  {
+                    "tipo": "newline",
+                    "linea": 48,
+                    "columna": 1,
+                    "texto": "\n"
+                  },
+                  {
+                    "tipo": "newline",
+                    "linea": 49,
+                    "columna": 1,
+                    "texto": "\n"
+                  },
+                  {
+                    "tipo": "statement",
+                    "linea": 50,
+                    "columna": 1,
+                    "hijos": [
+                      {
+                        "tipo": "return_segment",
+                        "linea": 50,
+                        "columna": 1,
+                        "hijos": [
+                          {
+                            "tipo": "keyword",
+                            "linea": 50,
+                            "columna": 1,
+                            "texto": "return"
+                          },
+                          {
+                            "tipo": "whitespace",
+                            "linea": 50,
+                            "columna": 7,
+                            "texto": " "
+                          },
+                          {
+                            "tipo": "expression",
+                            "linea": 50,
+                            "columna": 8,
+                            "hijos": [
+                              {
+                                "tipo": "literal",
+                                "linea": 50,
+                                "columna": 8,
+                                "texto": "0"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "tipo": "whitespace",
+        "linea": 50,
+        "columna": 9,
+        "texto": " "
+      },
+      {
+        "tipo": "newline",
+        "linea": 50,
+        "columna": 10,
+        "texto": "\n"
+      },
+      {
+        "tipo": "newline",
+        "linea": 51,
+        "columna": 1,
+        "texto": "\n"
+      },
+      {
+        "tipo": "go_statement",
+        "linea": 52,
+        "columna": 1,
+        "hijos": [
+          {
+            "tipo": "keyword",
+            "linea": 52,
+            "columna": 1,
+            "texto": "go"
+          }
+        ]
+      },
+      {
+        "tipo": "newline",
+        "linea": 52,
+        "columna": 3,
+        "texto": "\n"
+      },
+      {
+        "tipo": "batch",
+        "linea": 53,
+        "columna": 1,
+        "hijos": [
+          {
+            "tipo": "statement",
+            "linea": 53,
+            "columna": 1,
+            "hijos": [
+              {
+                "tipo": "access_statement",
+                "linea": 53,
+                "columna": 1,
+                "hijos": [
+                  {
+                    "tipo": "keyword",
+                    "linea": 53,
+                    "columna": 1,
+                    "texto": "grant"
+                  },
+                  {
+                    "tipo": "whitespace",
+                    "linea": 53,
+                    "columna": 6,
+                    "texto": " "
+                  },
+                  {
+                    "tipo": "keyword",
+                    "linea": 53,
+                    "columna": 7,
+                    "texto": "execute"
+                  },
+                  {
+                    "tipo": "whitespace",
+                    "linea": 53,
+                    "columna": 14,
+                    "texto": " "
+                  },
+                  {
+                    "tipo": "keyword",
+                    "linea": 53,
+                    "columna": 15,
+                    "texto": "on"
+                  },
+                  {
+                    "tipo": "whitespace",
+                    "linea": 53,
+                    "columna": 17,
+                    "texto": " "
+                  },
+                  {
+                    "tipo": "object_reference",
+                    "linea": 53,
+                    "columna": 18,
+                    "hijos": [
+                      {
+                        "tipo": "identifier",
+                        "linea": 53,
+                        "columna": 18,
+                        "texto": "spsae_act_falla_eqnuevo"
+                      }
+                    ]
+                  },
+                  {
+                    "tipo": "whitespace",
+                    "linea": 53,
+                    "columna": 41,
+                    "texto": " "
+                  },
+                  {
+                    "tipo": "keyword",
+                    "linea": 53,
+                    "columna": 42,
+                    "texto": "to"
+                  },
+                  {
+                    "tipo": "whitespace",
+                    "linea": 53,
+                    "columna": 44,
+                    "texto": " "
+                  },
+                  {
+                    "tipo": "role_reference",
+                    "linea": 53,
+                    "columna": 45,
+                    "hijos": [
+                      {
+                        "tipo": "identifier",
+                        "linea": 53,
+                        "columna": 45,
+                        "texto": "web_app"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "tipo": "newline",
+        "linea": 53,
+        "columna": 52,
+        "texto": "\n"
+      },
+      {
+        "tipo": "go_statement",
+        "linea": 54,
+        "columna": 1,
+        "hijos": [
+          {
+            "tipo": "keyword",
+            "linea": 54,
+            "columna": 1,
+            "texto": "go"
+          }
+        ]
+      },
+      {
+        "tipo": "newline",
+        "linea": 54,
+        "columna": 3,
+        "texto": "\n"
+      },
+      {
+        "tipo": "end_of_file",
+        "linea": 55,
+        "columna": 1,
+        "texto": ""
+      }
+    ]
+  }
+}

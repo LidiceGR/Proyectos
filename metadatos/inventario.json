@@ -1,0 +1,207 @@
+{
+  "version_esquema": "1.0",
+  "fecha_utc": "2026-10-28T00:37:25.796416+00:00",
+  "origen_ast": "D:\\Proyectos\\agente\\AST",
+  "nota": "Extraccion sintactica; las condiciones NO son reglas de negocio confirmadas.",
+  "resumen": {
+    "archivos_ast_leidos": 2,
+    "procedimientos": 2,
+    "tablas_referenciadas": 3,
+    "incidencias": 0
+  },
+  "procedimientos": [
+    {
+      "tipo": "procedimiento",
+      "nombre": "spsae_act_falla_eqnuevo",
+      "archivo_sql": "spsae_act_falla_eqnuevo.sql",
+      "archivo_ast": "spsae_act_falla_eqnuevo.sql.ast.json",
+      "estado_parseo": "ok",
+      "linea_definicion": 5,
+      "parametros": [
+        {
+          "nombre": "@incitdente",
+          "tipo_dato": "int",
+          "linea": 6
+        },
+        {
+          "nombre": "@num_inventario",
+          "tipo_dato": "varchar(20)",
+          "linea": 7
+        },
+        {
+          "nombre": "@solucion",
+          "tipo_dato": "varchar(700)",
+          "linea": 8
+        },
+        {
+          "nombre": "@clave_cambio",
+          "tipo_dato": "char(1)",
+          "linea": 9
+        }
+      ],
+      "tablas": [
+        {
+          "nombre": "EQUIPO_NUEVO",
+          "operaciones": [
+            "ACTUALIZA"
+          ],
+          "lineas": [
+            15
+          ]
+        },
+        {
+          "nombre": "EQUIPO_NUEVO_FALLA",
+          "operaciones": [
+            "ACTUALIZA"
+          ],
+          "lineas": [
+            28
+          ]
+        }
+      ],
+      "llamadas": [],
+      "condiciones": [
+        {
+          "linea": 21,
+          "expresion": "( @status <> 0 )",
+          "tablas_consultadas": [],
+          "retornos_en_rama": [
+            {
+              "linea": 24,
+              "sentencia": "return @status"
+            }
+          ],
+          "clasificacion": "no_clasificada",
+          "evidencia": {
+            "archivo_sql": "spsae_act_falla_eqnuevo.sql",
+            "linea": 21
+          }
+        },
+        {
+          "linea": 37,
+          "expresion": "( @status <> 0 )",
+          "tablas_consultadas": [],
+          "retornos_en_rama": [
+            {
+              "linea": 40,
+              "sentencia": "return @status"
+            }
+          ],
+          "clasificacion": "no_clasificada",
+          "evidencia": {
+            "archivo_sql": "spsae_act_falla_eqnuevo.sql",
+            "linea": 37
+          }
+        }
+      ],
+      "operaciones": [
+        {
+          "tipo": "ACTUALIZA",
+          "linea": 15,
+          "tabla_objetivo": "EQUIPO_NUEVO",
+          "tablas_referenciadas": [
+            "EQUIPO_NUEVO"
+          ],
+          "condiciones_contexto": []
+        },
+        {
+          "tipo": "SELECT",
+          "linea": 20,
+          "tablas": [],
+          "condiciones_contexto": []
+        },
+        {
+          "tipo": "ACTUALIZA",
+          "linea": 28,
+          "tabla_objetivo": "EQUIPO_NUEVO_FALLA",
+          "tablas_referenciadas": [
+            "EQUIPO_NUEVO_FALLA"
+          ],
+          "condiciones_contexto": []
+        },
+        {
+          "tipo": "SELECT",
+          "linea": 36,
+          "tablas": [],
+          "condiciones_contexto": []
+        }
+      ]
+    },
+    {
+      "tipo": "procedimiento",
+      "nombre": "spsae_seg_usu_admin",
+      "archivo_sql": "spsae_seg_usu_admin.sql",
+      "archivo_ast": "spsae_seg_usu_admin.sql.ast.json",
+      "estado_parseo": "ok",
+      "linea_definicion": 5,
+      "parametros": [
+        {
+          "nombre": "@clave_usuario",
+          "tipo_dato": "varchar(30)",
+          "linea": 6
+        }
+      ],
+      "tablas": [
+        {
+          "nombre": "USUARIO_MODULO",
+          "operaciones": [
+            "LEE"
+          ],
+          "lineas": [
+            13
+          ]
+        }
+      ],
+      "llamadas": [],
+      "condiciones": [
+        {
+          "linea": 13,
+          "expresion": "exists ( select 1 from USUARIO_MODULO where clave_usuario = @clave_usuario and status = 'A')",
+          "tablas_consultadas": [
+            "USUARIO_MODULO"
+          ],
+          "retornos_en_rama": [],
+          "clasificacion": "no_clasificada",
+          "evidencia": {
+            "archivo_sql": "spsae_seg_usu_admin.sql",
+            "linea": 13
+          }
+        }
+      ],
+      "operaciones": [
+        {
+          "tipo": "SELECT",
+          "linea": 11,
+          "tablas": [],
+          "condiciones_contexto": []
+        },
+        {
+          "tipo": "SELECT",
+          "linea": 13,
+          "tablas": [
+            "USUARIO_MODULO"
+          ],
+          "condiciones_contexto": []
+        },
+        {
+          "tipo": "SELECT",
+          "linea": 14,
+          "tablas": [],
+          "condiciones_contexto": [
+            {
+              "linea": 13,
+              "expresion": "exists ( select 1 from USUARIO_MODULO where clave_usuario = @clave_usuario and status = 'A')"
+            }
+          ]
+        },
+        {
+          "tipo": "SELECT",
+          "linea": 16,
+          "tablas": [],
+          "condiciones_contexto": []
+        }
+      ]
+    }
+  ],
+  "incidencias": []
+}

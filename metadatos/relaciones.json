@@ -1,0 +1,53 @@
+{
+  "version_esquema": "1.0",
+  "fecha_utc": "2026-10-28T00:37:25.796416+00:00",
+  "nota": "Se conserva una relacion por ubicacion/operacion. Es un grafo parcial del codigo analizado.",
+  "resumen_por_tipo": {
+    "ACTUALIZA": 2,
+    "LEE": 1
+  },
+  "relaciones": [
+    {
+      "origen": {
+        "tipo": "procedimiento",
+        "nombre": "spsae_act_falla_eqnuevo"
+      },
+      "destino": {
+        "tipo": "tabla",
+        "nombre": "EQUIPO_NUEVO"
+      },
+      "tipo": "ACTUALIZA",
+      "archivo_sql": "spsae_act_falla_eqnuevo.sql",
+      "linea": 15,
+      "condiciones_contexto": []
+    },
+    {
+      "origen": {
+        "tipo": "procedimiento",
+        "nombre": "spsae_act_falla_eqnuevo"
+      },
+      "destino": {
+        "tipo": "tabla",
+        "nombre": "EQUIPO_NUEVO_FALLA"
+      },
+      "tipo": "ACTUALIZA",
+      "archivo_sql": "spsae_act_falla_eqnuevo.sql",
+      "linea": 28,
+      "condiciones_contexto": []
+    },
+    {
+      "origen": {
+        "tipo": "procedimiento",
+        "nombre": "spsae_seg_usu_admin"
+      },
+      "destino": {
+        "tipo": "tabla",
+        "nombre": "USUARIO_MODULO"
+      },
+      "tipo": "LEE",
+      "archivo_sql": "spsae_seg_usu_admin.sql",
+      "linea": 13,
+      "condiciones_contexto": []
+    }
+  ]
+}

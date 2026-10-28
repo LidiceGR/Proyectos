@@ -1,0 +1,9 @@
+{
+  "python.defaultInterpreterPath": "D:\\devenv\\Anaconda32024.02\\python.exe",
+
+  "python-envs.terminal.autoActivationType": "command",
+
+  "terminal.integrated.env.windows": {
+    "Path": "D:\\devenv\\Anaconda32024.02;${env:Path}"
+  }
+}

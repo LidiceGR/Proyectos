@@ -1,0 +1,26 @@
+{
+  "fecha_utc": "2026-10-28T00:37:09.651705+00:00",
+  "parser": "SQLFluff 3.3.1",
+  "origen": "D:\\Proyectos\\agente\\repo",
+  "destino": "D:\\Proyectos\\agente\\AST",
+  "archivos_procesados": 2,
+  "correctos": 2,
+  "parciales": 0,
+  "con_error": 0,
+  "resultados": [
+    {
+      "archivo": "spsae_act_falla_eqnuevo.sql",
+      "estado": "ok",
+      "salida": "D:\\Proyectos\\agente\\AST\\spsae_act_falla_eqnuevo.sql.ast.json",
+      "errores": 0,
+      "zonas_no_analizadas": 0
+    },
+    {
+      "archivo": "spsae_seg_usu_admin.sql",
+      "estado": "ok",
+      "salida": "D:\\Proyectos\\agente\\AST\\spsae_seg_usu_admin.sql.ast.json",
+      "errores": 0,
+      "zonas_no_analizadas": 0
+    }
+  ]
+}
