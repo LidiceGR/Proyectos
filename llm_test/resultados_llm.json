@@ -1,0 +1,43 @@
+{
+  "fecha": "2026-11-18T16:54:04-06:00",
+  "modelo": "Qwen/Qwen3-0.6B",
+  "dispositivo": "cpu",
+  "advertencia": "Las respuestas son salidas reales del LLM, no reglas validadas. RAG simulado: contexto precargado, sin recuperación vectorial.",
+  "casos_ejecutados": [
+    "C03"
+  ],
+  "resultados": [
+    {
+      "id": "C03",
+      "titulo": "Mismo procedimiento, ahora con catálogo recuperado (RAG simulado)",
+      "fase": "rag_simulado",
+      "contexto_rag_proporcionado": true,
+      "prompt_enviado": "CASO: C03 - Mismo procedimiento, ahora con catálogo recuperado (RAG simulado)\n\nPREGUNTA: Usa el catálogo recuperado para interpretar el código 2. Formula una regla candidata de negocio y cita tanto el SQL como el catálogo.\n\nFUENTES DEL SISTEMA (SQL u otros artefactos):\n\nArchivo: sql/RegistrarOperacion.sql\nL1: CREATE PROCEDURE dbo.RegistrarOperacion\nL2:     @IdOperacion INT,\nL3:     @TipoOperacion INT,\nL4:     @Monto DECIMAL(18,2)\nL5: AS\nL6: BEGIN\nL7:     IF @TipoOperacion = 2 AND @Monto > 0\nL8:     BEGIN\nL9:         INSERT INTO dbo.Operaciones(IdOperacion, TipoOperacion, Estado, Monto)\nL10:         VALUES (@IdOperacion, @TipoOperacion, 'PENDIENTE', @Monto);\nL11:     END\nL12: END;\n\nCONTEXTO ADICIONAL RECUPERADO (RAG SIMULADO; fragmentos suministrados manualmente, NO búsqueda real):\n\nArchivo: catalogos/TipoOperacion.csv\nL1: TipoOperacion,Descripcion\nL2: 1,Ingreso\nL3: 2,Ajuste interno\nL4: 3,Egreso\n\nINSTRUCCIONES:\n- Distingue una regla de negocio candidata de lógica técnica y casos ambiguos.\n- Si desconoces el significado de un catálogo, NO adivines; deja un pendiente.\n- Describe las condiciones y el efecto concretos del código, sin generalizar a todo el sistema.\n- En 'evidencias', cita el nombre del archivo y las líneas Lx-Ly aportadas.\n- Usa el contexto recuperado solo si fue proporcionado.\n- Responde ÚNICAMENTE un objeto JSON válido, sin bloques Markdown, con esta forma:\n{\n  \"clasificacion\": \"regla_candidata | logica_tecnica | ambiguo\",\n  \"regla\": \"texto en lenguaje natural, o null si no se puede proponer\",\n  \"condiciones\": [\"condición observable\"],\n  \"efecto\": \"efecto observable, o null\",\n  \"evidencias\": [{\"archivo\": \"ruta\", \"lineas\": \"L1-L2\"}],\n  \"pendientes\": [\"información no encontrada\"],\n  \"uso_contexto_rag\": false\n}\nRecuerda: 'uso_contexto_rag' solo es true si realmente utilizaste un fragmento adicional.\"\n",
+      "resultado_esperado_para_comparar": "Regla candidata: un ajuste interno (TipoOperacion=2) con monto mayor que cero puede registrarse en estado PENDIENTE. El SQL sustenta condición y efecto; el catálogo sustenta el nombre 'ajuste interno'.",
+      "respuesta_texto": "{\n  \"clasificacion\": \"regla_candidata\",\n  \"regla\": \"Si el tipo de operación es 'Ajuste interno' y el monto es mayor que cero, se registra la operación en el estado 'PENDIENTE'.\",\n  \"condiciones\": [\n    \"El tipo de operación es 'Ajuste interno'\",\n    \"El monto es mayor que cero\"\n  ],\n  \"efecto\": \"La operación se registra en el estado 'PENDIENTE'\",\n  \"evidencias\": [\n    {\n      \"archivo\": \"sql/RegistrarOperacion.sql\",\n      \"lineas\": \"L12\"\n    }\n  ],\n  \"pendientes\": [\n    \"La descripción del tipo de operación ('Ajuste interno') no está en el catálogo recuperado\",\n    \"La descripción del monto ('Monto') no está en el catálogo recuperado\"\n  ],\n  \"uso_contexto_rag\": false\n}",
+      "respuesta_json": {
+        "clasificacion": "regla_candidata",
+        "regla": "Si el tipo de operación es 'Ajuste interno' y el monto es mayor que cero, se registra la operación en el estado 'PENDIENTE'.",
+        "condiciones": [
+          "El tipo de operación es 'Ajuste interno'",
+          "El monto es mayor que cero"
+        ],
+        "efecto": "La operación se registra en el estado 'PENDIENTE'",
+        "evidencias": [
+          {
+            "archivo": "sql/RegistrarOperacion.sql",
+            "lineas": "L12"
+          }
+        ],
+        "pendientes": [
+          "La descripción del tipo de operación ('Ajuste interno') no está en el catálogo recuperado",
+          "La descripción del monto ('Monto') no está en el catálogo recuperado"
+        ],
+        "uso_contexto_rag": false
+      },
+      "error_json": null,
+      "estado": "generado",
+      "segundos": 15.66
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "descripcion": "Casos ficticios para comparar una interpretación SQL sin contexto RAG y con contexto que simula resultados de RAG. No se ejecuta una búsqueda vectorial real.",
+  "casos": [
+    {
+      "id": "C01",
+      "titulo": "Regla natural de aprobación (sin RAG)",
+      "fase": "sin_rag",
+      "pregunta": "Formula en lenguaje de negocio la condición para aprobar una operación y el cambio de estado.",
+      "fuentes": [
+        {
+          "archivo": "sql/AprobarOperacion.sql",
+          "contenido": "CREATE PROCEDURE dbo.AprobarOperacion\n    @IdOperacion INT\nAS\nBEGIN\n    UPDATE dbo.Operaciones\n       SET Estado = 'APROBADA'\n     WHERE IdOperacion = @IdOperacion\n       AND Estado = 'PENDIENTE'\n       AND Monto > 0;\nEND;"
+        }
+      ],
+      "contexto_rag": [],
+      "resultado_esperado": "Regla candidata: una operación en estado pendiente y monto mayor que cero puede pasar a aprobada mediante este procedimiento. Si no cumple ambas condiciones, este UPDATE no cambia esa fila."
+    },
+    {
+      "id": "C02",
+      "titulo": "Falta el catálogo de TipoOperacion (sin RAG)",
+      "fase": "sin_rag",
+      "pregunta": "Explica qué operación se registra y si puedes afirmar su tipo de negocio. Si desconoces el significado del código 2, identifícalo como pendiente.",
+      "fuentes": [
+        {
+          "archivo": "sql/RegistrarOperacion.sql",
+          "contenido": "CREATE PROCEDURE dbo.RegistrarOperacion\n    @IdOperacion INT,\n    @TipoOperacion INT,\n    @Monto DECIMAL(18,2)\nAS\nBEGIN\n    IF @TipoOperacion = 2 AND @Monto > 0\n    BEGIN\n        INSERT INTO dbo.Operaciones(IdOperacion, TipoOperacion, Estado, Monto)\n        VALUES (@IdOperacion, @TipoOperacion, 'PENDIENTE', @Monto);\n    END\nEND;"
+        }
+      ],
+      "contexto_rag": [],
+      "resultado_esperado": "Hallazgo ambiguo: se registra una operación del tipo numérico 2 con monto positivo y estado PENDIENTE; NO hay evidencia para interpretar qué significa el código 2. Falta el catálogo."
+    },
+    {
+      "id": "C03",
+      "titulo": "Mismo procedimiento, ahora con catálogo recuperado (RAG simulado)",
+      "fase": "rag_simulado",
+      "pregunta": "Usa el catálogo recuperado para interpretar el código 2. Formula una regla candidata de negocio y cita tanto el SQL como el catálogo.",
+      "fuentes": [
+        {
+          "archivo": "sql/RegistrarOperacion.sql",
+          "contenido": "CREATE PROCEDURE dbo.RegistrarOperacion\n    @IdOperacion INT,\n    @TipoOperacion INT,\n    @Monto DECIMAL(18,2)\nAS\nBEGIN\n    IF @TipoOperacion = 2 AND @Monto > 0\n    BEGIN\n        INSERT INTO dbo.Operaciones(IdOperacion, TipoOperacion, Estado, Monto)\n        VALUES (@IdOperacion, @TipoOperacion, 'PENDIENTE', @Monto);\n    END\nEND;"
+        }
+      ],
+      "contexto_rag": [
+        {
+          "archivo": "catalogos/TipoOperacion.csv",
+          "contenido": "TipoOperacion,Descripcion\n1,Ingreso\n2,Ajuste interno\n3,Egreso"
+        }
+      ],
+      "resultado_esperado": "Regla candidata: un ajuste interno (TipoOperacion=2) con monto mayor que cero puede registrarse en estado PENDIENTE. El SQL sustenta condición y efecto; el catálogo sustenta el nombre 'ajuste interno'."
+    },
+    {
+      "id": "C04",
+      "titulo": "Varias fuentes, excepción en trigger y catálogo (RAG simulado)",
+      "fase": "rag_simulado",
+      "pregunta": "Integra el procedimiento, el trigger y el catálogo. Describe las condiciones, la restricción para montos mayores a 100000 y el efecto sobre el estado. No afirmes que todas las rutas del sistema se comportan igual.",
+      "fuentes": [
+        {
+          "archivo": "sql/ValidarOperacion.sql",
+          "contenido": "CREATE PROCEDURE dbo.ValidarOperacion\n    @IdOperacion INT\nAS\nBEGIN\n    UPDATE dbo.Operaciones\n       SET Estado = 'VALIDADA'\n     WHERE IdOperacion = @IdOperacion\n       AND Estado = 'PENDIENTE'\n       AND TipoOperacion = 2\n       AND Monto > 0;\nEND;"
+        },
+        {
+          "archivo": "sql/TR_LimiteValidacion.sql",
+          "contenido": "CREATE TRIGGER dbo.TR_LimiteValidacion\nON dbo.Operaciones AFTER UPDATE\nAS\nBEGIN\n    IF EXISTS (\n        SELECT 1 FROM inserted i\n        JOIN deleted d ON i.IdOperacion = d.IdOperacion\n        WHERE d.Estado = 'PENDIENTE'\n          AND i.Estado = 'VALIDADA'\n          AND i.Monto > 100000\n    )\n        THROW 50001, 'Se requiere autorizacion especial', 1;\nEND;"
+        }
+      ],
+      "contexto_rag": [
+        {
+          "archivo": "catalogos/TipoOperacion.csv",
+          "contenido": "TipoOperacion,Descripcion\n1,Ingreso\n2,Ajuste interno\n3,Egreso"
+        }
+      ],
+      "resultado_esperado": "Regla candidata: por este SP, un ajuste interno PENDIENTE con monto >0 intenta pasar a VALIDADA; el trigger impide esa actualización cuando Monto>100000, lanzando un error. No se ha comprobado si existe otra ruta de autorización."
+    },
+    {
+      "id": "C05",
+      "titulo": "Distinguir lógica técnica de negocio (sin RAG)",
+      "fase": "sin_rag",
+      "pregunta": "Indica si el fragmento constituye una regla de negocio sobre operaciones o solo una acción técnica de registro de trazas.",
+      "fuentes": [
+        {
+          "archivo": "sql/RegistrarTraza.sql",
+          "contenido": "CREATE PROCEDURE dbo.RegistrarTraza\n    @Mensaje NVARCHAR(200)\nAS\nBEGIN\n    SET NOCOUNT ON;\n    INSERT INTO dbo.LogEjecucion(Mensaje, FechaRegistro)\n    VALUES (@Mensaje, SYSUTCDATETIME());\nEND;"
+        }
+      ],
+      "contexto_rag": [],
+      "resultado_esperado": "Lógica técnica: el procedimiento inserta una traza de ejecución con fecha UTC, no aporta por sí solo una regla sobre la aprobación o registro de operaciones de negocio."
+    }
+  ]
+}
