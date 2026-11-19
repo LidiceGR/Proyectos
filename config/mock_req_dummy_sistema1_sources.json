@@ -1,0 +1,6 @@
+{
+  "system_name":"system1",
+  "description":"dummy_sistem1. Example of mock sources from prefilled files. ",
+  "mode": "mock",
+  "source_directory": "../mock_sql_examples/dummy_system1"
+}

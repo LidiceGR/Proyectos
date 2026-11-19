@@ -16,3 +16,8 @@ git add .
 git commit -m "Mis cambios"
 ## Subir cambios a GitHub	
 git push
+
+
+## Buscar todos los TODOS pendientes en la casilla de busqueda 
+
+#\s*(TODO|FIXME|HACK)\b

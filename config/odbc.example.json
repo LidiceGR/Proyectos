@@ -1,0 +1,9 @@
+{
+  "mode": "odbc",
+  "odbc": {
+    "dsn": "LEGACY_READ_ONLY",
+    "database": "DemoOperations",
+    "schemas": ["dbo"],
+    "connection_timeout_seconds": 15    
+  }
+}
