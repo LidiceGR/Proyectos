@@ -1,0 +1,148 @@
+{
+  "mode": "mock",
+  "system_name": "system1",
+  "timestamp_utc": "2026-11-20T06:40:13.592786+00:00",
+  "destination": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_006",
+  "files": [
+    {
+      "file_type": "catalog",
+      "objects": [
+        {
+          "type": "catalog",
+          "name": "Operation statuses",
+          "record_count": 3
+        }
+      ],
+      "format": "json",
+      "relative_path": "catalogs/operation_statuses.catalog.json",
+      "absolute_path": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_006\\catalogs\\operation_statuses.catalog.json",
+      "source": "operation_statuses.catalog.json",
+      "size_bytes": 361,
+      "sha256": "c3d4b69d181d36f34be4053d6d7325fa380a92a7f8bb414682f5f767a5d0918a",
+      "suggested_processors": [
+        "rag"
+      ]
+    },
+    {
+      "file_type": "catalog",
+      "objects": [
+        {
+          "type": "catalog",
+          "name": "Operation types",
+          "record_count": 3
+        }
+      ],
+      "format": "json",
+      "relative_path": "catalogs/operation_types.catalog.json",
+      "absolute_path": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_006\\catalogs\\operation_types.catalog.json",
+      "source": "operation_types.catalog.json",
+      "size_bytes": 346,
+      "sha256": "ae1f3e5ce1cbf09af64b90b84d9786409e53c497e96a11e6d4ad982ed78e0679",
+      "suggested_processors": [
+        "rag"
+      ]
+    },
+    {
+      "file_type": "procedure",
+      "objects": [
+        {
+          "type": "procedure",
+          "name": "dbo.ApproveOperation",
+          "line": 2
+        }
+      ],
+      "format": "sql",
+      "relative_path": "sql_sources/01_ApproveOperation.sql",
+      "absolute_path": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_006\\sql_sources\\01_ApproveOperation.sql",
+      "source": "01_ApproveOperation.sql",
+      "size_bytes": 316,
+      "sha256": "ad7dbd163062138f07ece6c09af3d2956c283e7b1af0379f3e390ee6e10b1f5f",
+      "suggested_processors": [
+        "ast",
+        "rag"
+      ]
+    },
+    {
+      "file_type": "schema",
+      "objects": [
+        {
+          "type": "table",
+          "name": "dbo.OperationTypes",
+          "line": 2
+        },
+        {
+          "type": "table",
+          "name": "dbo.OperationStatuses",
+          "line": 8
+        },
+        {
+          "type": "table",
+          "name": "dbo.Operations",
+          "line": 14
+        }
+      ],
+      "format": "sql",
+      "relative_path": "sql_sources/01_operations_schema.sql",
+      "absolute_path": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_006\\sql_sources\\01_operations_schema.sql",
+      "source": "01_operations_schema.sql",
+      "size_bytes": 727,
+      "sha256": "ba09b518738f488da919f48e44af68a02a6a35c976c81e1c03239a7ec602ac6c",
+      "suggested_processors": [
+        "ast",
+        "rag"
+      ]
+    },
+    {
+      "file_type": "trigger",
+      "objects": [
+        {
+          "type": "trigger",
+          "name": "dbo.trg_Operations_ValidateAmount",
+          "line": 2
+        }
+      ],
+      "format": "sql",
+      "relative_path": "sql_sources/01_ValidateAmount.sql",
+      "absolute_path": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_006\\sql_sources\\01_ValidateAmount.sql",
+      "source": "01_ValidateAmount.sql",
+      "size_bytes": 326,
+      "sha256": "ff5b1de851a34becc7fd9f0b1bff69c6d61210bc872321e18263c90488fbf97b",
+      "suggested_processors": [
+        "ast",
+        "rag"
+      ]
+    },
+    {
+      "file_type": "procedure",
+      "objects": [
+        {
+          "type": "procedure",
+          "name": "dbo.RegisterOperation",
+          "line": 2
+        }
+      ],
+      "format": "sql",
+      "relative_path": "sql_sources/02_RegisterOperation.sql",
+      "absolute_path": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_006\\sql_sources\\02_RegisterOperation.sql",
+      "source": "02_RegisterOperation.sql",
+      "size_bytes": 415,
+      "sha256": "b901ec6afffb8e8b5f87439d5355408a4e419ccdf0b6f6a5f6e190f0fd226cff",
+      "suggested_processors": [
+        "ast",
+        "rag"
+      ]
+    }
+  ],
+  "issues": [],
+  "summary": {
+    "files": 6,
+    "by_type": {
+      "catalog": 2,
+      "procedure": 2,
+      "schema": 1,
+      "trigger": 1
+    },
+    "issues": 0
+  },
+  "status": "ok"
+}

@@ -1,0 +1,1947 @@
+{
+  "schema_version": "1.0",
+  "source_file": "sql_sources/01_operations_schema.sql",
+  "source_type": "schema",
+  "source_objects": [
+    {
+      "type": "table",
+      "name": "dbo.OperationTypes",
+      "line": 2
+    },
+    {
+      "type": "table",
+      "name": "dbo.OperationStatuses",
+      "line": 8
+    },
+    {
+      "type": "table",
+      "name": "dbo.Operations",
+      "line": 14
+    }
+  ],
+  "parser": "SQLFluff (tsql)",
+  "tree_type": "syntactic_segment_tree",
+  "status": "ok",
+  "parse_errors": [],
+  "unparsed_regions": [],
+  "tree": {
+    "type": "file",
+    "line": 1,
+    "column": 1,
+    "children": [
+      {
+        "type": "comment",
+        "line": 1,
+        "column": 1,
+        "text": "-- DEMO ONLY: simplified SQL Server schema, with fictional business data."
+      },
+      {
+        "type": "newline",
+        "line": 1,
+        "column": 74,
+        "text": "\n"
+      },
+      {
+        "type": "batch",
+        "line": 2,
+        "column": 1,
+        "children": [
+          {
+            "type": "statement",
+            "line": 2,
+            "column": 1,
+            "children": [
+              {
+                "type": "create_table_statement",
+                "line": 2,
+                "column": 1,
+                "children": [
+                  {
+                    "type": "keyword",
+                    "line": 2,
+                    "column": 1,
+                    "text": "CREATE"
+                  },
+                  {
+                    "type": "whitespace",
+                    "line": 2,
+                    "column": 7,
+                    "text": " "
+                  },
+                  {
+                    "type": "keyword",
+                    "line": 2,
+                    "column": 8,
+                    "text": "TABLE"
+                  },
+                  {
+                    "type": "whitespace",
+                    "line": 2,
+                    "column": 13,
+                    "text": " "
+                  },
+                  {
+                    "type": "table_reference",
+                    "line": 2,
+                    "column": 14,
+                    "children": [
+                      {
+                        "type": "identifier",
+                        "line": 2,
+                        "column": 14,
+                        "text": "dbo"
+                      },
+                      {
+                        "type": "symbol",
+                        "line": 2,
+                        "column": 17,
+                        "text": "."
+                      },
+                      {
+                        "type": "identifier",
+                        "line": 2,
+                        "column": 18,
+                        "text": "OperationTypes"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "whitespace",
+                    "line": 2,
+                    "column": 32,
+                    "text": " "
+                  },
+                  {
+                    "type": "bracketed",
+                    "line": 2,
+                    "column": 33,
+                    "children": [
+                      {
+                        "type": "symbol",
+                        "line": 2,
+                        "column": 33,
+                        "text": "("
+                      },
+                      {
+                        "type": "indent",
+                        "line": 2,
+                        "column": 34,
+                        "text": ""
+                      },
+                      {
+                        "type": "newline",
+                        "line": 2,
+                        "column": 34,
+                        "text": "\n"
+                      },
+                      {
+                        "type": "whitespace",
+                        "line": 3,
+                        "column": 1,
+                        "text": "    "
+                      },
+                      {
+                        "type": "column_definition",
+                        "line": 3,
+                        "column": 5,
+                        "children": [
+                          {
+                            "type": "identifier",
+                            "line": 3,
+                            "column": 5,
+                            "text": "OperationType"
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 3,
+                            "column": 18,
+                            "text": " "
+                          },
+                          {
+                            "type": "data_type",
+                            "line": 3,
+                            "column": 19,
+                            "children": [
+                              {
+                                "type": "raw",
+                                "line": 3,
+                                "column": 19,
+                                "text": "INT"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 3,
+                            "column": 22,
+                            "text": " "
+                          },
+                          {
+                            "type": "column_constraint_segment",
+                            "line": 3,
+                            "column": 23,
+                            "children": [
+                              {
+                                "type": "keyword",
+                                "line": 3,
+                                "column": 23,
+                                "text": "NOT"
+                              },
+                              {
+                                "type": "whitespace",
+                                "line": 3,
+                                "column": 26,
+                                "text": " "
+                              },
+                              {
+                                "type": "keyword",
+                                "line": 3,
+                                "column": 27,
+                                "text": "NULL"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 3,
+                            "column": 31,
+                            "text": " "
+                          },
+                          {
+                            "type": "column_constraint_segment",
+                            "line": 3,
+                            "column": 32,
+                            "children": [
+                              {
+                                "type": "keyword",
+                                "line": 3,
+                                "column": 32,
+                                "text": "PRIMARY"
+                              },
+                              {
+                                "type": "whitespace",
+                                "line": 3,
+                                "column": 39,
+                                "text": " "
+                              },
+                              {
+                                "type": "keyword",
+                                "line": 3,
+                                "column": 40,
+                                "text": "KEY"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "symbol",
+                        "line": 3,
+                        "column": 43,
+                        "text": ","
+                      },
+                      {
+                        "type": "newline",
+                        "line": 3,
+                        "column": 44,
+                        "text": "\n"
+                      },
+                      {
+                        "type": "whitespace",
+                        "line": 4,
+                        "column": 1,
+                        "text": "    "
+                      },
+                      {
+                        "type": "column_definition",
+                        "line": 4,
+                        "column": 5,
+                        "children": [
+                          {
+                            "type": "identifier",
+                            "line": 4,
+                            "column": 5,
+                            "text": "Description"
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 4,
+                            "column": 16,
+                            "text": " "
+                          },
+                          {
+                            "type": "data_type",
+                            "line": 4,
+                            "column": 17,
+                            "children": [
+                              {
+                                "type": "raw",
+                                "line": 4,
+                                "column": 17,
+                                "text": "NVARCHAR"
+                              },
+                              {
+                                "type": "bracketed_arguments",
+                                "line": 4,
+                                "column": 25,
+                                "children": [
+                                  {
+                                    "type": "bracketed",
+                                    "line": 4,
+                                    "column": 25,
+                                    "children": [
+                                      {
+                                        "type": "symbol",
+                                        "line": 4,
+                                        "column": 25,
+                                        "text": "("
+                                      },
+                                      {
+                                        "type": "indent",
+                                        "line": 4,
+                                        "column": 26,
+                                        "text": ""
+                                      },
+                                      {
+                                        "type": "expression",
+                                        "line": 4,
+                                        "column": 26,
+                                        "children": [
+                                          {
+                                            "type": "literal",
+                                            "line": 4,
+                                            "column": 26,
+                                            "text": "100"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "dedent",
+                                        "line": 4,
+                                        "column": 29,
+                                        "text": ""
+                                      },
+                                      {
+                                        "type": "symbol",
+                                        "line": 4,
+                                        "column": 29,
+                                        "text": ")"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 4,
+                            "column": 30,
+                            "text": " "
+                          },
+                          {
+                            "type": "column_constraint_segment",
+                            "line": 4,
+                            "column": 31,
+                            "children": [
+                              {
+                                "type": "keyword",
+                                "line": 4,
+                                "column": 31,
+                                "text": "NOT"
+                              },
+                              {
+                                "type": "whitespace",
+                                "line": 4,
+                                "column": 34,
+                                "text": " "
+                              },
+                              {
+                                "type": "keyword",
+                                "line": 4,
+                                "column": 35,
+                                "text": "NULL"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "newline",
+                        "line": 4,
+                        "column": 39,
+                        "text": "\n"
+                      },
+                      {
+                        "type": "dedent",
+                        "line": 5,
+                        "column": 1,
+                        "text": ""
+                      },
+                      {
+                        "type": "symbol",
+                        "line": 5,
+                        "column": 1,
+                        "text": ")"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "symbol",
+                    "line": 5,
+                    "column": 2,
+                    "text": ";"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "newline",
+        "line": 5,
+        "column": 3,
+        "text": "\n"
+      },
+      {
+        "type": "go_statement",
+        "line": 6,
+        "column": 1,
+        "children": [
+          {
+            "type": "keyword",
+            "line": 6,
+            "column": 1,
+            "text": "GO"
+          }
+        ]
+      },
+      {
+        "type": "newline",
+        "line": 6,
+        "column": 3,
+        "text": "\n"
+      },
+      {
+        "type": "newline",
+        "line": 7,
+        "column": 1,
+        "text": "\n"
+      },
+      {
+        "type": "batch",
+        "line": 8,
+        "column": 1,
+        "children": [
+          {
+            "type": "statement",
+            "line": 8,
+            "column": 1,
+            "children": [
+              {
+                "type": "create_table_statement",
+                "line": 8,
+                "column": 1,
+                "children": [
+                  {
+                    "type": "keyword",
+                    "line": 8,
+                    "column": 1,
+                    "text": "CREATE"
+                  },
+                  {
+                    "type": "whitespace",
+                    "line": 8,
+                    "column": 7,
+                    "text": " "
+                  },
+                  {
+                    "type": "keyword",
+                    "line": 8,
+                    "column": 8,
+                    "text": "TABLE"
+                  },
+                  {
+                    "type": "whitespace",
+                    "line": 8,
+                    "column": 13,
+                    "text": " "
+                  },
+                  {
+                    "type": "table_reference",
+                    "line": 8,
+                    "column": 14,
+                    "children": [
+                      {
+                        "type": "identifier",
+                        "line": 8,
+                        "column": 14,
+                        "text": "dbo"
+                      },
+                      {
+                        "type": "symbol",
+                        "line": 8,
+                        "column": 17,
+                        "text": "."
+                      },
+                      {
+                        "type": "identifier",
+                        "line": 8,
+                        "column": 18,
+                        "text": "OperationStatuses"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "whitespace",
+                    "line": 8,
+                    "column": 35,
+                    "text": " "
+                  },
+                  {
+                    "type": "bracketed",
+                    "line": 8,
+                    "column": 36,
+                    "children": [
+                      {
+                        "type": "symbol",
+                        "line": 8,
+                        "column": 36,
+                        "text": "("
+                      },
+                      {
+                        "type": "indent",
+                        "line": 8,
+                        "column": 37,
+                        "text": ""
+                      },
+                      {
+                        "type": "newline",
+                        "line": 8,
+                        "column": 37,
+                        "text": "\n"
+                      },
+                      {
+                        "type": "whitespace",
+                        "line": 9,
+                        "column": 1,
+                        "text": "    "
+                      },
+                      {
+                        "type": "column_definition",
+                        "line": 9,
+                        "column": 5,
+                        "children": [
+                          {
+                            "type": "identifier",
+                            "line": 9,
+                            "column": 5,
+                            "text": "Status"
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 9,
+                            "column": 11,
+                            "text": " "
+                          },
+                          {
+                            "type": "data_type",
+                            "line": 9,
+                            "column": 12,
+                            "children": [
+                              {
+                                "type": "raw",
+                                "line": 9,
+                                "column": 12,
+                                "text": "VARCHAR"
+                              },
+                              {
+                                "type": "bracketed_arguments",
+                                "line": 9,
+                                "column": 19,
+                                "children": [
+                                  {
+                                    "type": "bracketed",
+                                    "line": 9,
+                                    "column": 19,
+                                    "children": [
+                                      {
+                                        "type": "symbol",
+                                        "line": 9,
+                                        "column": 19,
+                                        "text": "("
+                                      },
+                                      {
+                                        "type": "indent",
+                                        "line": 9,
+                                        "column": 20,
+                                        "text": ""
+                                      },
+                                      {
+                                        "type": "expression",
+                                        "line": 9,
+                                        "column": 20,
+                                        "children": [
+                                          {
+                                            "type": "literal",
+                                            "line": 9,
+                                            "column": 20,
+                                            "text": "20"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "dedent",
+                                        "line": 9,
+                                        "column": 22,
+                                        "text": ""
+                                      },
+                                      {
+                                        "type": "symbol",
+                                        "line": 9,
+                                        "column": 22,
+                                        "text": ")"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 9,
+                            "column": 23,
+                            "text": " "
+                          },
+                          {
+                            "type": "column_constraint_segment",
+                            "line": 9,
+                            "column": 24,
+                            "children": [
+                              {
+                                "type": "keyword",
+                                "line": 9,
+                                "column": 24,
+                                "text": "NOT"
+                              },
+                              {
+                                "type": "whitespace",
+                                "line": 9,
+                                "column": 27,
+                                "text": " "
+                              },
+                              {
+                                "type": "keyword",
+                                "line": 9,
+                                "column": 28,
+                                "text": "NULL"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 9,
+                            "column": 32,
+                            "text": " "
+                          },
+                          {
+                            "type": "column_constraint_segment",
+                            "line": 9,
+                            "column": 33,
+                            "children": [
+                              {
+                                "type": "keyword",
+                                "line": 9,
+                                "column": 33,
+                                "text": "PRIMARY"
+                              },
+                              {
+                                "type": "whitespace",
+                                "line": 9,
+                                "column": 40,
+                                "text": " "
+                              },
+                              {
+                                "type": "keyword",
+                                "line": 9,
+                                "column": 41,
+                                "text": "KEY"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "symbol",
+                        "line": 9,
+                        "column": 44,
+                        "text": ","
+                      },
+                      {
+                        "type": "newline",
+                        "line": 9,
+                        "column": 45,
+                        "text": "\n"
+                      },
+                      {
+                        "type": "whitespace",
+                        "line": 10,
+                        "column": 1,
+                        "text": "    "
+                      },
+                      {
+                        "type": "column_definition",
+                        "line": 10,
+                        "column": 5,
+                        "children": [
+                          {
+                            "type": "identifier",
+                            "line": 10,
+                            "column": 5,
+                            "text": "Description"
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 10,
+                            "column": 16,
+                            "text": " "
+                          },
+                          {
+                            "type": "data_type",
+                            "line": 10,
+                            "column": 17,
+                            "children": [
+                              {
+                                "type": "raw",
+                                "line": 10,
+                                "column": 17,
+                                "text": "NVARCHAR"
+                              },
+                              {
+                                "type": "bracketed_arguments",
+                                "line": 10,
+                                "column": 25,
+                                "children": [
+                                  {
+                                    "type": "bracketed",
+                                    "line": 10,
+                                    "column": 25,
+                                    "children": [
+                                      {
+                                        "type": "symbol",
+                                        "line": 10,
+                                        "column": 25,
+                                        "text": "("
+                                      },
+                                      {
+                                        "type": "indent",
+                                        "line": 10,
+                                        "column": 26,
+                                        "text": ""
+                                      },
+                                      {
+                                        "type": "expression",
+                                        "line": 10,
+                                        "column": 26,
+                                        "children": [
+                                          {
+                                            "type": "literal",
+                                            "line": 10,
+                                            "column": 26,
+                                            "text": "100"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "dedent",
+                                        "line": 10,
+                                        "column": 29,
+                                        "text": ""
+                                      },
+                                      {
+                                        "type": "symbol",
+                                        "line": 10,
+                                        "column": 29,
+                                        "text": ")"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 10,
+                            "column": 30,
+                            "text": " "
+                          },
+                          {
+                            "type": "column_constraint_segment",
+                            "line": 10,
+                            "column": 31,
+                            "children": [
+                              {
+                                "type": "keyword",
+                                "line": 10,
+                                "column": 31,
+                                "text": "NOT"
+                              },
+                              {
+                                "type": "whitespace",
+                                "line": 10,
+                                "column": 34,
+                                "text": " "
+                              },
+                              {
+                                "type": "keyword",
+                                "line": 10,
+                                "column": 35,
+                                "text": "NULL"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "newline",
+                        "line": 10,
+                        "column": 39,
+                        "text": "\n"
+                      },
+                      {
+                        "type": "dedent",
+                        "line": 11,
+                        "column": 1,
+                        "text": ""
+                      },
+                      {
+                        "type": "symbol",
+                        "line": 11,
+                        "column": 1,
+                        "text": ")"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "symbol",
+                    "line": 11,
+                    "column": 2,
+                    "text": ";"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "newline",
+        "line": 11,
+        "column": 3,
+        "text": "\n"
+      },
+      {
+        "type": "go_statement",
+        "line": 12,
+        "column": 1,
+        "children": [
+          {
+            "type": "keyword",
+            "line": 12,
+            "column": 1,
+            "text": "GO"
+          }
+        ]
+      },
+      {
+        "type": "newline",
+        "line": 12,
+        "column": 3,
+        "text": "\n"
+      },
+      {
+        "type": "newline",
+        "line": 13,
+        "column": 1,
+        "text": "\n"
+      },
+      {
+        "type": "batch",
+        "line": 14,
+        "column": 1,
+        "children": [
+          {
+            "type": "statement",
+            "line": 14,
+            "column": 1,
+            "children": [
+              {
+                "type": "create_table_statement",
+                "line": 14,
+                "column": 1,
+                "children": [
+                  {
+                    "type": "keyword",
+                    "line": 14,
+                    "column": 1,
+                    "text": "CREATE"
+                  },
+                  {
+                    "type": "whitespace",
+                    "line": 14,
+                    "column": 7,
+                    "text": " "
+                  },
+                  {
+                    "type": "keyword",
+                    "line": 14,
+                    "column": 8,
+                    "text": "TABLE"
+                  },
+                  {
+                    "type": "whitespace",
+                    "line": 14,
+                    "column": 13,
+                    "text": " "
+                  },
+                  {
+                    "type": "table_reference",
+                    "line": 14,
+                    "column": 14,
+                    "children": [
+                      {
+                        "type": "identifier",
+                        "line": 14,
+                        "column": 14,
+                        "text": "dbo"
+                      },
+                      {
+                        "type": "symbol",
+                        "line": 14,
+                        "column": 17,
+                        "text": "."
+                      },
+                      {
+                        "type": "identifier",
+                        "line": 14,
+                        "column": 18,
+                        "text": "Operations"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "whitespace",
+                    "line": 14,
+                    "column": 28,
+                    "text": " "
+                  },
+                  {
+                    "type": "bracketed",
+                    "line": 14,
+                    "column": 29,
+                    "children": [
+                      {
+                        "type": "symbol",
+                        "line": 14,
+                        "column": 29,
+                        "text": "("
+                      },
+                      {
+                        "type": "indent",
+                        "line": 14,
+                        "column": 30,
+                        "text": ""
+                      },
+                      {
+                        "type": "newline",
+                        "line": 14,
+                        "column": 30,
+                        "text": "\n"
+                      },
+                      {
+                        "type": "whitespace",
+                        "line": 15,
+                        "column": 1,
+                        "text": "    "
+                      },
+                      {
+                        "type": "column_definition",
+                        "line": 15,
+                        "column": 5,
+                        "children": [
+                          {
+                            "type": "identifier",
+                            "line": 15,
+                            "column": 5,
+                            "text": "OperationId"
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 15,
+                            "column": 16,
+                            "text": " "
+                          },
+                          {
+                            "type": "data_type",
+                            "line": 15,
+                            "column": 17,
+                            "children": [
+                              {
+                                "type": "raw",
+                                "line": 15,
+                                "column": 17,
+                                "text": "INT"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 15,
+                            "column": 20,
+                            "text": " "
+                          },
+                          {
+                            "type": "column_constraint_segment",
+                            "line": 15,
+                            "column": 21,
+                            "children": [
+                              {
+                                "type": "keyword",
+                                "line": 15,
+                                "column": 21,
+                                "text": "NOT"
+                              },
+                              {
+                                "type": "whitespace",
+                                "line": 15,
+                                "column": 24,
+                                "text": " "
+                              },
+                              {
+                                "type": "keyword",
+                                "line": 15,
+                                "column": 25,
+                                "text": "NULL"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 15,
+                            "column": 29,
+                            "text": " "
+                          },
+                          {
+                            "type": "column_constraint_segment",
+                            "line": 15,
+                            "column": 30,
+                            "children": [
+                              {
+                                "type": "keyword",
+                                "line": 15,
+                                "column": 30,
+                                "text": "PRIMARY"
+                              },
+                              {
+                                "type": "whitespace",
+                                "line": 15,
+                                "column": 37,
+                                "text": " "
+                              },
+                              {
+                                "type": "keyword",
+                                "line": 15,
+                                "column": 38,
+                                "text": "KEY"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "symbol",
+                        "line": 15,
+                        "column": 41,
+                        "text": ","
+                      },
+                      {
+                        "type": "newline",
+                        "line": 15,
+                        "column": 42,
+                        "text": "\n"
+                      },
+                      {
+                        "type": "whitespace",
+                        "line": 16,
+                        "column": 1,
+                        "text": "    "
+                      },
+                      {
+                        "type": "column_definition",
+                        "line": 16,
+                        "column": 5,
+                        "children": [
+                          {
+                            "type": "identifier",
+                            "line": 16,
+                            "column": 5,
+                            "text": "OperationType"
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 16,
+                            "column": 18,
+                            "text": " "
+                          },
+                          {
+                            "type": "data_type",
+                            "line": 16,
+                            "column": 19,
+                            "children": [
+                              {
+                                "type": "raw",
+                                "line": 16,
+                                "column": 19,
+                                "text": "INT"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 16,
+                            "column": 22,
+                            "text": " "
+                          },
+                          {
+                            "type": "column_constraint_segment",
+                            "line": 16,
+                            "column": 23,
+                            "children": [
+                              {
+                                "type": "keyword",
+                                "line": 16,
+                                "column": 23,
+                                "text": "NOT"
+                              },
+                              {
+                                "type": "whitespace",
+                                "line": 16,
+                                "column": 26,
+                                "text": " "
+                              },
+                              {
+                                "type": "keyword",
+                                "line": 16,
+                                "column": 27,
+                                "text": "NULL"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "symbol",
+                        "line": 16,
+                        "column": 31,
+                        "text": ","
+                      },
+                      {
+                        "type": "newline",
+                        "line": 16,
+                        "column": 32,
+                        "text": "\n"
+                      },
+                      {
+                        "type": "whitespace",
+                        "line": 17,
+                        "column": 1,
+                        "text": "    "
+                      },
+                      {
+                        "type": "column_definition",
+                        "line": 17,
+                        "column": 5,
+                        "children": [
+                          {
+                            "type": "identifier",
+                            "line": 17,
+                            "column": 5,
+                            "text": "Amount"
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 17,
+                            "column": 11,
+                            "text": " "
+                          },
+                          {
+                            "type": "data_type",
+                            "line": 17,
+                            "column": 12,
+                            "children": [
+                              {
+                                "type": "raw",
+                                "line": 17,
+                                "column": 12,
+                                "text": "DECIMAL"
+                              },
+                              {
+                                "type": "bracketed_arguments",
+                                "line": 17,
+                                "column": 19,
+                                "children": [
+                                  {
+                                    "type": "bracketed",
+                                    "line": 17,
+                                    "column": 19,
+                                    "children": [
+                                      {
+                                        "type": "symbol",
+                                        "line": 17,
+                                        "column": 19,
+                                        "text": "("
+                                      },
+                                      {
+                                        "type": "indent",
+                                        "line": 17,
+                                        "column": 20,
+                                        "text": ""
+                                      },
+                                      {
+                                        "type": "expression",
+                                        "line": 17,
+                                        "column": 20,
+                                        "children": [
+                                          {
+                                            "type": "literal",
+                                            "line": 17,
+                                            "column": 20,
+                                            "text": "18"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "symbol",
+                                        "line": 17,
+                                        "column": 22,
+                                        "text": ","
+                                      },
+                                      {
+                                        "type": "whitespace",
+                                        "line": 17,
+                                        "column": 23,
+                                        "text": " "
+                                      },
+                                      {
+                                        "type": "expression",
+                                        "line": 17,
+                                        "column": 24,
+                                        "children": [
+                                          {
+                                            "type": "literal",
+                                            "line": 17,
+                                            "column": 24,
+                                            "text": "2"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "dedent",
+                                        "line": 17,
+                                        "column": 25,
+                                        "text": ""
+                                      },
+                                      {
+                                        "type": "symbol",
+                                        "line": 17,
+                                        "column": 25,
+                                        "text": ")"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 17,
+                            "column": 26,
+                            "text": " "
+                          },
+                          {
+                            "type": "column_constraint_segment",
+                            "line": 17,
+                            "column": 27,
+                            "children": [
+                              {
+                                "type": "keyword",
+                                "line": 17,
+                                "column": 27,
+                                "text": "NOT"
+                              },
+                              {
+                                "type": "whitespace",
+                                "line": 17,
+                                "column": 30,
+                                "text": " "
+                              },
+                              {
+                                "type": "keyword",
+                                "line": 17,
+                                "column": 31,
+                                "text": "NULL"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "symbol",
+                        "line": 17,
+                        "column": 35,
+                        "text": ","
+                      },
+                      {
+                        "type": "newline",
+                        "line": 17,
+                        "column": 36,
+                        "text": "\n"
+                      },
+                      {
+                        "type": "whitespace",
+                        "line": 18,
+                        "column": 1,
+                        "text": "    "
+                      },
+                      {
+                        "type": "column_definition",
+                        "line": 18,
+                        "column": 5,
+                        "children": [
+                          {
+                            "type": "identifier",
+                            "line": 18,
+                            "column": 5,
+                            "text": "Status"
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 18,
+                            "column": 11,
+                            "text": " "
+                          },
+                          {
+                            "type": "data_type",
+                            "line": 18,
+                            "column": 12,
+                            "children": [
+                              {
+                                "type": "raw",
+                                "line": 18,
+                                "column": 12,
+                                "text": "VARCHAR"
+                              },
+                              {
+                                "type": "bracketed_arguments",
+                                "line": 18,
+                                "column": 19,
+                                "children": [
+                                  {
+                                    "type": "bracketed",
+                                    "line": 18,
+                                    "column": 19,
+                                    "children": [
+                                      {
+                                        "type": "symbol",
+                                        "line": 18,
+                                        "column": 19,
+                                        "text": "("
+                                      },
+                                      {
+                                        "type": "indent",
+                                        "line": 18,
+                                        "column": 20,
+                                        "text": ""
+                                      },
+                                      {
+                                        "type": "expression",
+                                        "line": 18,
+                                        "column": 20,
+                                        "children": [
+                                          {
+                                            "type": "literal",
+                                            "line": 18,
+                                            "column": 20,
+                                            "text": "20"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "dedent",
+                                        "line": 18,
+                                        "column": 22,
+                                        "text": ""
+                                      },
+                                      {
+                                        "type": "symbol",
+                                        "line": 18,
+                                        "column": 22,
+                                        "text": ")"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 18,
+                            "column": 23,
+                            "text": " "
+                          },
+                          {
+                            "type": "column_constraint_segment",
+                            "line": 18,
+                            "column": 24,
+                            "children": [
+                              {
+                                "type": "keyword",
+                                "line": 18,
+                                "column": 24,
+                                "text": "NOT"
+                              },
+                              {
+                                "type": "whitespace",
+                                "line": 18,
+                                "column": 27,
+                                "text": " "
+                              },
+                              {
+                                "type": "keyword",
+                                "line": 18,
+                                "column": 28,
+                                "text": "NULL"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "symbol",
+                        "line": 18,
+                        "column": 32,
+                        "text": ","
+                      },
+                      {
+                        "type": "newline",
+                        "line": 18,
+                        "column": 33,
+                        "text": "\n"
+                      },
+                      {
+                        "type": "whitespace",
+                        "line": 19,
+                        "column": 1,
+                        "text": "    "
+                      },
+                      {
+                        "type": "table_constraint",
+                        "line": 19,
+                        "column": 5,
+                        "children": [
+                          {
+                            "type": "keyword",
+                            "line": 19,
+                            "column": 5,
+                            "text": "CONSTRAINT"
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 19,
+                            "column": 15,
+                            "text": " "
+                          },
+                          {
+                            "type": "object_reference",
+                            "line": 19,
+                            "column": 16,
+                            "children": [
+                              {
+                                "type": "identifier",
+                                "line": 19,
+                                "column": 16,
+                                "text": "FK_Operations_Type"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 19,
+                            "column": 34,
+                            "text": " "
+                          },
+                          {
+                            "type": "keyword",
+                            "line": 19,
+                            "column": 35,
+                            "text": "FOREIGN"
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 19,
+                            "column": 42,
+                            "text": " "
+                          },
+                          {
+                            "type": "keyword",
+                            "line": 19,
+                            "column": 43,
+                            "text": "KEY"
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 19,
+                            "column": 46,
+                            "text": " "
+                          },
+                          {
+                            "type": "bracketed",
+                            "line": 19,
+                            "column": 47,
+                            "children": [
+                              {
+                                "type": "symbol",
+                                "line": 19,
+                                "column": 47,
+                                "text": "("
+                              },
+                              {
+                                "type": "indent",
+                                "line": 19,
+                                "column": 48,
+                                "text": ""
+                              },
+                              {
+                                "type": "column_reference",
+                                "line": 19,
+                                "column": 48,
+                                "children": [
+                                  {
+                                    "type": "identifier",
+                                    "line": 19,
+                                    "column": 48,
+                                    "text": "OperationType"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "dedent",
+                                "line": 19,
+                                "column": 61,
+                                "text": ""
+                              },
+                              {
+                                "type": "symbol",
+                                "line": 19,
+                                "column": 61,
+                                "text": ")"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "newline",
+                            "line": 19,
+                            "column": 62,
+                            "text": "\n"
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 20,
+                            "column": 1,
+                            "text": "        "
+                          },
+                          {
+                            "type": "references_constraint_grammar",
+                            "line": 20,
+                            "column": 9,
+                            "children": [
+                              {
+                                "type": "keyword",
+                                "line": 20,
+                                "column": 9,
+                                "text": "REFERENCES"
+                              },
+                              {
+                                "type": "whitespace",
+                                "line": 20,
+                                "column": 19,
+                                "text": " "
+                              },
+                              {
+                                "type": "table_reference",
+                                "line": 20,
+                                "column": 20,
+                                "children": [
+                                  {
+                                    "type": "identifier",
+                                    "line": 20,
+                                    "column": 20,
+                                    "text": "dbo"
+                                  },
+                                  {
+                                    "type": "symbol",
+                                    "line": 20,
+                                    "column": 23,
+                                    "text": "."
+                                  },
+                                  {
+                                    "type": "identifier",
+                                    "line": 20,
+                                    "column": 24,
+                                    "text": "OperationTypes"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "bracketed",
+                                "line": 20,
+                                "column": 38,
+                                "children": [
+                                  {
+                                    "type": "symbol",
+                                    "line": 20,
+                                    "column": 38,
+                                    "text": "("
+                                  },
+                                  {
+                                    "type": "indent",
+                                    "line": 20,
+                                    "column": 39,
+                                    "text": ""
+                                  },
+                                  {
+                                    "type": "column_reference",
+                                    "line": 20,
+                                    "column": 39,
+                                    "children": [
+                                      {
+                                        "type": "identifier",
+                                        "line": 20,
+                                        "column": 39,
+                                        "text": "OperationType"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "dedent",
+                                    "line": 20,
+                                    "column": 52,
+                                    "text": ""
+                                  },
+                                  {
+                                    "type": "symbol",
+                                    "line": 20,
+                                    "column": 52,
+                                    "text": ")"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "symbol",
+                        "line": 20,
+                        "column": 53,
+                        "text": ","
+                      },
+                      {
+                        "type": "newline",
+                        "line": 20,
+                        "column": 54,
+                        "text": "\n"
+                      },
+                      {
+                        "type": "whitespace",
+                        "line": 21,
+                        "column": 1,
+                        "text": "    "
+                      },
+                      {
+                        "type": "table_constraint",
+                        "line": 21,
+                        "column": 5,
+                        "children": [
+                          {
+                            "type": "keyword",
+                            "line": 21,
+                            "column": 5,
+                            "text": "CONSTRAINT"
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 21,
+                            "column": 15,
+                            "text": " "
+                          },
+                          {
+                            "type": "object_reference",
+                            "line": 21,
+                            "column": 16,
+                            "children": [
+                              {
+                                "type": "identifier",
+                                "line": 21,
+                                "column": 16,
+                                "text": "FK_Operations_Status"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 21,
+                            "column": 36,
+                            "text": " "
+                          },
+                          {
+                            "type": "keyword",
+                            "line": 21,
+                            "column": 37,
+                            "text": "FOREIGN"
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 21,
+                            "column": 44,
+                            "text": " "
+                          },
+                          {
+                            "type": "keyword",
+                            "line": 21,
+                            "column": 45,
+                            "text": "KEY"
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 21,
+                            "column": 48,
+                            "text": " "
+                          },
+                          {
+                            "type": "bracketed",
+                            "line": 21,
+                            "column": 49,
+                            "children": [
+                              {
+                                "type": "symbol",
+                                "line": 21,
+                                "column": 49,
+                                "text": "("
+                              },
+                              {
+                                "type": "indent",
+                                "line": 21,
+                                "column": 50,
+                                "text": ""
+                              },
+                              {
+                                "type": "column_reference",
+                                "line": 21,
+                                "column": 50,
+                                "children": [
+                                  {
+                                    "type": "identifier",
+                                    "line": 21,
+                                    "column": 50,
+                                    "text": "Status"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "dedent",
+                                "line": 21,
+                                "column": 56,
+                                "text": ""
+                              },
+                              {
+                                "type": "symbol",
+                                "line": 21,
+                                "column": 56,
+                                "text": ")"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "newline",
+                            "line": 21,
+                            "column": 57,
+                            "text": "\n"
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 22,
+                            "column": 1,
+                            "text": "        "
+                          },
+                          {
+                            "type": "references_constraint_grammar",
+                            "line": 22,
+                            "column": 9,
+                            "children": [
+                              {
+                                "type": "keyword",
+                                "line": 22,
+                                "column": 9,
+                                "text": "REFERENCES"
+                              },
+                              {
+                                "type": "whitespace",
+                                "line": 22,
+                                "column": 19,
+                                "text": " "
+                              },
+                              {
+                                "type": "table_reference",
+                                "line": 22,
+                                "column": 20,
+                                "children": [
+                                  {
+                                    "type": "identifier",
+                                    "line": 22,
+                                    "column": 20,
+                                    "text": "dbo"
+                                  },
+                                  {
+                                    "type": "symbol",
+                                    "line": 22,
+                                    "column": 23,
+                                    "text": "."
+                                  },
+                                  {
+                                    "type": "identifier",
+                                    "line": 22,
+                                    "column": 24,
+                                    "text": "OperationStatuses"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "bracketed",
+                                "line": 22,
+                                "column": 41,
+                                "children": [
+                                  {
+                                    "type": "symbol",
+                                    "line": 22,
+                                    "column": 41,
+                                    "text": "("
+                                  },
+                                  {
+                                    "type": "indent",
+                                    "line": 22,
+                                    "column": 42,
+                                    "text": ""
+                                  },
+                                  {
+                                    "type": "column_reference",
+                                    "line": 22,
+                                    "column": 42,
+                                    "children": [
+                                      {
+                                        "type": "identifier",
+                                        "line": 22,
+                                        "column": 42,
+                                        "text": "Status"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "dedent",
+                                    "line": 22,
+                                    "column": 48,
+                                    "text": ""
+                                  },
+                                  {
+                                    "type": "symbol",
+                                    "line": 22,
+                                    "column": 48,
+                                    "text": ")"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "newline",
+                        "line": 22,
+                        "column": 49,
+                        "text": "\n"
+                      },
+                      {
+                        "type": "dedent",
+                        "line": 23,
+                        "column": 1,
+                        "text": ""
+                      },
+                      {
+                        "type": "symbol",
+                        "line": 23,
+                        "column": 1,
+                        "text": ")"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "symbol",
+                    "line": 23,
+                    "column": 2,
+                    "text": ";"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "newline",
+        "line": 23,
+        "column": 3,
+        "text": "\n"
+      },
+      {
+        "type": "go_statement",
+        "line": 24,
+        "column": 1,
+        "children": [
+          {
+            "type": "keyword",
+            "line": 24,
+            "column": 1,
+            "text": "GO"
+          }
+        ]
+      },
+      {
+        "type": "newline",
+        "line": 24,
+        "column": 3,
+        "text": "\n"
+      },
+      {
+        "type": "end_of_file",
+        "line": 25,
+        "column": 1,
+        "text": ""
+      }
+    ]
+  }
+}

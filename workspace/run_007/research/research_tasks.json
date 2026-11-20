@@ -1,0 +1,396 @@
+{
+  "schema_version": "1.0",
+  "generated_utc": "2026-11-20T06:49:40.033389+00:00",
+  "note": "Structural research tasks only; no business rule is inferred or confirmed.",
+  "source_artifacts": {
+    "inventory": "inventory.json",
+    "relationships": "relationships.json",
+    "ast_directory": "ast_files"
+  },
+  "summary": {
+    "total_tasks": 5,
+    "objects_examined": 2,
+    "by_operation": {
+      "RETURN": 2,
+      "SELECT": 1,
+      "UPDATE": 2
+    }
+  },
+  "tasks": [
+    {
+      "task_id": "TASK-5880EE71F6B8",
+      "task_type": "analyze_sql_fragment",
+      "status": "pending",
+      "target": {
+        "object_type": "procedure",
+        "object_name": "spsae_act_falla_eqnuevo"
+      },
+      "fragment": {
+        "operation": "UPDATE",
+        "target_table": "EQUIPO_NUEVO",
+        "condition_context": [],
+        "where_conditions": [
+          {
+            "kind": "WHERE",
+            "expression": "num_inventario = @num_inventario",
+            "source": {
+              "file": "sql_sources/spsae_act_falla_eqnuevo.sql",
+              "line": 17
+            }
+          }
+        ],
+        "effects": {
+          "assignments": [
+            {
+              "column": "status",
+              "operator": "=",
+              "expression": "'N'",
+              "line": 16
+            }
+          ]
+        },
+        "sql": "update EQUIPO_NUEVO \n   set status = 'N'\n where num_inventario = @num_inventario"
+      },
+      "object_context": {
+        "parameters": [
+          {
+            "name": "@incitdente",
+            "data_type": "int",
+            "line": 6
+          },
+          {
+            "name": "@num_inventario",
+            "data_type": "varchar(20)",
+            "line": 7
+          },
+          {
+            "name": "@solucion",
+            "data_type": "varchar(700)",
+            "line": 8
+          },
+          {
+            "name": "@clave_cambio",
+            "data_type": "char(1)",
+            "line": 9
+          }
+        ]
+      },
+      "related_objects": [
+        {
+          "relation": "UPDATES",
+          "type": "table",
+          "name": "EQUIPO_NUEVO",
+          "definition_in_inventory": false
+        },
+        {
+          "relation": "UPDATES",
+          "type": "table",
+          "name": "EQUIPO_NUEVO_FALLA",
+          "definition_in_inventory": false
+        }
+      ],
+      "evidence": {
+        "source_file": "sql_sources/spsae_act_falla_eqnuevo.sql",
+        "ast_file": "ast_files/sql_sources/spsae_act_falla_eqnuevo.sql.ast.json",
+        "start_line": 15,
+        "end_line": 17,
+        "ast_node_type": "update_statement"
+      },
+      "parent_task_id": null
+    },
+    {
+      "task_id": "TASK-C4DD1602E846",
+      "task_type": "analyze_sql_fragment",
+      "status": "pending",
+      "target": {
+        "object_type": "procedure",
+        "object_name": "spsae_act_falla_eqnuevo"
+      },
+      "fragment": {
+        "operation": "RETURN",
+        "target_table": null,
+        "condition_context": [
+          {
+            "kind": "IF",
+            "expression": "( @status <> 0 )",
+            "source": {
+              "file": "sql_sources/spsae_act_falla_eqnuevo.sql",
+              "line": 21
+            }
+          }
+        ],
+        "where_conditions": [],
+        "effects": {
+          "statement": "return @status"
+        },
+        "sql": "return @status"
+      },
+      "object_context": {
+        "parameters": [
+          {
+            "name": "@incitdente",
+            "data_type": "int",
+            "line": 6
+          },
+          {
+            "name": "@num_inventario",
+            "data_type": "varchar(20)",
+            "line": 7
+          },
+          {
+            "name": "@solucion",
+            "data_type": "varchar(700)",
+            "line": 8
+          },
+          {
+            "name": "@clave_cambio",
+            "data_type": "char(1)",
+            "line": 9
+          }
+        ]
+      },
+      "related_objects": [
+        {
+          "relation": "UPDATES",
+          "type": "table",
+          "name": "EQUIPO_NUEVO",
+          "definition_in_inventory": false
+        },
+        {
+          "relation": "UPDATES",
+          "type": "table",
+          "name": "EQUIPO_NUEVO_FALLA",
+          "definition_in_inventory": false
+        }
+      ],
+      "evidence": {
+        "source_file": "sql_sources/spsae_act_falla_eqnuevo.sql",
+        "ast_file": "ast_files/sql_sources/spsae_act_falla_eqnuevo.sql.ast.json",
+        "start_line": 24,
+        "end_line": 24,
+        "ast_node_type": "return_segment"
+      },
+      "parent_task_id": null
+    },
+    {
+      "task_id": "TASK-F048906317DF",
+      "task_type": "analyze_sql_fragment",
+      "status": "pending",
+      "target": {
+        "object_type": "procedure",
+        "object_name": "spsae_act_falla_eqnuevo"
+      },
+      "fragment": {
+        "operation": "UPDATE",
+        "target_table": "EQUIPO_NUEVO_FALLA",
+        "condition_context": [],
+        "where_conditions": [
+          {
+            "kind": "WHERE",
+            "expression": "incidente = @incitdente and num_inventario = @num_inventario",
+            "source": {
+              "file": "sql_sources/spsae_act_falla_eqnuevo.sql",
+              "line": 31
+            }
+          }
+        ],
+        "effects": {
+          "assignments": [
+            {
+              "column": "solucion",
+              "operator": "=",
+              "expression": "@solucion",
+              "line": 29
+            },
+            {
+              "column": "status",
+              "operator": "=",
+              "expression": "'E'",
+              "line": 30
+            }
+          ]
+        },
+        "sql": "update EQUIPO_NUEVO_FALLA \n  set solucion = @solucion,\n      status = 'E'       \n where  incidente = @incitdente\n   and num_inventario = @num_inventario"
+      },
+      "object_context": {
+        "parameters": [
+          {
+            "name": "@incitdente",
+            "data_type": "int",
+            "line": 6
+          },
+          {
+            "name": "@num_inventario",
+            "data_type": "varchar(20)",
+            "line": 7
+          },
+          {
+            "name": "@solucion",
+            "data_type": "varchar(700)",
+            "line": 8
+          },
+          {
+            "name": "@clave_cambio",
+            "data_type": "char(1)",
+            "line": 9
+          }
+        ]
+      },
+      "related_objects": [
+        {
+          "relation": "UPDATES",
+          "type": "table",
+          "name": "EQUIPO_NUEVO",
+          "definition_in_inventory": false
+        },
+        {
+          "relation": "UPDATES",
+          "type": "table",
+          "name": "EQUIPO_NUEVO_FALLA",
+          "definition_in_inventory": false
+        }
+      ],
+      "evidence": {
+        "source_file": "sql_sources/spsae_act_falla_eqnuevo.sql",
+        "ast_file": "ast_files/sql_sources/spsae_act_falla_eqnuevo.sql.ast.json",
+        "start_line": 28,
+        "end_line": 32,
+        "ast_node_type": "update_statement"
+      },
+      "parent_task_id": null
+    },
+    {
+      "task_id": "TASK-A351F4A3D399",
+      "task_type": "analyze_sql_fragment",
+      "status": "pending",
+      "target": {
+        "object_type": "procedure",
+        "object_name": "spsae_act_falla_eqnuevo"
+      },
+      "fragment": {
+        "operation": "RETURN",
+        "target_table": null,
+        "condition_context": [
+          {
+            "kind": "IF",
+            "expression": "( @status <> 0 )",
+            "source": {
+              "file": "sql_sources/spsae_act_falla_eqnuevo.sql",
+              "line": 37
+            }
+          }
+        ],
+        "where_conditions": [],
+        "effects": {
+          "statement": "return @status"
+        },
+        "sql": "return @status"
+      },
+      "object_context": {
+        "parameters": [
+          {
+            "name": "@incitdente",
+            "data_type": "int",
+            "line": 6
+          },
+          {
+            "name": "@num_inventario",
+            "data_type": "varchar(20)",
+            "line": 7
+          },
+          {
+            "name": "@solucion",
+            "data_type": "varchar(700)",
+            "line": 8
+          },
+          {
+            "name": "@clave_cambio",
+            "data_type": "char(1)",
+            "line": 9
+          }
+        ]
+      },
+      "related_objects": [
+        {
+          "relation": "UPDATES",
+          "type": "table",
+          "name": "EQUIPO_NUEVO",
+          "definition_in_inventory": false
+        },
+        {
+          "relation": "UPDATES",
+          "type": "table",
+          "name": "EQUIPO_NUEVO_FALLA",
+          "definition_in_inventory": false
+        }
+      ],
+      "evidence": {
+        "source_file": "sql_sources/spsae_act_falla_eqnuevo.sql",
+        "ast_file": "ast_files/sql_sources/spsae_act_falla_eqnuevo.sql.ast.json",
+        "start_line": 40,
+        "end_line": 40,
+        "ast_node_type": "return_segment"
+      },
+      "parent_task_id": null
+    },
+    {
+      "task_id": "TASK-357A33DA2FA3",
+      "task_type": "analyze_sql_fragment",
+      "status": "pending",
+      "target": {
+        "object_type": "procedure",
+        "object_name": "spsae_seg_usu_admin"
+      },
+      "fragment": {
+        "operation": "SELECT",
+        "target_table": null,
+        "condition_context": [
+          {
+            "kind": "IF",
+            "expression": "exists ( select 1 from USUARIO_MODULO where clave_usuario = @clave_usuario and status = 'A')",
+            "source": {
+              "file": "sql_sources/spsae_seg_usu_admin.sql",
+              "line": 13
+            }
+          }
+        ],
+        "where_conditions": [],
+        "effects": {
+          "variable_assignments": [
+            {
+              "variable": "@admin",
+              "expression": "'S'",
+              "line": 14
+            }
+          ]
+        },
+        "sql": "select @admin = 'S'"
+      },
+      "object_context": {
+        "parameters": [
+          {
+            "name": "@clave_usuario",
+            "data_type": "varchar(30)",
+            "line": 6
+          }
+        ]
+      },
+      "related_objects": [
+        {
+          "relation": "READS",
+          "type": "table",
+          "name": "USUARIO_MODULO",
+          "definition_in_inventory": false
+        }
+      ],
+      "evidence": {
+        "source_file": "sql_sources/spsae_seg_usu_admin.sql",
+        "ast_file": "ast_files/sql_sources/spsae_seg_usu_admin.sql.ast.json",
+        "start_line": 14,
+        "end_line": 14,
+        "ast_node_type": "select_statement"
+      },
+      "parent_task_id": null
+    }
+  ]
+}

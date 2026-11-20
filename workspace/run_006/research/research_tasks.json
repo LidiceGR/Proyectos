@@ -1,0 +1,226 @@
+{
+  "schema_version": "1.0",
+  "generated_utc": "2026-11-20T06:40:19.680939+00:00",
+  "note": "Structural research tasks only; no business rule is inferred or confirmed.",
+  "source_artifacts": {
+    "inventory": "inventory.json",
+    "relationships": "relationships.json",
+    "ast_directory": "ast_files"
+  },
+  "summary": {
+    "total_tasks": 3,
+    "objects_examined": 3,
+    "by_operation": {
+      "INSERT": 1,
+      "THROW": 1,
+      "UPDATE": 1
+    }
+  },
+  "tasks": [
+    {
+      "task_id": "TASK-227F0C005747",
+      "task_type": "analyze_sql_fragment",
+      "status": "pending",
+      "target": {
+        "object_type": "procedure",
+        "object_name": "dbo.ApproveOperation"
+      },
+      "fragment": {
+        "operation": "UPDATE",
+        "target_table": "dbo.Operations",
+        "condition_context": [],
+        "where_conditions": [
+          {
+            "kind": "WHERE",
+            "expression": "OperationId = @OperationId AND Status = 'PENDING' AND Amount > 0",
+            "source": {
+              "file": "sql_sources/01_ApproveOperation.sql",
+              "line": 8
+            }
+          }
+        ],
+        "effects": {
+          "assignments": [
+            {
+              "column": "Status",
+              "operator": "=",
+              "expression": "'APPROVED'",
+              "line": 7
+            }
+          ]
+        },
+        "sql": "UPDATE dbo.Operations\n       SET Status = 'APPROVED'\n     WHERE OperationId = @OperationId\n       AND Status = 'PENDING'\n       AND Amount > 0;"
+      },
+      "object_context": {
+        "parameters": [
+          {
+            "name": "@OperationId",
+            "data_type": "INT",
+            "line": 3
+          }
+        ]
+      },
+      "related_objects": [
+        {
+          "relation": "UPDATES",
+          "type": "table",
+          "name": "dbo.Operations",
+          "definition_in_inventory": true
+        }
+      ],
+      "evidence": {
+        "source_file": "sql_sources/01_ApproveOperation.sql",
+        "ast_file": "ast_files/sql_sources/01_ApproveOperation.sql.ast.json",
+        "start_line": 6,
+        "end_line": 10,
+        "ast_node_type": "update_statement"
+      },
+      "parent_task_id": null
+    },
+    {
+      "task_id": "TASK-C317F1D3AF9D",
+      "task_type": "analyze_sql_fragment",
+      "status": "pending",
+      "target": {
+        "object_type": "trigger",
+        "object_name": "dbo.trg_Operations_ValidateAmount"
+      },
+      "fragment": {
+        "operation": "THROW",
+        "target_table": null,
+        "condition_context": [
+          {
+            "kind": "IF",
+            "expression": "EXISTS (SELECT 1 FROM inserted WHERE Amount <= 0)",
+            "source": {
+              "file": "sql_sources/01_ValidateAmount.sql",
+              "line": 7
+            }
+          }
+        ],
+        "where_conditions": [],
+        "effects": {
+          "statement": "THROW 50001, 'Amount must be greater than zero', 1"
+        },
+        "sql": "THROW 50001, 'Amount must be greater than zero', 1"
+      },
+      "object_context": {
+        "parameters": [],
+        "trigger_table": "dbo.Operations",
+        "trigger_events": [
+          "INSERT",
+          "UPDATE"
+        ]
+      },
+      "related_objects": [
+        {
+          "relation": "READS",
+          "type": "table",
+          "name": "inserted",
+          "sql_server_pseudotable": true
+        },
+        {
+          "relation": "TRIGGERS_ON",
+          "type": "table",
+          "name": "dbo.Operations",
+          "definition_in_inventory": true
+        }
+      ],
+      "evidence": {
+        "source_file": "sql_sources/01_ValidateAmount.sql",
+        "ast_file": "ast_files/sql_sources/01_ValidateAmount.sql.ast.json",
+        "start_line": 9,
+        "end_line": 9,
+        "ast_node_type": "throw_statement"
+      },
+      "parent_task_id": null
+    },
+    {
+      "task_id": "TASK-3F9385154FA5",
+      "task_type": "analyze_sql_fragment",
+      "status": "pending",
+      "target": {
+        "object_type": "procedure",
+        "object_name": "dbo.RegisterOperation"
+      },
+      "fragment": {
+        "operation": "INSERT",
+        "target_table": "dbo.Operations",
+        "condition_context": [
+          {
+            "kind": "IF",
+            "expression": "@OperationType = 2 AND @Amount > 0",
+            "source": {
+              "file": "sql_sources/02_RegisterOperation.sql",
+              "line": 8
+            }
+          }
+        ],
+        "where_conditions": [],
+        "effects": {
+          "columns": [
+            "OperationId",
+            "OperationType",
+            "Amount",
+            "Status"
+          ],
+          "values_expression": "VALUES (@OperationId, @OperationType, @Amount, 'PENDING')",
+          "column_values": [
+            {
+              "column": "OperationId",
+              "expression": "@OperationId"
+            },
+            {
+              "column": "OperationType",
+              "expression": "@OperationType"
+            },
+            {
+              "column": "Amount",
+              "expression": "@Amount"
+            },
+            {
+              "column": "Status",
+              "expression": "'PENDING'"
+            }
+          ]
+        },
+        "sql": "INSERT INTO dbo.Operations (OperationId, OperationType, Amount, Status)\n        VALUES (@OperationId, @OperationType, @Amount, 'PENDING')"
+      },
+      "object_context": {
+        "parameters": [
+          {
+            "name": "@OperationId",
+            "data_type": "INT",
+            "line": 3
+          },
+          {
+            "name": "@OperationType",
+            "data_type": "INT",
+            "line": 4
+          },
+          {
+            "name": "@Amount",
+            "data_type": "DECIMAL(18, 2)",
+            "line": 5
+          }
+        ]
+      },
+      "related_objects": [
+        {
+          "relation": "INSERTS_INTO",
+          "type": "table",
+          "name": "dbo.Operations",
+          "definition_in_inventory": true
+        }
+      ],
+      "evidence": {
+        "source_file": "sql_sources/02_RegisterOperation.sql",
+        "ast_file": "ast_files/sql_sources/02_RegisterOperation.sql.ast.json",
+        "start_line": 10,
+        "end_line": 11,
+        "ast_node_type": "insert_statement"
+      },
+      "parent_task_id": null
+    }
+  ]
+}

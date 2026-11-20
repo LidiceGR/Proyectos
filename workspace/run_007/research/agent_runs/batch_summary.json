@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "mode": "batch_single_pass_no_tools",
+  "started_utc": "2026-11-20T06:49:40.691280+00:00",
+  "finished_utc": "2026-11-20T06:51:21.605163+00:00",
+  "status": "completed",
+  "model_id": "Qwen/Qwen3-0.6B",
+  "tasks_file": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_007\\research\\research_tasks.json",
+  "counts": {
+    "total_pending": 5,
+    "selected": 5,
+    "processed": 5,
+    "valid_json": 5,
+    "invalid_response": 0,
+    "execution_error": 0,
+    "not_selected": 0
+  },
+  "results": [
+    {
+      "task_id": "TASK-5880EE71F6B8",
+      "status": "valid_json",
+      "result_file": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_007\\research\\agent_runs\\TASK-5880EE71F6B8_20261120T065024709641Z.json",
+      "validation_errors": []
+    },
+    {
+      "task_id": "TASK-C4DD1602E846",
+      "status": "valid_json",
+      "result_file": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_007\\research\\agent_runs\\TASK-C4DD1602E846_20261120T065036793904Z.json",
+      "validation_errors": []
+    },
+    {
+      "task_id": "TASK-F048906317DF",
+      "status": "valid_json",
+      "result_file": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_007\\research\\agent_runs\\TASK-F048906317DF_20261120T065056746215Z.json",
+      "validation_errors": []
+    },
+    {
+      "task_id": "TASK-A351F4A3D399",
+      "status": "valid_json",
+      "result_file": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_007\\research\\agent_runs\\TASK-A351F4A3D399_20261120T065108657761Z.json",
+      "validation_errors": []
+    },
+    {
+      "task_id": "TASK-357A33DA2FA3",
+      "status": "valid_json",
+      "result_file": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_007\\research\\agent_runs\\TASK-357A33DA2FA3_20261120T065121587413Z.json",
+      "validation_errors": []
+    }
+  ],
+  "note": "Research task statuses are not modified. Proposed actions are not executed."
+}

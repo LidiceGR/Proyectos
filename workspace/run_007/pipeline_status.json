@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0",
+  "run_id": "run_007",
+  "created_utc": "2026-11-20T06:49:33.727783+00:00",
+  "updated_utc": "2026-11-20T06:51:22.546811+00:00",
+  "status": "completed",
+  "settings": {
+    "source_config": "D:\\Proyectos\\CMUAgent\\Proyectos\\config\\mock_req_dummy_system2.json",
+    "initialize_rag": false,
+    "research_mode": "batch"
+  },
+  "stages": [
+    {
+      "name": "source_extraction",
+      "status": "ok",
+      "started_utc": "2026-11-20T06:49:33.727783+00:00",
+      "finished_utc": "2026-11-20T06:49:34.569880+00:00"
+    },
+    {
+      "name": "sql_ast_parsing",
+      "status": "ok",
+      "started_utc": "2026-11-20T06:49:34.578578+00:00",
+      "finished_utc": "2026-11-20T06:49:38.263694+00:00"
+    },
+    {
+      "name": "inventory_building",
+      "status": "ok",
+      "started_utc": "2026-11-20T06:49:38.269693+00:00",
+      "finished_utc": "2026-11-20T06:49:39.220767+00:00"
+    },
+    {
+      "name": "task_initialization",
+      "status": "ok",
+      "started_utc": "2026-11-20T06:49:39.249933+00:00",
+      "finished_utc": "2026-11-20T06:49:40.076975+00:00"
+    },
+    {
+      "name": "research_batch",
+      "status": "ok",
+      "started_utc": "2026-11-20T06:49:40.097126+00:00",
+      "summary": {
+        "total_pending": 5,
+        "selected": 5,
+        "processed": 5,
+        "valid_json": 5,
+        "invalid_response": 0,
+        "execution_error": 0,
+        "not_selected": 0
+      },
+      "finished_utc": "2026-11-20T06:51:22.540460+00:00"
+    }
+  ],
+  "artifacts": {
+    "source_extraction": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_007\\sources_manifest.json",
+    "sql_ast_parsing": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_007\\ast_files\\ast_manifest.json",
+    "inventory_building": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_007\\metadata\\inventory.json",
+    "task_initialization": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_007\\research\\research_tasks.json",
+    "research_batch": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_007\\research\\agent_runs\\batch_summary.json"
+  },
+  "finished_utc": "2026-11-20T06:51:22.546811+00:00"
+}

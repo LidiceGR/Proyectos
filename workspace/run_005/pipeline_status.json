@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0",
+  "run_id": "run_005",
+  "created_utc": "2026-11-20T06:15:57.084330+00:00",
+  "updated_utc": "2026-11-20T06:16:51.358957+00:00",
+  "status": "completed",
+  "settings": {
+    "source_config": "D:\\Proyectos\\CMUAgent\\Proyectos\\config\\mock_req_dummy_system1.json",
+    "initialize_rag": false,
+    "research_mode": "single"
+  },
+  "stages": [
+    {
+      "name": "source_extraction",
+      "status": "ok",
+      "started_utc": "2026-11-20T06:15:57.084330+00:00",
+      "finished_utc": "2026-11-20T06:15:58.012275+00:00"
+    },
+    {
+      "name": "sql_ast_parsing",
+      "status": "ok",
+      "started_utc": "2026-11-20T06:15:58.021541+00:00",
+      "finished_utc": "2026-11-20T06:16:01.711733+00:00"
+    },
+    {
+      "name": "inventory_building",
+      "status": "ok",
+      "started_utc": "2026-11-20T06:16:01.718171+00:00",
+      "finished_utc": "2026-11-20T06:16:02.637355+00:00"
+    },
+    {
+      "name": "task_initialization",
+      "status": "ok",
+      "started_utc": "2026-11-20T06:16:02.665890+00:00",
+      "finished_utc": "2026-11-20T06:16:03.591409+00:00"
+    },
+    {
+      "name": "research_single",
+      "status": "ok",
+      "started_utc": "2026-11-20T06:16:03.602955+00:00",
+      "finished_utc": "2026-11-20T06:16:51.349577+00:00"
+    }
+  ],
+  "artifacts": {
+    "source_extraction": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_005\\sources_manifest.json",
+    "sql_ast_parsing": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_005\\ast_files\\ast_manifest.json",
+    "inventory_building": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_005\\metadata\\inventory.json",
+    "task_initialization": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_005\\research\\research_tasks.json",
+    "research_single": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_005\\research\\agent_runs"
+  },
+  "finished_utc": "2026-11-20T06:16:51.358957+00:00"
+}

@@ -15,3 +15,31 @@
 ## corre rel inventario 
 
 & "D:\devenv\Anaconda32024.02\Scripts\conda.exe" run --no-capture-output -n cmu-llm python -m inventory_builder --ast-manifest workspace\run_001\ast_files\ast_manifest.json --source-manifest workspace\run_001\sources_manifest.json --destination workspace\run_001\metadata
+
+
+## correr el research_agent solo para ver entradas 
+
+& "D:\devenv\Anaconda32024.02\Scripts\conda.exe" run --no-capture-output -n cmu-llm python -m research_agent --tasks workspace\run_001\research\research_tasks.json --task-id TASK-227F0C005747 --preview
+
+
+## correr el research_agent para ver ya un promt al LLM
+
+& "D:\devenv\Anaconda32024.02\Scripts\conda.exe" run --no-capture-output -n cmu-llm python -m research_agent --tasks workspace\run_001\research\research_tasks.json --task-id TASK-227F0C005747
+
+& "D:\devenv\Anaconda32024.02\Scripts\conda.exe" run --no-capture-output -n cmu-llm python -m research_agent --tasks workspace\run_001\research\research_tasks.json --task-id TASK-3F9385154FA5
+
+## ejecutar el primer programa  donde se llamaran los inicializadores y luego el primer llamdo al LLM 
+
+### solo informativo 
+& "D:\devenv\Anaconda32024.02\Scripts\conda.exe" run --no-capture-output -n cmu-llm python -m capstone_app --config config\capstone_pipeline.example.json --dry-run
+
+### solo hasta inventarios y tareas de investigación 
+
+& "D:\devenv\Anaconda32024.02\Scripts\conda.exe" run --no-capture-output -n cmu-llm python -m capstone_app --config config\capstone_pipeline.example.json
+
+### Diferentes ejmeplos segun lo quehay en el archivo de confihruiación 
+& "D:\devenv\Anaconda32024.02\Scripts\conda.exe" run --no-capture-output -n cmu-llm python -m capstone_app --config config\capstone_pipeline.example.json
+
+### correr batch
+
+& "D:\devenv\Anaconda32024.02\Scripts\conda.exe" run --no-capture-output -n cmu-llm python -m capstone_app --config config\capstone_pipeline.batch.example.json --dry-run
