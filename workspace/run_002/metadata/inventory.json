@@ -1,0 +1,420 @@
+{
+  "schema_version": "1.0",
+  "generated_utc": "2026-11-20T02:43:03.910988+00:00",
+  "note": "Structural and syntactic evidence only; no business rule is confirmed.",
+  "tables": [],
+  "procedures": [
+    {
+      "name": "spsae_act_falla_eqnuevo",
+      "object_type": "procedure",
+      "source": {
+        "file": "sql_sources/spsae_act_falla_eqnuevo.sql",
+        "line": 5,
+        "ast_file": "sql_sources/spsae_act_falla_eqnuevo.sql.ast.json"
+      },
+      "parameters": [
+        {
+          "name": "@incitdente",
+          "data_type": "int",
+          "line": 6
+        },
+        {
+          "name": "@num_inventario",
+          "data_type": "varchar(20)",
+          "line": 7
+        },
+        {
+          "name": "@solucion",
+          "data_type": "varchar(700)",
+          "line": 8
+        },
+        {
+          "name": "@clave_cambio",
+          "data_type": "char(1)",
+          "line": 9
+        }
+      ],
+      "operations": [
+        {
+          "operation": "TRANSACTION",
+          "source": {
+            "file": "sql_sources/spsae_act_falla_eqnuevo.sql",
+            "line": 13
+          },
+          "condition_context": [],
+          "effects": {
+            "statement": "begin tran actEQUIPO_NUEVO"
+          }
+        },
+        {
+          "operation": "UPDATE",
+          "target_table": "EQUIPO_NUEVO",
+          "source": {
+            "file": "sql_sources/spsae_act_falla_eqnuevo.sql",
+            "line": 15
+          },
+          "condition_context": [],
+          "where_conditions": [
+            {
+              "kind": "WHERE",
+              "expression": "num_inventario = @num_inventario",
+              "source": {
+                "file": "sql_sources/spsae_act_falla_eqnuevo.sql",
+                "line": 17
+              }
+            }
+          ],
+          "effects": {
+            "assignments": [
+              {
+                "column": "status",
+                "operator": "=",
+                "expression": "'N'",
+                "line": 16
+              }
+            ]
+          }
+        },
+        {
+          "operation": "SELECT",
+          "tables": [],
+          "source": {
+            "file": "sql_sources/spsae_act_falla_eqnuevo.sql",
+            "line": 20
+          },
+          "condition_context": [],
+          "where_conditions": [],
+          "effects": {
+            "variable_assignments": [
+              {
+                "variable": "@status",
+                "expression": "@@error",
+                "line": 20
+              }
+            ]
+          }
+        },
+        {
+          "operation": "TRANSACTION",
+          "source": {
+            "file": "sql_sources/spsae_act_falla_eqnuevo.sql",
+            "line": 23
+          },
+          "condition_context": [
+            {
+              "kind": "IF",
+              "expression": "( @status <> 0 )",
+              "source": {
+                "file": "sql_sources/spsae_act_falla_eqnuevo.sql",
+                "line": 21
+              }
+            }
+          ],
+          "effects": {
+            "statement": "rollback actEQUIPO_NUEVO"
+          }
+        },
+        {
+          "operation": "RETURN",
+          "source": {
+            "file": "sql_sources/spsae_act_falla_eqnuevo.sql",
+            "line": 24
+          },
+          "condition_context": [
+            {
+              "kind": "IF",
+              "expression": "( @status <> 0 )",
+              "source": {
+                "file": "sql_sources/spsae_act_falla_eqnuevo.sql",
+                "line": 21
+              }
+            }
+          ],
+          "effects": {
+            "statement": "return @status"
+          }
+        },
+        {
+          "operation": "UPDATE",
+          "target_table": "EQUIPO_NUEVO_FALLA",
+          "source": {
+            "file": "sql_sources/spsae_act_falla_eqnuevo.sql",
+            "line": 28
+          },
+          "condition_context": [],
+          "where_conditions": [
+            {
+              "kind": "WHERE",
+              "expression": "incidente = @incitdente and num_inventario = @num_inventario",
+              "source": {
+                "file": "sql_sources/spsae_act_falla_eqnuevo.sql",
+                "line": 31
+              }
+            }
+          ],
+          "effects": {
+            "assignments": [
+              {
+                "column": "solucion",
+                "operator": "=",
+                "expression": "@solucion",
+                "line": 29
+              },
+              {
+                "column": "status",
+                "operator": "=",
+                "expression": "'E'",
+                "line": 30
+              }
+            ]
+          }
+        },
+        {
+          "operation": "SELECT",
+          "tables": [],
+          "source": {
+            "file": "sql_sources/spsae_act_falla_eqnuevo.sql",
+            "line": 36
+          },
+          "condition_context": [],
+          "where_conditions": [],
+          "effects": {
+            "variable_assignments": [
+              {
+                "variable": "@status",
+                "expression": "@@error",
+                "line": 36
+              }
+            ]
+          }
+        },
+        {
+          "operation": "TRANSACTION",
+          "source": {
+            "file": "sql_sources/spsae_act_falla_eqnuevo.sql",
+            "line": 39
+          },
+          "condition_context": [
+            {
+              "kind": "IF",
+              "expression": "( @status <> 0 )",
+              "source": {
+                "file": "sql_sources/spsae_act_falla_eqnuevo.sql",
+                "line": 37
+              }
+            }
+          ],
+          "effects": {
+            "statement": "rollback actEQUIPO_NUEVO"
+          }
+        },
+        {
+          "operation": "RETURN",
+          "source": {
+            "file": "sql_sources/spsae_act_falla_eqnuevo.sql",
+            "line": 40
+          },
+          "condition_context": [
+            {
+              "kind": "IF",
+              "expression": "( @status <> 0 )",
+              "source": {
+                "file": "sql_sources/spsae_act_falla_eqnuevo.sql",
+                "line": 37
+              }
+            }
+          ],
+          "effects": {
+            "statement": "return @status"
+          }
+        },
+        {
+          "operation": "TRANSACTION",
+          "source": {
+            "file": "sql_sources/spsae_act_falla_eqnuevo.sql",
+            "line": 46
+          },
+          "condition_context": [],
+          "effects": {
+            "statement": "commit actEQUIPO_NUEVO"
+          }
+        },
+        {
+          "operation": "RETURN",
+          "source": {
+            "file": "sql_sources/spsae_act_falla_eqnuevo.sql",
+            "line": 50
+          },
+          "condition_context": [],
+          "effects": {
+            "statement": "return 0"
+          }
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "WHERE",
+          "expression": "num_inventario = @num_inventario",
+          "source": {
+            "file": "sql_sources/spsae_act_falla_eqnuevo.sql",
+            "line": 17
+          }
+        },
+        {
+          "kind": "IF",
+          "expression": "( @status <> 0 )",
+          "source": {
+            "file": "sql_sources/spsae_act_falla_eqnuevo.sql",
+            "line": 21
+          }
+        },
+        {
+          "kind": "WHERE",
+          "expression": "incidente = @incitdente and num_inventario = @num_inventario",
+          "source": {
+            "file": "sql_sources/spsae_act_falla_eqnuevo.sql",
+            "line": 31
+          }
+        },
+        {
+          "kind": "IF",
+          "expression": "( @status <> 0 )",
+          "source": {
+            "file": "sql_sources/spsae_act_falla_eqnuevo.sql",
+            "line": 37
+          }
+        }
+      ],
+      "calls": []
+    },
+    {
+      "name": "spsae_seg_usu_admin",
+      "object_type": "procedure",
+      "source": {
+        "file": "sql_sources/spsae_seg_usu_admin.sql",
+        "line": 5,
+        "ast_file": "sql_sources/spsae_seg_usu_admin.sql.ast.json"
+      },
+      "parameters": [
+        {
+          "name": "@clave_usuario",
+          "data_type": "varchar(30)",
+          "line": 6
+        }
+      ],
+      "operations": [
+        {
+          "operation": "SELECT",
+          "tables": [],
+          "source": {
+            "file": "sql_sources/spsae_seg_usu_admin.sql",
+            "line": 11
+          },
+          "condition_context": [],
+          "where_conditions": [],
+          "effects": {
+            "variable_assignments": [
+              {
+                "variable": "@admin",
+                "expression": "'N'",
+                "line": 11
+              }
+            ]
+          }
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "USUARIO_MODULO"
+          ],
+          "source": {
+            "file": "sql_sources/spsae_seg_usu_admin.sql",
+            "line": 13
+          },
+          "condition_context": [],
+          "where_conditions": [
+            {
+              "kind": "WHERE",
+              "expression": "clave_usuario = @clave_usuario and status = 'A'",
+              "source": {
+                "file": "sql_sources/spsae_seg_usu_admin.sql",
+                "line": 13
+              }
+            }
+          ],
+          "effects": {}
+        },
+        {
+          "operation": "SELECT",
+          "tables": [],
+          "source": {
+            "file": "sql_sources/spsae_seg_usu_admin.sql",
+            "line": 14
+          },
+          "condition_context": [
+            {
+              "kind": "IF",
+              "expression": "exists ( select 1 from USUARIO_MODULO where clave_usuario = @clave_usuario and status = 'A')",
+              "source": {
+                "file": "sql_sources/spsae_seg_usu_admin.sql",
+                "line": 13
+              }
+            }
+          ],
+          "where_conditions": [],
+          "effects": {
+            "variable_assignments": [
+              {
+                "variable": "@admin",
+                "expression": "'S'",
+                "line": 14
+              }
+            ]
+          }
+        },
+        {
+          "operation": "SELECT",
+          "tables": [],
+          "source": {
+            "file": "sql_sources/spsae_seg_usu_admin.sql",
+            "line": 16
+          },
+          "condition_context": [],
+          "where_conditions": [],
+          "effects": {}
+        },
+        {
+          "operation": "RETURN",
+          "source": {
+            "file": "sql_sources/spsae_seg_usu_admin.sql",
+            "line": 18
+          },
+          "condition_context": [],
+          "effects": {
+            "statement": "return 0"
+          }
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "IF",
+          "expression": "exists ( select 1 from USUARIO_MODULO where clave_usuario = @clave_usuario and status = 'A')",
+          "source": {
+            "file": "sql_sources/spsae_seg_usu_admin.sql",
+            "line": 13
+          }
+        },
+        {
+          "kind": "WHERE",
+          "expression": "clave_usuario = @clave_usuario and status = 'A'",
+          "source": {
+            "file": "sql_sources/spsae_seg_usu_admin.sql",
+            "line": 13
+          }
+        }
+      ],
+      "calls": []
+    }
+  ],
+  "triggers": []
+}
