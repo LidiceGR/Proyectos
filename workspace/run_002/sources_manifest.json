@@ -1,0 +1,57 @@
+{
+  "mode": "mock",
+  "system_name": "system2",
+  "timestamp_utc": "2026-11-20T01:11:05.155707+00:00",
+  "destination": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_002",
+  "files": [
+    {
+      "file_type": "procedure",
+      "objects": [
+        {
+          "type": "procedure",
+          "name": "spsae_act_falla_eqnuevo",
+          "line": 5
+        }
+      ],
+      "format": "sql",
+      "relative_path": "sql_sources/spsae_act_falla_eqnuevo.sql",
+      "absolute_path": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_002\\sql_sources\\spsae_act_falla_eqnuevo.sql",
+      "source": "spsae_act_falla_eqnuevo.sql",
+      "size_bytes": 905,
+      "sha256": "b7aa01ae185d706ca2cab9f0b8d3e4b5735dc3e3b37ee7f981e7c325cc2b3d92",
+      "suggested_processors": [
+        "ast",
+        "rag"
+      ]
+    },
+    {
+      "file_type": "procedure",
+      "objects": [
+        {
+          "type": "procedure",
+          "name": "spsae_seg_usu_admin",
+          "line": 5
+        }
+      ],
+      "format": "sql",
+      "relative_path": "sql_sources/spsae_seg_usu_admin.sql",
+      "absolute_path": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_002\\sql_sources\\spsae_seg_usu_admin.sql",
+      "source": "spsae_seg_usu_admin.sql",
+      "size_bytes": 416,
+      "sha256": "4007bd496c91cc19f9f234695a78572431718b3f0a80f52572ef0ad7adb5a98e",
+      "suggested_processors": [
+        "ast",
+        "rag"
+      ]
+    }
+  ],
+  "issues": [],
+  "summary": {
+    "files": 2,
+    "by_type": {
+      "procedure": 2
+    },
+    "issues": 0
+  },
+  "status": "ok"
+}
