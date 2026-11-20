@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "timestamp_utc": "2026-11-20T01:00:12.429903+00:00",
+  "source_manifest": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_001\\sources_manifest.json",
+  "destination": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_001\\ast_files",
+  "parser": "SQLFluff 3.3.1 (tsql)",
+  "status": "ok",
+  "note": "Syntactic evidence only; these AST segments are not verified business rules.",
+  "summary": {
+    "files_selected": 1,
+    "ok": 1,
+    "partial": 0,
+    "error": 0,
+    "source_files_ignored": 5
+  },
+  "files": [
+    {
+      "source_file": "sql_sources/01_ApproveOperation.sql",
+      "source_type": "procedure",
+      "ast_file": "sql_sources/01_ApproveOperation.sql.ast.json",
+      "status": "ok",
+      "parse_errors": 0,
+      "unparsed_regions": 0
+    }
+  ]
+}
