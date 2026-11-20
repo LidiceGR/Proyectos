@@ -1,7 +1,7 @@
-"""Create traceable research tasks from deterministic SQL inventory metadata.
+"""Create logical SQL workflow research tasks from deterministic inventory data.
 
-Tasks identify SQL fragments for later interpretation by an agent. They do not
-predict, paraphrase, or confirm business rules, and they do not run SQL or LLMs.
+Version 0.2 preserves ordered statement evidence and complete source slices.
+It neither infers business rules nor executes an LLM or SQL operations.
 """
 
 from __future__ import annotations
@@ -17,10 +17,9 @@ from typing import Any, Callable, Iterator
 from lib.artifact_io import write_json
 from lib.manifest_paths import resolve_manifest_path
 
-from .selector import select_candidates
+from .selector import select_workflow_units
 
 EventCallback = Callable[[dict[str, Any]], None]
-
 AST_NODE_TYPES: dict[str, set[str]] = {
     "INSERT": {"insert_statement"},
     "UPDATE": {"update_statement"},
@@ -30,15 +29,15 @@ AST_NODE_TYPES: dict[str, set[str]] = {
     "RAISERROR": {"raiserror_statement", "raise_error_statement"},
     "RETURN": {"return_segment", "return_statement"},
     "SELECT": {"select_statement"},
+    "TRANSACTION": {"transaction_statement"},
 }
 
 
 def _load_document(path: Path, required_keys: set[str]) -> dict[str, Any]:
-    """Read JSON and validate the top-level object contract."""
-    document = json.loads(path.read_text(encoding="utf-8-sig"))
-    if not isinstance(document, dict) or not required_keys.issubset(document):
+    doc = json.loads(path.read_text(encoding="utf-8-sig"))
+    if not isinstance(doc, dict) or not required_keys.issubset(doc):
         raise ValueError(f"Invalid metadata document: {path}")
-    return document
+    return doc
 
 
 def _walk_ast(node: dict[str, Any]) -> Iterator[dict[str, Any]]:
@@ -56,7 +55,6 @@ def _node_text(node: dict[str, Any]) -> str:
 
 
 def _last_line(node: dict[str, Any]) -> int | None:
-    """Find the last covered line using SQLFluff leaf locations."""
     ends = []
     for leaf in _walk_ast(node):
         if "children" in leaf:
@@ -67,27 +65,14 @@ def _last_line(node: dict[str, Any]) -> int | None:
     return max(ends, default=node.get("line"))
 
 
-def _locate_fragment(
-    ast_tree: dict[str, Any], operation_type: str, start_line: int
-) -> dict[str, Any] | None:
-    """Match an inventoried operation to its SQLFluff syntax node."""
-    allowed_types = AST_NODE_TYPES.get(operation_type, set())
-    matching = [
-        node for node in _walk_ast(ast_tree)
-        if node.get("type") in allowed_types and node.get("line") == start_line
-    ]
-    if not matching:
-        return None
-    return min(matching, key=lambda item: len(_node_text(item)))
+def _locate_fragment(tree: dict[str, Any], operation: str, line: int) -> dict[str, Any] | None:
+    allowed = AST_NODE_TYPES.get(operation, set())
+    found = [n for n in _walk_ast(tree) if n.get("type") in allowed and n.get("line") == line]
+    return min(found, key=lambda n: len(_node_text(n))) if found else None
 
 
-def _related_objects(
-    owner_type: str,
-    owner_name: str,
-    relationships: list[dict[str, Any]],
-    defined_tables: set[str],
-) -> list[dict[str, Any]]:
-    """Keep known links and flag definitions absent from the supplied inventory."""
+def _related_objects(owner_type: str, owner_name: str, relationships: list[dict[str, Any]],
+                     defined_tables: set[str]) -> list[dict[str, Any]]:
     related: list[dict[str, Any]] = []
     seen: set[tuple[str, str, str]] = set()
     for item in relationships:
@@ -102,24 +87,35 @@ def _related_objects(
         if not name or identifier in seen:
             continue
         seen.add(identifier)
-        result: dict[str, Any] = {
-            "relation": relation,
-            "type": kind,
-            "name": name,
-        }
+        record: dict[str, Any] = {"relation": relation, "type": kind, "name": name}
         if kind.casefold() == "table":
             if name.casefold() in {"inserted", "deleted"}:
-                result["sql_server_pseudotable"] = True
+                record["sql_server_pseudotable"] = True
             else:
-                result["definition_in_inventory"] = name.casefold() in defined_tables
-        related.append(result)
-    return sorted(related, key=lambda v: (v["relation"], v["type"], v["name"].casefold()))
+                record["definition_in_inventory"] = name.casefold() in defined_tables
+        related.append(record)
+    return sorted(related, key=lambda x: (x["relation"], x["type"], x["name"].casefold()))
 
 
-def _task_identifier(source_file: str, name: str, kind: str, line: int, fallback: bool = False) -> str:
-    """Create a stable identifier independent of task ordering or run timestamp."""
-    key = f"{source_file.casefold()}|{name.casefold()}|{kind}|{line}|{fallback}"
+def _task_identifier(source_file: str, obj_name: str, unit_type: str, source_line: int,
+                     transaction_name: str | None) -> str:
+    key = f"workflow-v2|{source_file.casefold()}|{obj_name.casefold()}|{unit_type}|{source_line}|{(transaction_name or '').casefold()}"
     return "TASK-" + hashlib.sha256(key.encode("utf-8")).hexdigest()[:12].upper()
+
+
+def _find_body_start(tree: dict[str, Any], object_type: str, source_line: int) -> int:
+    """Find source-backed executable-body location; fall back to object start."""
+    body_types = {"procedure_statement"} if object_type.casefold() == "procedure" else {"trigger_statement", "begin_end_block"}
+    candidates = [n.get("line") for n in _walk_ast(tree)
+                  if n.get("type") in body_types and isinstance(n.get("line"), int)
+                  and n["line"] >= source_line]
+    return min(candidates) if candidates else source_line
+
+
+def _source_slice(lines: list[str], start: int, end: int) -> str:
+    if not (1 <= start <= end <= len(lines)):
+        raise ValueError(f"Invalid source line range {start}..{end} for file with {len(lines)} lines")
+    return "\n".join(lines[start - 1:end])
 
 
 def initialize_tasks(
@@ -130,34 +126,18 @@ def initialize_tasks(
     on_event: EventCallback | None = None,
     overwrite: bool = False,
 ) -> dict[str, Any]:
-    """Generate pending fragment investigations with source-backed evidence.
-
-    Args:
-        inventory_file: The inventory_builder inventory.json path.
-        relationships_file: The inventory_builder relationships.json path.
-        ast_directory: The run-local ast_files folder containing AST files.
-        destination: Folder where research_tasks.json will be written.
-        on_event: Optional synchronous event callback, suitable for MCP adaptation.
-        overwrite: Permit replacing an existing task queue explicitly. Defaults to False.
-
-    Returns:
-        The complete research_tasks.json document.
-
-    Raises:
-        ValueError: The metadata contract or a required AST node is invalid.
-        FileNotFoundError: Required metadata or AST files are not available.
-    """
+    """Create pending source-backed workflow tasks without classifying business rules."""
     inventory_path = Path(inventory_file).expanduser().resolve()
     relationships_path = Path(relationships_file).expanduser().resolve()
     ast_root = Path(ast_directory).expanduser().resolve()
+    run_root = ast_root.parent
     target = Path(destination).expanduser().resolve()
-    output_file = target / "research_tasks.json"
-    if output_file.exists() and not overwrite:
+    output = target / "research_tasks.json"
+    if output.exists() and not overwrite:
         raise FileExistsError(
-            f"Research task file already exists: {output_file}. "
+            f"Research task file already exists: {output}. "
             "Use --overwrite only when you intend to reset the initial queue."
         )
-
     inventory = _load_document(inventory_path, {"tables", "procedures", "triggers"})
     relationship_doc = _load_document(relationships_path, {"relationships"})
     if not all(isinstance(inventory[key], list) for key in ("tables", "procedures", "triggers")):
@@ -167,11 +147,11 @@ def initialize_tasks(
         raise ValueError("Relationships must be an array")
     defined_tables = {str(item.get("name", "")).casefold() for item in inventory["tables"]}
 
-    ast_cache: dict[Path, dict[str, Any]] = {}
     tasks: list[dict[str, Any]] = []
+    ast_cache: dict[Path, dict[str, Any]] = {}
     seen_ids: set[str] = set()
-    summary = Counter()
-
+    by_scope: Counter = Counter()
+    operation_counts: Counter = Counter()
     objects = [*inventory["procedures"], *inventory["triggers"]]
     objects.sort(key=lambda item: (
         str((item.get("source") or {}).get("file", "")).casefold(),
@@ -180,115 +160,156 @@ def initialize_tasks(
     ))
 
     for obj in objects:
-        name = obj.get("name")
+        owner_name = obj.get("name")
         owner_type = obj.get("object_type")
         source = obj.get("source") or {}
-        source_file = source.get("file")
-        ast_file = source.get("ast_file")
-        if not all(isinstance(field, str) and field.strip() for field in (name, owner_type, source_file, ast_file)):
+        source_file, ast_file = source.get("file"), source.get("ast_file")
+        if not all(isinstance(field, str) and field.strip() for field in (
+            owner_name, owner_type, source_file, ast_file
+        )):
             raise ValueError(f"Object has missing identity or source references: {obj!r}")
-
         ast_path = resolve_manifest_path(ast_root, ast_file)
         if ast_path not in ast_cache:
             ast_doc = _load_document(ast_path, {"tree", "source_file", "status"})
-            if ast_doc.get("status") != "ok":
-                raise ValueError(f"Cannot initialize tasks from a non-ok AST: {ast_path}")
+            if ast_doc.get("status") != "ok" or not isinstance(ast_doc["tree"], dict):
+                raise ValueError(f"Cannot initialize tasks from an invalid AST: {ast_path}")
             if str(ast_doc["source_file"]).replace("\\", "/") != source_file.replace("\\", "/"):
                 raise ValueError(f"AST source file mismatch: {ast_path}")
-            if not isinstance(ast_doc["tree"], dict):
-                raise ValueError(f"Missing AST tree: {ast_path}")
             ast_cache[ast_path] = ast_doc["tree"]
         tree = ast_cache[ast_path]
-
-        dependencies = _related_objects(owner_type, name, relationships, defined_tables)
+        sql_path = resolve_manifest_path(run_root, source_file)
+        sql_lines = sql_path.read_text(encoding="utf-8-sig").splitlines()
+        source_line = int(source.get("line") or 1)
+        body_start = _find_body_start(tree, owner_type, source_line)
+        operations = obj.get("operations", [])
+        if not isinstance(operations, list):
+            raise ValueError(f"Operations must be an array in {owner_name}")
+        if any(not isinstance(op, dict) or not isinstance((op.get("source") or {}).get("line"), int)
+               for op in operations):
+            raise ValueError(f"Invalid operation location in {owner_name}")
+        units = select_workflow_units(operations)
+        related = _related_objects(owner_type, owner_name, relationships, defined_tables)
         context: dict[str, Any] = {"parameters": copy.deepcopy(obj.get("parameters", []))}
         if owner_type == "trigger":
             context["trigger_table"] = obj.get("table")
             context["trigger_events"] = copy.deepcopy(obj.get("events", []))
 
-        candidates = select_candidates(obj.get("operations", []))
-        if not candidates:
-            fallback_line = int(source.get("line") or 1)
-            task_id = _task_identifier(source_file, name, "OBJECT", fallback_line, True)
-            task = {
-                "task_id": task_id,
-                "task_type": "inspect_sql_object",
-                "status": "pending",
-                "target": {"object_type": owner_type, "object_name": name},
-                "fragment": None,
-                "object_context": copy.deepcopy(context),
-                "related_objects": copy.deepcopy(dependencies),
-                "evidence": {
-                    "source_file": source_file,
-                    "ast_file": "ast_files/" + ast_file.replace("\\", "/"),
-                    "start_line": fallback_line,
-                    "end_line": None,
-                    "ast_node_type": None,
-                },
-                "parent_task_id": None,
-            }
-            tasks.append(task)
-            seen_ids.add(task_id)
-            summary["inspect_sql_object"] += 1
-            if on_event:
-                on_event({"event": "task_created", "task_id": task_id, "object_name": name, "kind": "OBJECT"})
-            continue
-
-        for operation in candidates:
-            kind = str(operation.get("operation", "")).upper()
-            location = operation.get("source") or {}
-            line = location.get("line")
-            if not isinstance(line, int) or line <= 0:
-                raise ValueError(f"Operation has no valid source line in {name}: {operation!r}")
-            node = _locate_fragment(tree, kind, line)
-            if node is None:
-                raise ValueError(f"Missing AST node for {name} {kind} at line {line} in {ast_path}")
-            task_id = _task_identifier(source_file, name, kind, line)
-            if task_id in seen_ids:
-                raise ValueError(f"Duplicate task identity at {source_file}:{line} ({kind})")
-            seen_ids.add(task_id)
-            task = {
-                "task_id": task_id,
-                "task_type": "analyze_sql_fragment",
-                "status": "pending",
-                "target": {"object_type": owner_type, "object_name": name},
-                "fragment": {
+        for index, unit in enumerate(units):
+            steps = []
+            for op in unit["operations"]:
+                kind = str(op.get("operation", "")).upper()
+                line = int((op.get("source") or {}).get("line"))
+                if line < 1 or line > len(sql_lines):
+                    raise ValueError(f"Invalid source line {line} for {owner_name}")
+                node = _locate_fragment(tree, kind, line)
+                end_line = _last_line(node) if node else line
+                if not isinstance(end_line, int):
+                    end_line = line
+                step = {
                     "operation": kind,
-                    "target_table": operation.get("target_table"),
-                    "condition_context": copy.deepcopy(operation.get("condition_context", [])),
-                    "where_conditions": copy.deepcopy(operation.get("where_conditions", [])),
-                    "effects": copy.deepcopy(operation.get("effects", {})),
-                    "sql": _node_text(node).strip(),
+                    "source_line": line,
+                    "target_table": op.get("target_table"),
+                    "condition_context": copy.deepcopy(op.get("condition_context", [])),
+                    "where_conditions": copy.deepcopy(op.get("where_conditions", [])),
+                    "effects": copy.deepcopy(op.get("effects", {})),
+                    "evidence": {
+                        "source_file": source_file,
+                        "start_line": line,
+                        "end_line": end_line,
+                        "ast_node_type": node.get("type") if node else None,
+                    },
+                    "sql": _source_slice(sql_lines, line, min(end_line, len(sql_lines))),
+                }
+                steps.append(step)
+                operation_counts[kind] += 1
+            if len(units) == 1:
+                start_line = max(source_line, body_start)
+                last_op_line = max((item["evidence"]["end_line"] for item in steps), default=start_line)
+                # Read AST-backed procedure/trigger body instead of terminating at
+                # the last selected DML. This retains final output and END clauses.
+                body_end = max((n for n in (_last_line(node) for node in _walk_ast(tree)
+                    if node.get("type") in {"create_procedure_statement", "create_trigger_statement", "create_trigger"}
+                    and isinstance(node.get("line"), int) and node["line"] == source_line)
+                    if isinstance(n, int)), default=last_op_line)
+                end_line = min(max(last_op_line, body_end), len(sql_lines))
+            else:
+                start_line = min((step["source_line"] for step in steps), default=source_line)
+                end_line = max((step["evidence"]["end_line"] for step in steps), default=start_line)
+                # Keep the initial declaration block for the first flow unit.
+                if index == 0:
+                    start_line = min(start_line, body_start)
+            # Preserve controlling IF predicates even if the inventoried steps
+            # start inside the associated conditional block.
+            guard_lines = [c.get("source", {}).get("line") for step in steps
+                           for c in step["condition_context"] if isinstance(c, dict)]
+            guard_lines = [x for x in guard_lines if isinstance(x, int) and x >= source_line]
+            if guard_lines:
+                start_line = min(start_line, min(guard_lines))
+            if start_line > end_line:
+                raise ValueError(f"Invalid workflow range for {owner_name}")
+            scope_type = unit["type"]
+            unit_name = unit.get("name")
+            scope_start = unit.get("transaction_start_line", start_line)
+            scope_end = unit.get("transaction_end_line", end_line)
+            task_id = _task_identifier(source_file, owner_name, scope_type, scope_start, unit_name)
+            if task_id in seen_ids:
+                raise ValueError(f"Duplicate task identity at {source_file}:{scope_start}")
+            seen_ids.add(task_id)
+            by_scope[scope_type] += 1
+            task = {
+                "task_id": task_id,
+                "task_type": "analyze_sql_workflow",
+                "status": "pending",
+                "target": {"object_type": owner_type, "object_name": owner_name},
+                "scope": {
+                    "type": scope_type,
+                    "name": unit_name,
+                    "start_line": scope_start,
+                    "end_line": scope_end,
+                    "segmentation_note": unit.get("warning"),
+                },
+                "fragment": {
+                    "operation": "WORKFLOW",
+                    "sql": _source_slice(sql_lines, start_line, end_line),
+                    "steps": steps,
+                    "operation_count": len(steps),
                 },
                 "object_context": copy.deepcopy(context),
-                "related_objects": copy.deepcopy(dependencies),
+                "related_objects": copy.deepcopy(related),
                 "evidence": {
                     "source_file": source_file,
                     "ast_file": "ast_files/" + ast_file.replace("\\", "/"),
-                    "start_line": line,
-                    "end_line": _last_line(node),
-                    "ast_node_type": node.get("type"),
+                    "start_line": start_line,
+                    "end_line": end_line,
+                    "ast_node_type": "logical_workflow",
                 },
                 "parent_task_id": None,
             }
             tasks.append(task)
-            summary[kind] += 1
             if on_event:
-                on_event({"event": "task_created", "task_id": task_id, "object_name": name, "kind": kind})
+                on_event({
+                    "event": "task_created", "task_id": task_id, "object_name": owner_name,
+                    "kind": "WORKFLOW", "scope": scope_type, "steps": len(steps),
+                })
 
-    document = {
-        "schema_version": "1.0",
+    doc = {
+        "schema_version": "2.0",
         "generated_utc": datetime.now(timezone.utc).isoformat(),
-        "note": "Structural research tasks only; no business rule is inferred or confirmed.",
+        "note": "Source-backed workflow tasks only; no business rule is inferred or confirmed.",
         "source_artifacts": {
             "inventory": inventory_path.name,
             "relationships": relationships_path.name,
             "ast_directory": ast_root.name,
         },
-        "summary": {"total_tasks": len(tasks), "objects_examined": len(objects), "by_operation": dict(sorted(summary.items()))},
+        "summary": {
+            "total_tasks": len(tasks),
+            "objects_examined": len(objects),
+            "by_scope": dict(sorted(by_scope.items())),
+            "operations_preserved": dict(sorted(operation_counts.items())),
+        },
         "tasks": tasks,
     }
-    write_json(output_file, document)
+    write_json(output, doc)
     if on_event:
-        on_event({"event": "tasks_initialized", "total_tasks": len(tasks), "destination": str(output_file)})
-    return document
+        on_event({"event": "tasks_initialized", "total_tasks": len(tasks), "destination": str(output)})
+    return doc

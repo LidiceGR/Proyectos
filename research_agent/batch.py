@@ -44,7 +44,7 @@ def _read_pending(tasks_path: Path) -> list[dict[str, Any]]:
 
 
 def _validate_selected_task(task: dict[str, Any]) -> None:
-    if task.get("task_type") != "analyze_sql_fragment":
+    if task.get("task_type") not in {"analyze_sql_fragment", "analyze_sql_workflow"}:
         raise ValueError(f"Unsupported task type: {task.get('task_type')}")
     for field in ("target", "fragment", "evidence"):
         if not isinstance(task.get(field), dict):
