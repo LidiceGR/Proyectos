@@ -20,7 +20,7 @@ def main() -> int:
     parser.add_argument("--batch", action="store_true", help="Analyze all pending tasks sequentially")
     parser.add_argument("--max-tasks", type=int, default=0, help="Batch limit; 0 means all pending tasks")
     parser.add_argument("--model-id", default="Qwen/Qwen3-0.6B")
-    parser.add_argument("--max-new-tokens", type=int, default=384)
+    parser.add_argument("--max-new-tokens", type=int, default=512)
     parser.add_argument("--output-directory", type=Path, help="Output directory for individual agent runs")
     args = parser.parse_args()
 
@@ -66,6 +66,10 @@ def main() -> int:
         print(json.dumps(result["decision"], indent=2, ensure_ascii=False), flush=True)
     if result["validation_errors"]:
         print(f"Validation issues: {result['validation_errors']}", flush=True)
+    if result.get("evidence_check") is not None:
+        print(f"[evidence_check] status={result['evidence_check']['status']} issues={result['evidence_check']['issues']}", flush=True)
+        if result['evidence_check']['warnings']:
+            print(f"[evidence_warnings] {result['evidence_check']['warnings']}", flush=True)
     print(f"Result file: {path}", flush=True)
     return 0 if result["status"] == "valid_json" else 1
 

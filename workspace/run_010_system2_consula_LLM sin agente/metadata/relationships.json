@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0",
+  "generated_utc": "2026-11-20T19:31:33.859210+00:00",
+  "relationship_types": {
+    "READS": 1,
+    "UPDATES": 2
+  },
+  "relationships": [
+    {
+      "from": {
+        "type": "procedure",
+        "name": "spsae_act_falla_eqnuevo"
+      },
+      "to": {
+        "type": "table",
+        "name": "EQUIPO_NUEVO"
+      },
+      "type": "UPDATES",
+      "source": {
+        "file": "sql_sources/spsae_act_falla_eqnuevo.sql",
+        "line": 15
+      },
+      "condition_context": [
+        {
+          "kind": "WHERE",
+          "expression": "num_inventario = @num_inventario",
+          "source": {
+            "file": "sql_sources/spsae_act_falla_eqnuevo.sql",
+            "line": 17
+          }
+        }
+      ]
+    },
+    {
+      "from": {
+        "type": "procedure",
+        "name": "spsae_act_falla_eqnuevo"
+      },
+      "to": {
+        "type": "table",
+        "name": "EQUIPO_NUEVO_FALLA"
+      },
+      "type": "UPDATES",
+      "source": {
+        "file": "sql_sources/spsae_act_falla_eqnuevo.sql",
+        "line": 28
+      },
+      "condition_context": [
+        {
+          "kind": "WHERE",
+          "expression": "incidente = @incitdente and num_inventario = @num_inventario",
+          "source": {
+            "file": "sql_sources/spsae_act_falla_eqnuevo.sql",
+            "line": 31
+          }
+        }
+      ]
+    },
+    {
+      "from": {
+        "type": "procedure",
+        "name": "spsae_seg_usu_admin"
+      },
+      "to": {
+        "type": "table",
+        "name": "USUARIO_MODULO"
+      },
+      "type": "READS",
+      "source": {
+        "file": "sql_sources/spsae_seg_usu_admin.sql",
+        "line": 13
+      },
+      "condition_context": [
+        {
+          "kind": "WHERE",
+          "expression": "clave_usuario = @clave_usuario and status = 'A'",
+          "source": {
+            "file": "sql_sources/spsae_seg_usu_admin.sql",
+            "line": 13
+          }
+        }
+      ]
+    }
+  ]
+}

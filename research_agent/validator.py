@@ -34,15 +34,37 @@ def extract_json_object(text: str) -> dict[str, Any]:
     raise ValueError("No valid JSON object was found in the model output")
 
 
-def validate_decision(value: dict[str, Any]) -> list[str]:
+def validate_decision(
+    value: dict[str, Any], *, require_observed_behavior: bool = False
+) -> list[str]:
     """Validate response structure and action names, not factual correctness."""
     errors: list[str] = []
+    if require_observed_behavior:
+        expected = {
+            "observed_behavior", "conditions", "effect", "classification",
+            "candidate_rule", "missing_information", "requested_action",
+        }
+        missing = expected - set(value)
+        extra = set(value) - expected
+        if missing:
+            errors.append(f"missing output fields: {', '.join(sorted(missing))}")
+        if extra:
+            errors.append(f"unexpected output fields: {', '.join(sorted(extra))}")
+        if not isinstance(value.get("observed_behavior"), str):
+            errors.append("observed_behavior must be a string")
     if not isinstance(value.get("classification"), str) or value.get("classification") not in CLASSIFICATIONS:
         errors.append("classification is missing or not allowed")
 
     rule = value.get("candidate_rule")
     if rule is not None and not isinstance(rule, str):
         errors.append("candidate_rule must be a string or null")
+
+    if require_observed_behavior:
+        classification = value.get("classification")
+        if classification == "candidate_business_rule" and not (isinstance(rule, str) and rule.strip()):
+            errors.append("candidate_business_rule requires a nonempty candidate_rule")
+        if classification in {"technical_logic", "ambiguous"} and rule is not None:
+            errors.append("candidate_rule must be null for technical_logic or ambiguous")
 
     effect = value.get("effect")
     if effect is not None and not isinstance(effect, str):

@@ -1,0 +1,14 @@
+{
+  "run_id": "run_009",
+  "workspace": "workspace",
+  "source_config": "config/mock_req_dummy_system1.json",
+  "rag": {
+    "initialize": false
+  },
+  "research": {
+    "mode": "batch",
+    "model_id": "Qwen/Qwen3-0.6B",
+    "task_id": null,
+    "max_tasks": 0
+  }
+}

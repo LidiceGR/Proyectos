@@ -43,3 +43,7 @@
 ### correr batch
 
 & "D:\devenv\Anaconda32024.02\Scripts\conda.exe" run --no-capture-output -n cmu-llm python -m capstone_app --config config\capstone_pipeline.batch.example.json --dry-run
+
+## Nuevo particionadro de tareas  le manda un worflow para analizar un SP completo  y no solo una instrucción SQl
+
+& "D:\devenv\Anaconda32024.02\Scripts\conda.exe" run --no-capture-output -n cmu-llm python -m research_agent --tasks workspace\run_007\research_v02\research_tasks.json --task-id TASK-8630EC5C6C6A

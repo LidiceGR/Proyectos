@@ -10,6 +10,8 @@ from string import Template
 from typing import Any, Callable
 
 from .validator import extract_json_object, validate_decision
+from .context_builder import compact_workflow_context
+from .evidence_checker import check_evidence
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_PROMPT_FILE = PROJECT_ROOT / "prompts" / "analyze_sql_fragment.txt"
@@ -50,7 +52,10 @@ def render_prompt(task: dict[str, Any], template_path: str | Path | None = None)
         template_path = (WORKFLOW_PROMPT_FILE if task.get("task_type") == "analyze_sql_workflow"
                          else DEFAULT_PROMPT_FILE)
     template = Template(Path(template_path).read_text(encoding="utf-8"))
-    task_payload = {
+    if task.get("task_type") == "analyze_sql_workflow":
+        task_payload = compact_workflow_context(task)
+    else:
+        task_payload = {
         "task_id": task["task_id"],
         "task_type": task.get("task_type"),
         "scope": task.get("scope"),
@@ -59,7 +64,7 @@ def render_prompt(task: dict[str, Any], template_path: str | Path | None = None)
         "object_context": task.get("object_context", {}),
         "related_objects": task.get("related_objects", []),
         "evidence": task["evidence"],
-    }
+        }
     return template.substitute(task_json=json.dumps(task_payload, ensure_ascii=False, indent=2))
 
 
@@ -89,6 +94,7 @@ def analyze_task(
         "raw_model_output": None,
         "decision": None,
         "validation_errors": [],
+        "evidence_check": None,
         "status": "execution_error",
         "note": "A generated proposal is not a verified or human-approved business rule.",
     }
@@ -99,12 +105,20 @@ def analyze_task(
         result["raw_model_output"] = raw
         try:
             decision = extract_json_object(raw)
-            errors = validate_decision(decision)
+            is_workflow = task.get("task_type") == "analyze_sql_workflow"
+            errors = validate_decision(decision, require_observed_behavior=is_workflow)
         except ValueError as exc:
             decision, errors = None, [str(exc)]
         result["decision"] = decision
         result["validation_errors"] = errors
-        result["status"] = "valid_json" if not errors else "invalid_response"
+        if errors:
+            result["status"] = "invalid_response"
+        elif task.get("task_type") == "analyze_sql_workflow":
+            check = check_evidence(task, decision)
+            result["evidence_check"] = check
+            result["status"] = "valid_json" if check["status"] == "passed" else "evidence_incomplete"
+        else:
+            result["status"] = "valid_json"
     except Exception as exc:
         result["validation_errors"] = [f"{type(exc).__name__}: {exc}"]
     result["elapsed_seconds"] = round(time.perf_counter() - started, 3)

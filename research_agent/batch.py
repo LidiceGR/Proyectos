@@ -94,8 +94,11 @@ def run_batch(
             "processed": 0,
             "valid_json": 0,
             "invalid_response": 0,
+            "evidence_incomplete": 0,
             "execution_error": 0,
             "not_selected": len(pending) - len(selected),
+            "candidate_rules_proposed": 0,
+            "requested_actions_proposed": 0,
         },
         "results": [],
         "note": "Research task statuses are not modified. Proposed actions are not executed.",
@@ -136,24 +139,35 @@ def run_batch(
         status = result["status"]
         summary["counts"]["processed"] += 1
         summary["counts"][status] += 1
+        decision = result.get("decision") or {}
+        if status == "valid_json" and decision.get("classification") == "candidate_business_rule" and decision.get("candidate_rule"):
+            summary["counts"]["candidate_rules_proposed"] += 1
+        if status == "valid_json" and decision.get("requested_action") is not None:
+            summary["counts"]["requested_actions_proposed"] += 1
         summary["results"].append({
             "task_id": task_id,
             "status": status,
             "result_file": str(result_path),
             "validation_errors": result.get("validation_errors", []),
+            "evidence_status": (result.get("evidence_check") or {}).get("status"),
+            "evidence_issues": (result.get("evidence_check") or {}).get("issues", []),
+            "evidence_warnings": (result.get("evidence_check") or {}).get("warnings", []),
+            "classification": decision.get("classification"),
+            "candidate_rule_proposed": bool(decision.get("candidate_rule")),
         })
         _write_checkpoint(summary_path, summary)
         print(f"[batch_task_completed] task_id={task_id} status={status} file={result_path}", flush=True)
 
     summary["finished_utc"] = _utc_now()
-    failed = summary["counts"]["invalid_response"] + summary["counts"]["execution_error"]
+    failed = sum(summary["counts"][name] for name in ("invalid_response", "evidence_incomplete", "execution_error"))
     summary["status"] = "completed_with_errors" if failed else "completed"
     _write_checkpoint(summary_path, summary)
     print(
-        "[batch_completed] status={} selected={} valid_json={} invalid_response={} execution_error={}".format(
+        "[batch_completed] status={} selected={} valid_json={} evidence_incomplete={} invalid_response={} execution_error={} candidate_rules_proposed={}".format(
             summary["status"], summary["counts"]["selected"],
-            summary["counts"]["valid_json"], summary["counts"]["invalid_response"],
-            summary["counts"]["execution_error"],
+            summary["counts"]["valid_json"], summary["counts"]["evidence_incomplete"],
+            summary["counts"]["invalid_response"], summary["counts"]["execution_error"],
+            summary["counts"]["candidate_rules_proposed"],
         ),
         flush=True,
     )

@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0",
+  "run_id": "run_010",
+  "created_utc": "2026-11-20T19:31:27.253196+00:00",
+  "updated_utc": "2026-11-20T19:33:08.957375+00:00",
+  "status": "error",
+  "settings": {
+    "source_config": "D:\\Proyectos\\CMUAgent\\Proyectos\\config\\mock_req_dummy_system2.json",
+    "initialize_rag": false,
+    "research_mode": "batch"
+  },
+  "stages": [
+    {
+      "name": "source_extraction",
+      "status": "ok",
+      "started_utc": "2026-11-20T19:31:27.253196+00:00",
+      "finished_utc": "2026-11-20T19:31:28.221866+00:00"
+    },
+    {
+      "name": "sql_ast_parsing",
+      "status": "ok",
+      "started_utc": "2026-11-20T19:31:28.230865+00:00",
+      "finished_utc": "2026-11-20T19:31:32.911484+00:00"
+    },
+    {
+      "name": "inventory_building",
+      "status": "ok",
+      "started_utc": "2026-11-20T19:31:32.920489+00:00",
+      "finished_utc": "2026-11-20T19:31:33.978427+00:00"
+    },
+    {
+      "name": "task_initialization",
+      "status": "ok",
+      "started_utc": "2026-11-20T19:31:33.998411+00:00",
+      "finished_utc": "2026-11-20T19:31:34.898105+00:00"
+    },
+    {
+      "name": "research_batch",
+      "status": "error",
+      "started_utc": "2026-11-20T19:31:34.922100+00:00",
+      "summary": {
+        "total_pending": 2,
+        "selected": 2,
+        "processed": 2,
+        "valid_json": 1,
+        "invalid_response": 0,
+        "evidence_incomplete": 1,
+        "execution_error": 0,
+        "not_selected": 0,
+        "candidate_rules_proposed": 1,
+        "requested_actions_proposed": 0
+      },
+      "finished_utc": "2026-11-20T19:33:08.957375+00:00",
+      "error": "Research stage exited with code 1"
+    }
+  ],
+  "artifacts": {
+    "source_extraction": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_010\\sources_manifest.json",
+    "sql_ast_parsing": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_010\\ast_files\\ast_manifest.json",
+    "inventory_building": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_010\\metadata\\inventory.json",
+    "task_initialization": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_010\\research\\research_tasks.json",
+    "research_batch": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_010\\research\\agent_runs\\batch_summary.json"
+  },
+  "error": "Research stage exited with code 1"
+}
