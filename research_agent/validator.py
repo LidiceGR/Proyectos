@@ -13,6 +13,7 @@ ALLOWED_ACTIONS = {
     "lookup_catalog_value": {"column", "value"},
     "inspect_related_object": {"object_name"},
     "inspect_source_file": {"source_file"},
+    "enqueue_research_task": {"object_name", "research_question", "reason"},
 }
 
 
@@ -50,8 +51,8 @@ def validate_decision(
             errors.append(f"missing output fields: {', '.join(sorted(missing))}")
         if extra:
             errors.append(f"unexpected output fields: {', '.join(sorted(extra))}")
-        if not isinstance(value.get("observed_behavior"), str):
-            errors.append("observed_behavior must be a string")
+        if not isinstance(value.get("observed_behavior"), str) or not value.get("observed_behavior", "").strip():
+            errors.append("observed_behavior must be a nonempty string")
     if not isinstance(value.get("classification"), str) or value.get("classification") not in CLASSIFICATIONS:
         errors.append("classification is missing or not allowed")
 
@@ -61,7 +62,7 @@ def validate_decision(
 
     if require_observed_behavior:
         classification = value.get("classification")
-        if classification == "candidate_business_rule" and not (isinstance(rule, str) and rule.strip()):
+        if classification == "candidate_business_rule" and value.get("requested_action") is None and not (isinstance(rule, str) and rule.strip()):
             errors.append("candidate_business_rule requires a nonempty candidate_rule")
         if classification in {"technical_logic", "ambiguous"} and rule is not None:
             errors.append("candidate_rule must be null for technical_logic or ambiguous")
@@ -69,6 +70,12 @@ def validate_decision(
     effect = value.get("effect")
     if effect is not None and not isinstance(effect, str):
         errors.append("effect must be a string or null")
+
+    if require_observed_behavior:
+        for field in ("observed_behavior", "effect", "candidate_rule"):
+            text = value.get(field)
+            if isinstance(text, str) and re.fullmatch(r"\s*<[^>]+>\s*", text):
+                errors.append(f"{field} contains an unfilled output placeholder")
 
     for field in ("conditions", "missing_information"):
         items = value.get(field)
@@ -99,4 +106,8 @@ def validate_decision(
                     errors.append("inspect_related_object.object_name must be a string")
                 if name == "inspect_source_file" and not isinstance(args.get("source_file"), str):
                     errors.append("inspect_source_file.source_file must be a string")
+                if name == "enqueue_research_task":
+                    for field in ("object_name", "research_question", "reason"):
+                        if not isinstance(args.get(field), str) or not args[field].strip():
+                            errors.append(f"enqueue_research_task.{field} must be a nonempty string")
     return errors

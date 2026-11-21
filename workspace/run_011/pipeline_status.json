@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0",
+  "run_id": "run_011",
+  "created_utc": "2026-11-20T21:13:46.362676+00:00",
+  "updated_utc": "2026-11-20T21:16:49.267218+00:00",
+  "status": "completed",
+  "settings": {
+    "source_config": "D:\\Proyectos\\CMUAgent\\Proyectos\\config\\mock_req_dummy_system1.json",
+    "initialize_rag": false,
+    "research_mode": "react"
+  },
+  "stages": [
+    {
+      "name": "source_extraction",
+      "status": "ok",
+      "started_utc": "2026-11-20T21:13:46.362676+00:00",
+      "finished_utc": "2026-11-20T21:13:47.355822+00:00"
+    },
+    {
+      "name": "sql_ast_parsing",
+      "status": "ok",
+      "started_utc": "2026-11-20T21:13:47.365826+00:00",
+      "finished_utc": "2026-11-20T21:13:51.285359+00:00"
+    },
+    {
+      "name": "inventory_building",
+      "status": "ok",
+      "started_utc": "2026-11-20T21:13:51.294358+00:00",
+      "finished_utc": "2026-11-20T21:13:52.318033+00:00"
+    },
+    {
+      "name": "task_initialization",
+      "status": "ok",
+      "started_utc": "2026-11-20T21:13:52.342035+00:00",
+      "finished_utc": "2026-11-20T21:13:53.222261+00:00"
+    },
+    {
+      "name": "research_react",
+      "status": "ok",
+      "started_utc": "2026-11-20T21:13:53.248289+00:00",
+      "summary": {
+        "total_pending": 3,
+        "selected": 3,
+        "processed": 3,
+        "initial_processed": 3,
+        "derived_created": 0,
+        "derived_processed": 0,
+        "valid_json": 3,
+        "evidence_incomplete": 0,
+        "research_incomplete": 0,
+        "invalid_response": 0,
+        "execution_error": 0,
+        "candidate_rules_proposed": 3,
+        "tool_actions_executed": 6,
+        "queue_actions_executed": 0,
+        "model_actions_executed": 0,
+        "policy_actions_executed": 6,
+        "format_repair_attempts": 0,
+        "format_repairs_successful": 0,
+        "not_selected": 0
+      },
+      "finished_utc": "2026-11-20T21:16:49.260218+00:00"
+    }
+  ],
+  "artifacts": {
+    "source_extraction": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_011\\sources_manifest.json",
+    "sql_ast_parsing": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_011\\ast_files\\ast_manifest.json",
+    "inventory_building": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_011\\metadata\\inventory.json",
+    "task_initialization": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_011\\research\\research_tasks.json",
+    "research_react": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_011\\research\\agent_runs\\react_summary.json"
+  },
+  "finished_utc": "2026-11-20T21:16:49.267218+00:00"
+}

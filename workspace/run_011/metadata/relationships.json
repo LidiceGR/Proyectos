@@ -1,0 +1,151 @@
+{
+  "schema_version": "1.0",
+  "generated_utc": "2026-11-20T21:13:52.132714+00:00",
+  "relationship_types": {
+    "FOREIGN_KEY": 2,
+    "INSERTS_INTO": 1,
+    "READS": 1,
+    "TRIGGERS_ON": 1,
+    "UPDATES": 1
+  },
+  "relationships": [
+    {
+      "from": {
+        "type": "procedure",
+        "name": "dbo.ApproveOperation"
+      },
+      "to": {
+        "type": "table",
+        "name": "dbo.Operations"
+      },
+      "type": "UPDATES",
+      "source": {
+        "file": "sql_sources/01_ApproveOperation.sql",
+        "line": 6
+      },
+      "condition_context": [
+        {
+          "kind": "WHERE",
+          "expression": "OperationId = @OperationId AND Status = 'PENDING' AND Amount > 0",
+          "source": {
+            "file": "sql_sources/01_ApproveOperation.sql",
+            "line": 8
+          }
+        }
+      ]
+    },
+    {
+      "from": {
+        "type": "trigger",
+        "name": "dbo.trg_Operations_ValidateAmount"
+      },
+      "to": {
+        "type": "table",
+        "name": "dbo.Operations"
+      },
+      "type": "TRIGGERS_ON",
+      "events": [
+        "INSERT",
+        "UPDATE"
+      ],
+      "source": {
+        "file": "sql_sources/01_ValidateAmount.sql",
+        "line": 3
+      }
+    },
+    {
+      "from": {
+        "type": "trigger",
+        "name": "dbo.trg_Operations_ValidateAmount"
+      },
+      "to": {
+        "type": "table",
+        "name": "inserted"
+      },
+      "type": "READS",
+      "source": {
+        "file": "sql_sources/01_ValidateAmount.sql",
+        "line": 7
+      },
+      "condition_context": [
+        {
+          "kind": "WHERE",
+          "expression": "Amount <= 0",
+          "source": {
+            "file": "sql_sources/01_ValidateAmount.sql",
+            "line": 7
+          }
+        }
+      ]
+    },
+    {
+      "from": {
+        "type": "table",
+        "name": "dbo.Operations"
+      },
+      "to": {
+        "type": "table",
+        "name": "dbo.OperationTypes"
+      },
+      "type": "FOREIGN_KEY",
+      "columns": [
+        "OperationType"
+      ],
+      "references_columns": [
+        "OperationType"
+      ],
+      "constraint_name": "FK_Operations_Type",
+      "source": {
+        "file": "sql_sources/01_operations_schema.sql",
+        "line": 19
+      }
+    },
+    {
+      "from": {
+        "type": "table",
+        "name": "dbo.Operations"
+      },
+      "to": {
+        "type": "table",
+        "name": "dbo.OperationStatuses"
+      },
+      "type": "FOREIGN_KEY",
+      "columns": [
+        "Status"
+      ],
+      "references_columns": [
+        "Status"
+      ],
+      "constraint_name": "FK_Operations_Status",
+      "source": {
+        "file": "sql_sources/01_operations_schema.sql",
+        "line": 21
+      }
+    },
+    {
+      "from": {
+        "type": "procedure",
+        "name": "dbo.RegisterOperation"
+      },
+      "to": {
+        "type": "table",
+        "name": "dbo.Operations"
+      },
+      "type": "INSERTS_INTO",
+      "source": {
+        "file": "sql_sources/02_RegisterOperation.sql",
+        "line": 10
+      },
+      "condition_context": [
+        {
+          "kind": "IF",
+          "expression": "@OperationType = 2 AND @Amount > 0",
+          "source": {
+            "file": "sql_sources/02_RegisterOperation.sql",
+            "line": 8
+          }
+        }
+      ]
+    }
+  ]
+}

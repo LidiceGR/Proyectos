@@ -18,16 +18,47 @@ def main() -> int:
     parser.add_argument("--task-id", help="Task ID for single-task mode; defaults to first pending task")
     parser.add_argument("--preview", action="store_true", help="Show one prompt without loading Qwen")
     parser.add_argument("--batch", action="store_true", help="Analyze all pending tasks sequentially")
+    parser.add_argument("--react", action="store_true", help="Bounded ReAct research with read-only tools and derived tasks")
+    parser.add_argument("--react-strategy", choices=("v04", "v05"), default="v04",
+                        help="Legacy combined prompts or separate research-decision/final prompts")
+    parser.add_argument("--policy-fallback", action="store_true",
+                        help="Allow labeled deterministic evidence-gap actions when the model finishes early")
+    parser.add_argument("--max-actions", type=int, default=3, help="Maximum ACT/OBSERVE actions per ReAct task")
+    parser.add_argument("--max-derived-tasks", type=int, default=4, help="Maximum source-backed derived tasks")
+    parser.add_argument("--max-depth", type=int, default=1, help="Maximum derived task depth")
     parser.add_argument("--max-tasks", type=int, default=0, help="Batch limit; 0 means all pending tasks")
     parser.add_argument("--model-id", default="Qwen/Qwen3-0.6B")
     parser.add_argument("--max-new-tokens", type=int, default=512)
     parser.add_argument("--output-directory", type=Path, help="Output directory for individual agent runs")
     args = parser.parse_args()
 
-    if args.batch and (args.task_id is not None or args.preview):
-        parser.error("--batch cannot be combined with --task-id or --preview")
-    if args.max_tasks < 0 or (not args.batch and args.max_tasks != 0):
-        parser.error("--max-tasks must be nonnegative and is only supported with --batch")
+    if args.batch and args.react:
+        parser.error("--batch and --react are mutually exclusive")
+    if (args.batch or args.react) and (args.task_id is not None or args.preview):
+        parser.error("--batch/--react cannot be combined with --task-id or --preview")
+    if args.max_tasks < 0 or (not (args.batch or args.react) and args.max_tasks != 0):
+        parser.error("--max-tasks must be nonnegative and requires --batch or --react")
+    if min(args.max_actions, args.max_derived_tasks, args.max_depth) < 0:
+        parser.error("ReAct limits must be nonnegative")
+
+    if args.react:
+        from llm.local_qwen import LocalQwen
+        if args.react_strategy == "v05":
+            from .react_v05 import run_react_batch_v05 as run_react_batch
+        else:
+            from .react import run_react_batch
+
+        model = LocalQwen(model_id=args.model_id, max_new_tokens=args.max_new_tokens)
+        options = {"policy_fallback": args.policy_fallback} if args.react_strategy == "v05" else {}
+        summary = run_react_batch(
+            args.tasks, model.generate, model_id=args.model_id,
+            max_tasks=args.max_tasks, max_actions=args.max_actions,
+            max_derived_tasks=args.max_derived_tasks, max_depth=args.max_depth,
+            output_directory=args.output_directory, device_provider=lambda: model.device,
+            **options,
+        )
+        print(json.dumps(summary["counts"], indent=2))
+        return 0 if summary["status"] == "completed" else 1
 
     if args.batch:
         from llm.local_qwen import LocalQwen

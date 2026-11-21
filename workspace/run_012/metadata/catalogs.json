@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "generated_utc": "2026-11-20T22:23:11.019843+00:00",
+  "catalogs": [
+    {
+      "name": "Operation statuses",
+      "table": "dbo.OperationStatuses",
+      "key_column": "Status",
+      "description_column": "Description",
+      "values": [
+        {
+          "code": "PENDING",
+          "description": "Pending approval"
+        },
+        {
+          "code": "APPROVED",
+          "description": "Approved operation"
+        },
+        {
+          "code": "REJECTED",
+          "description": "Rejected operation"
+        }
+      ],
+      "source_file": "catalogs/operation_statuses.catalog.json",
+      "record_count": 3
+    },
+    {
+      "name": "Operation types",
+      "table": "dbo.OperationTypes",
+      "key_column": "OperationType",
+      "description_column": "Description",
+      "values": [
+        {
+          "code": 1,
+          "description": "External payment"
+        },
+        {
+          "code": 2,
+          "description": "Internal adjustment"
+        },
+        {
+          "code": 3,
+          "description": "Account-to-account transfer"
+        }
+      ],
+      "source_file": "catalogs/operation_types.catalog.json",
+      "record_count": 3
+    }
+  ]
+}

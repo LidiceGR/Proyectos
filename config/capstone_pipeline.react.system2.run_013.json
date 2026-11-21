@@ -1,0 +1,17 @@
+{
+  "run_id": "run_013",
+  "workspace": "workspace",
+  "source_config": "config/mock_req_dummy_system2.json",
+  "rag": {"initialize": false},
+  "research": {
+    "mode": "react",
+    "react_strategy": "v05",
+    "policy_fallback": false,
+    "model_id": "Qwen/Qwen3-0.6B",
+    "task_id": null,
+    "max_tasks": 0,
+    "max_actions": 3,
+    "max_derived_tasks": 4,
+    "max_depth": 1
+  }
+}

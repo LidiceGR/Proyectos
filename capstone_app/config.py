@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any
 
 _RUN_ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$")
-_ALLOWED_RESEARCH = frozenset({"none", "preview", "single", "batch"})
+_ALLOWED_RESEARCH = frozenset({"none", "preview", "single", "batch", "react"})
 
 
 @dataclass(frozen=True)
@@ -24,6 +24,11 @@ class PipelineConfig:
     model_id: str
     task_id: str | None
     max_tasks: int = 0
+    max_actions: int = 3
+    max_derived_tasks: int = 4
+    max_depth: int = 1
+    react_strategy: str = "v04"
+    policy_fallback: bool = False
 
     @property
     def run_directory(self) -> Path:
@@ -66,7 +71,7 @@ def load_config(config_file: Path, project_root: Path) -> PipelineConfig:
         raise ValueError("'research' must be an object")
     mode = research.get("mode", "none")
     if mode not in _ALLOWED_RESEARCH:
-        raise ValueError("'research.mode' must be one of: none, preview, single, batch")
+        raise ValueError("'research.mode' must be one of: none, preview, single, batch, react")
     model_id = _require_string(research.get("model_id", "Qwen/Qwen3-0.6B"), "research.model_id")
     task_id = research.get("task_id")
     if task_id is not None and (not isinstance(task_id, str) or not task_id.strip()):
@@ -74,8 +79,20 @@ def load_config(config_file: Path, project_root: Path) -> PipelineConfig:
     max_tasks = research.get("max_tasks", 0)
     if type(max_tasks) is not int or max_tasks < 0:
         raise ValueError("'research.max_tasks' must be an integer greater than or equal to zero")
-    if mode == "batch" and task_id is not None:
-        raise ValueError("'research.task_id' must be null when research.mode is batch")
+    if mode in {"batch", "react"} and task_id is not None:
+        raise ValueError("'research.task_id' must be null when research.mode is batch or react")
+    limits = {}
+    for key, default in (("max_actions", 3), ("max_derived_tasks", 4), ("max_depth", 1)):
+        val = research.get(key, default)
+        if type(val) is not int or val < 0:
+            raise ValueError(f"research.{key} must be a nonnegative integer")
+        limits[key] = val
+    strategy = research.get("react_strategy", "v04")
+    if strategy not in {"v04", "v05"}:
+        raise ValueError("research.react_strategy must be v04 or v05")
+    fallback = research.get("policy_fallback", False)
+    if type(fallback) is not bool:
+        raise ValueError("research.policy_fallback must be boolean")
     return PipelineConfig(
         run_id=run_id,
         workspace=workspace,
@@ -85,6 +102,9 @@ def load_config(config_file: Path, project_root: Path) -> PipelineConfig:
         model_id=model_id,
         task_id=task_id,
         max_tasks=max_tasks,
+        react_strategy=strategy,
+        policy_fallback=fallback,
+        **limits,
     )
 
 
@@ -106,6 +126,6 @@ def apply_overrides(
         if research_mode not in _ALLOWED_RESEARCH:
             raise ValueError("Invalid --research-mode")
         config = replace(config, research_mode=research_mode)
-    if config.research_mode == "batch" and config.task_id is not None:
-        raise ValueError("Batch mode requires research.task_id to be null")
+    if config.research_mode in {"batch", "react"} and config.task_id is not None:
+        raise ValueError("Batch/React mode requires research.task_id to be null")
     return config

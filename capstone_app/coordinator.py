@@ -96,11 +96,20 @@ class PipelineCoordinator:
             "preview": "research_preview",
             "single": "research_single",
             "batch": "research_batch",
+            "react": "research_react",
         }[mode]
         command = [sys.executable, "-m", "research_agent", "--tasks", str(research_tasks)]
-        if mode == "batch":
-            command += ["--batch", "--model-id", self.config.model_id,
+        if mode in {"batch", "react"}:
+            command += ["--react" if mode == "react" else "--batch",
+                        "--model-id", self.config.model_id,
                         "--max-tasks", str(self.config.max_tasks)]
+            if mode == "react":
+                command += ["--max-actions", str(self.config.max_actions),
+                            "--max-derived-tasks", str(self.config.max_derived_tasks),
+                            "--max-depth", str(self.config.max_depth)]
+                command += ["--react-strategy", self.config.react_strategy]
+                if self.config.policy_fallback:
+                    command.append("--policy-fallback")
         else:
             if self.config.task_id:
                 command += ["--task-id", self.config.task_id]
@@ -114,8 +123,9 @@ class PipelineCoordinator:
         self.status["stages"].append(stage)
         try:
             exit_code = self.executor(command, self.project_root)
-            if mode == "batch":
-                summary_path = research_tasks.parent / "agent_runs" / "batch_summary.json"
+            if mode in {"batch", "react"}:
+                summary_name = "react_summary.json" if mode == "react" else "batch_summary.json"
+                summary_path = research_tasks.parent / "agent_runs" / summary_name
                 if summary_path.exists():
                     summary = _read_json(summary_path)
                     stage["summary"] = summary.get("counts", {})
@@ -127,7 +137,7 @@ class PipelineCoordinator:
             if exit_code != 0:
                 raise RuntimeError(f"Research stage exited with code {exit_code}")
             stage.update({"status": "ok", "finished_utc": _now()})
-            if mode != "batch":
+            if mode not in {"batch", "react"}:
                 self.status["artifacts"][name] = (
                     str(research_tasks.parent / "agent_runs")
                     if mode == "single" else "prompt_preview_only"
