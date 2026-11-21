@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0",
+  "timestamp_utc": "2026-11-21T06:15:05.243062+00:00",
+  "source_manifest": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\comparison_04_verified_with_rag\\sources_manifest.json",
+  "destination": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\comparison_04_verified_with_rag\\ast_files",
+  "parser": "SQLFluff 3.3.1 (tsql)",
+  "status": "ok",
+  "note": "Syntactic evidence only; these AST segments are not verified business rules.",
+  "summary": {
+    "files_selected": 7,
+    "ok": 7,
+    "partial": 0,
+    "error": 0,
+    "source_files_ignored": 2
+  },
+  "files": [
+    {
+      "source_file": "sql_sources/01_ApproveOperation.sql",
+      "source_type": "procedure",
+      "ast_file": "sql_sources/01_ApproveOperation.sql.ast.json",
+      "status": "ok",
+      "parse_errors": 0,
+      "unparsed_regions": 0
+    },
+    {
+      "source_file": "sql_sources/01_operations_schema.sql",
+      "source_type": "schema",
+      "ast_file": "sql_sources/01_operations_schema.sql.ast.json",
+      "status": "ok",
+      "parse_errors": 0,
+      "unparsed_regions": 0
+    },
+    {
+      "source_file": "sql_sources/01_ValidateAmount.sql",
+      "source_type": "trigger",
+      "ast_file": "sql_sources/01_ValidateAmount.sql.ast.json",
+      "status": "ok",
+      "parse_errors": 0,
+      "unparsed_regions": 0
+    },
+    {
+      "source_file": "sql_sources/02_RegisterOperation.sql",
+      "source_type": "procedure",
+      "ast_file": "sql_sources/02_RegisterOperation.sql.ast.json",
+      "status": "ok",
+      "parse_errors": 0,
+      "unparsed_regions": 0
+    },
+    {
+      "source_file": "sql_sources/03_operation_checks_schema.sql",
+      "source_type": "schema",
+      "ast_file": "sql_sources/03_operation_checks_schema.sql.ast.json",
+      "status": "ok",
+      "parse_errors": 0,
+      "unparsed_regions": 0
+    },
+    {
+      "source_file": "sql_sources/04_HasPendingOperationCheck.sql",
+      "source_type": "procedure",
+      "ast_file": "sql_sources/04_HasPendingOperationCheck.sql.ast.json",
+      "status": "ok",
+      "parse_errors": 0,
+      "unparsed_regions": 0
+    },
+    {
+      "source_file": "sql_sources/05_RegisterOperationAfterCheck.sql",
+      "source_type": "procedure",
+      "ast_file": "sql_sources/05_RegisterOperationAfterCheck.sql.ast.json",
+      "status": "ok",
+      "parse_errors": 0,
+      "unparsed_regions": 0
+    }
+  ]
+}

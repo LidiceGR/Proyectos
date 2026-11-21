@@ -30,3 +30,5 @@ Return ONE JSON object with ONLY:
 - reason: ONE short public explanation of the evidence gap or why research can finish
 
 Do not write the candidate rule in this phase. Do not return Markdown.
+
+If RAG is initialized, retrieve_evidence: {"query":"text","top_k":5} finds local SQL passages; verify original lines before relying on a match.

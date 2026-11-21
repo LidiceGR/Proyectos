@@ -1,0 +1,630 @@
+{
+  "schema_version": "1.0",
+  "generated_utc": "2026-11-21T05:47:20.812057+00:00",
+  "note": "Structural and syntactic evidence only; no business rule is confirmed.",
+  "tables": [
+    {
+      "name": "dbo.OperationChecks",
+      "columns": [
+        {
+          "name": "CheckId",
+          "data_type": "INT",
+          "nullable": false,
+          "primary_key": true,
+          "definition": "CheckId INT NOT NULL PRIMARY KEY",
+          "source": {
+            "file": "sql_sources/03_operation_checks_schema.sql",
+            "line": 4
+          }
+        },
+        {
+          "name": "OperationId",
+          "data_type": "INT",
+          "nullable": false,
+          "primary_key": false,
+          "definition": "OperationId INT NOT NULL",
+          "source": {
+            "file": "sql_sources/03_operation_checks_schema.sql",
+            "line": 5
+          }
+        },
+        {
+          "name": "Status",
+          "data_type": "VARCHAR(20)",
+          "nullable": false,
+          "primary_key": false,
+          "definition": "Status VARCHAR(20) NOT NULL",
+          "source": {
+            "file": "sql_sources/03_operation_checks_schema.sql",
+            "line": 6
+          }
+        }
+      ],
+      "foreign_keys": [],
+      "source": {
+        "file": "sql_sources/03_operation_checks_schema.sql",
+        "line": 3,
+        "ast_file": "sql_sources/03_operation_checks_schema.sql.ast.json"
+      }
+    },
+    {
+      "name": "dbo.Operations",
+      "columns": [
+        {
+          "name": "OperationId",
+          "data_type": "INT",
+          "nullable": false,
+          "primary_key": true,
+          "definition": "OperationId INT NOT NULL PRIMARY KEY",
+          "source": {
+            "file": "sql_sources/01_operations_schema.sql",
+            "line": 15
+          }
+        },
+        {
+          "name": "OperationType",
+          "data_type": "INT",
+          "nullable": false,
+          "primary_key": false,
+          "definition": "OperationType INT NOT NULL",
+          "source": {
+            "file": "sql_sources/01_operations_schema.sql",
+            "line": 16
+          }
+        },
+        {
+          "name": "Amount",
+          "data_type": "DECIMAL(18, 2)",
+          "nullable": false,
+          "primary_key": false,
+          "definition": "Amount DECIMAL(18, 2) NOT NULL",
+          "source": {
+            "file": "sql_sources/01_operations_schema.sql",
+            "line": 17
+          }
+        },
+        {
+          "name": "Status",
+          "data_type": "VARCHAR(20)",
+          "nullable": false,
+          "primary_key": false,
+          "definition": "Status VARCHAR(20) NOT NULL",
+          "source": {
+            "file": "sql_sources/01_operations_schema.sql",
+            "line": 18
+          }
+        }
+      ],
+      "foreign_keys": [
+        {
+          "name": "FK_Operations_Type",
+          "columns": [
+            "OperationType"
+          ],
+          "references_table": "dbo.OperationTypes",
+          "references_columns": [
+            "OperationType"
+          ],
+          "source": {
+            "file": "sql_sources/01_operations_schema.sql",
+            "line": 19
+          }
+        },
+        {
+          "name": "FK_Operations_Status",
+          "columns": [
+            "Status"
+          ],
+          "references_table": "dbo.OperationStatuses",
+          "references_columns": [
+            "Status"
+          ],
+          "source": {
+            "file": "sql_sources/01_operations_schema.sql",
+            "line": 21
+          }
+        }
+      ],
+      "source": {
+        "file": "sql_sources/01_operations_schema.sql",
+        "line": 14,
+        "ast_file": "sql_sources/01_operations_schema.sql.ast.json"
+      }
+    },
+    {
+      "name": "dbo.OperationStatuses",
+      "columns": [
+        {
+          "name": "Status",
+          "data_type": "VARCHAR(20)",
+          "nullable": false,
+          "primary_key": true,
+          "definition": "Status VARCHAR(20) NOT NULL PRIMARY KEY",
+          "source": {
+            "file": "sql_sources/01_operations_schema.sql",
+            "line": 9
+          }
+        },
+        {
+          "name": "Description",
+          "data_type": "NVARCHAR(100)",
+          "nullable": false,
+          "primary_key": false,
+          "definition": "Description NVARCHAR(100) NOT NULL",
+          "source": {
+            "file": "sql_sources/01_operations_schema.sql",
+            "line": 10
+          }
+        }
+      ],
+      "foreign_keys": [],
+      "source": {
+        "file": "sql_sources/01_operations_schema.sql",
+        "line": 8,
+        "ast_file": "sql_sources/01_operations_schema.sql.ast.json"
+      }
+    },
+    {
+      "name": "dbo.OperationTypes",
+      "columns": [
+        {
+          "name": "OperationType",
+          "data_type": "INT",
+          "nullable": false,
+          "primary_key": true,
+          "definition": "OperationType INT NOT NULL PRIMARY KEY",
+          "source": {
+            "file": "sql_sources/01_operations_schema.sql",
+            "line": 3
+          }
+        },
+        {
+          "name": "Description",
+          "data_type": "NVARCHAR(100)",
+          "nullable": false,
+          "primary_key": false,
+          "definition": "Description NVARCHAR(100) NOT NULL",
+          "source": {
+            "file": "sql_sources/01_operations_schema.sql",
+            "line": 4
+          }
+        }
+      ],
+      "foreign_keys": [],
+      "source": {
+        "file": "sql_sources/01_operations_schema.sql",
+        "line": 2,
+        "ast_file": "sql_sources/01_operations_schema.sql.ast.json"
+      }
+    }
+  ],
+  "procedures": [
+    {
+      "name": "dbo.ApproveOperation",
+      "object_type": "procedure",
+      "source": {
+        "file": "sql_sources/01_ApproveOperation.sql",
+        "line": 2,
+        "ast_file": "sql_sources/01_ApproveOperation.sql.ast.json"
+      },
+      "parameters": [
+        {
+          "name": "@OperationId",
+          "data_type": "INT",
+          "line": 3
+        }
+      ],
+      "operations": [
+        {
+          "operation": "UPDATE",
+          "target_table": "dbo.Operations",
+          "source": {
+            "file": "sql_sources/01_ApproveOperation.sql",
+            "line": 6
+          },
+          "condition_context": [],
+          "where_conditions": [
+            {
+              "kind": "WHERE",
+              "expression": "OperationId = @OperationId AND Status = 'PENDING' AND Amount > 0",
+              "source": {
+                "file": "sql_sources/01_ApproveOperation.sql",
+                "line": 8
+              }
+            }
+          ],
+          "effects": {
+            "assignments": [
+              {
+                "column": "Status",
+                "operator": "=",
+                "expression": "'APPROVED'",
+                "line": 7
+              }
+            ]
+          }
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "WHERE",
+          "expression": "OperationId = @OperationId AND Status = 'PENDING' AND Amount > 0",
+          "source": {
+            "file": "sql_sources/01_ApproveOperation.sql",
+            "line": 8
+          }
+        }
+      ],
+      "calls": []
+    },
+    {
+      "name": "dbo.HasPendingOperationCheck",
+      "object_type": "procedure",
+      "source": {
+        "file": "sql_sources/04_HasPendingOperationCheck.sql",
+        "line": 2,
+        "ast_file": "sql_sources/04_HasPendingOperationCheck.sql.ast.json"
+      },
+      "parameters": [
+        {
+          "name": "@OperationId",
+          "data_type": "INT",
+          "line": 3
+        },
+        {
+          "name": "@HasPending",
+          "data_type": "BIT",
+          "line": 4
+        }
+      ],
+      "operations": [
+        {
+          "operation": "SET",
+          "source": {
+            "file": "sql_sources/04_HasPendingOperationCheck.sql",
+            "line": 7
+          },
+          "condition_context": [],
+          "effects": {
+            "variable_assignments": [
+              {
+                "variable": "@HasPending",
+                "expression": "0",
+                "line": 7
+              }
+            ]
+          }
+        },
+        {
+          "operation": "SELECT",
+          "tables": [
+            "dbo.OperationChecks"
+          ],
+          "source": {
+            "file": "sql_sources/04_HasPendingOperationCheck.sql",
+            "line": 9
+          },
+          "condition_context": [],
+          "where_conditions": [
+            {
+              "kind": "WHERE",
+              "expression": "OperationId = @OperationId AND Status = 'PENDING'",
+              "source": {
+                "file": "sql_sources/04_HasPendingOperationCheck.sql",
+                "line": 11
+              }
+            }
+          ],
+          "effects": {}
+        },
+        {
+          "operation": "SET",
+          "source": {
+            "file": "sql_sources/04_HasPendingOperationCheck.sql",
+            "line": 15
+          },
+          "condition_context": [],
+          "effects": {
+            "variable_assignments": [
+              {
+                "variable": "@HasPending",
+                "expression": "1",
+                "line": 15
+              }
+            ]
+          }
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "IF",
+          "expression": "EXISTS ( SELECT 1 FROM dbo.OperationChecks WHERE OperationId = @OperationId AND Status = 'PENDING' )",
+          "source": {
+            "file": "sql_sources/04_HasPendingOperationCheck.sql",
+            "line": 8
+          }
+        },
+        {
+          "kind": "WHERE",
+          "expression": "OperationId = @OperationId AND Status = 'PENDING'",
+          "source": {
+            "file": "sql_sources/04_HasPendingOperationCheck.sql",
+            "line": 11
+          }
+        }
+      ],
+      "calls": []
+    },
+    {
+      "name": "dbo.RegisterOperation",
+      "object_type": "procedure",
+      "source": {
+        "file": "sql_sources/02_RegisterOperation.sql",
+        "line": 2,
+        "ast_file": "sql_sources/02_RegisterOperation.sql.ast.json"
+      },
+      "parameters": [
+        {
+          "name": "@OperationId",
+          "data_type": "INT",
+          "line": 3
+        },
+        {
+          "name": "@OperationType",
+          "data_type": "INT",
+          "line": 4
+        },
+        {
+          "name": "@Amount",
+          "data_type": "DECIMAL(18, 2)",
+          "line": 5
+        }
+      ],
+      "operations": [
+        {
+          "operation": "INSERT",
+          "target_table": "dbo.Operations",
+          "source": {
+            "file": "sql_sources/02_RegisterOperation.sql",
+            "line": 10
+          },
+          "condition_context": [
+            {
+              "kind": "IF",
+              "expression": "@OperationType = 2 AND @Amount > 0",
+              "source": {
+                "file": "sql_sources/02_RegisterOperation.sql",
+                "line": 8
+              }
+            }
+          ],
+          "where_conditions": [],
+          "effects": {
+            "columns": [
+              "OperationId",
+              "OperationType",
+              "Amount",
+              "Status"
+            ],
+            "values_expression": "VALUES (@OperationId, @OperationType, @Amount, 'PENDING')",
+            "column_values": [
+              {
+                "column": "OperationId",
+                "expression": "@OperationId"
+              },
+              {
+                "column": "OperationType",
+                "expression": "@OperationType"
+              },
+              {
+                "column": "Amount",
+                "expression": "@Amount"
+              },
+              {
+                "column": "Status",
+                "expression": "'PENDING'"
+              }
+            ]
+          }
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "IF",
+          "expression": "@OperationType = 2 AND @Amount > 0",
+          "source": {
+            "file": "sql_sources/02_RegisterOperation.sql",
+            "line": 8
+          }
+        }
+      ],
+      "calls": []
+    },
+    {
+      "name": "dbo.RegisterOperationAfterCheck",
+      "object_type": "procedure",
+      "source": {
+        "file": "sql_sources/05_RegisterOperationAfterCheck.sql",
+        "line": 3,
+        "ast_file": "sql_sources/05_RegisterOperationAfterCheck.sql.ast.json"
+      },
+      "parameters": [
+        {
+          "name": "@OperationId",
+          "data_type": "INT",
+          "line": 4
+        },
+        {
+          "name": "@OperationType",
+          "data_type": "INT",
+          "line": 5
+        },
+        {
+          "name": "@Amount",
+          "data_type": "DECIMAL(18, 2)",
+          "line": 6
+        }
+      ],
+      "operations": [
+        {
+          "operation": "CALL",
+          "called_object": "dbo.HasPendingOperationCheck",
+          "resolution": "static",
+          "source": {
+            "file": "sql_sources/05_RegisterOperationAfterCheck.sql",
+            "line": 10
+          },
+          "condition_context": [],
+          "effects": {
+            "statement": "EXEC dbo.HasPendingOperationCheck @OperationId, @HasPending OUTPUT;",
+            "called_object": "dbo.HasPendingOperationCheck"
+          }
+        },
+        {
+          "operation": "CALL",
+          "called_object": "dbo.RegisterOperation",
+          "resolution": "static",
+          "source": {
+            "file": "sql_sources/05_RegisterOperationAfterCheck.sql",
+            "line": 13
+          },
+          "condition_context": [
+            {
+              "kind": "IF",
+              "expression": "@HasPending = 0",
+              "source": {
+                "file": "sql_sources/05_RegisterOperationAfterCheck.sql",
+                "line": 11
+              }
+            }
+          ],
+          "effects": {
+            "statement": "EXEC dbo.RegisterOperation @OperationId, @OperationType, @Amount;",
+            "called_object": "dbo.RegisterOperation"
+          }
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "IF",
+          "expression": "@HasPending = 0",
+          "source": {
+            "file": "sql_sources/05_RegisterOperationAfterCheck.sql",
+            "line": 11
+          }
+        }
+      ],
+      "calls": [
+        {
+          "procedure": "dbo.HasPendingOperationCheck",
+          "resolution": "static",
+          "expression": "EXEC dbo.HasPendingOperationCheck @OperationId, @HasPending OUTPUT;",
+          "source": {
+            "file": "sql_sources/05_RegisterOperationAfterCheck.sql",
+            "line": 10
+          },
+          "condition_context": []
+        },
+        {
+          "procedure": "dbo.RegisterOperation",
+          "resolution": "static",
+          "expression": "EXEC dbo.RegisterOperation @OperationId, @OperationType, @Amount;",
+          "source": {
+            "file": "sql_sources/05_RegisterOperationAfterCheck.sql",
+            "line": 13
+          },
+          "condition_context": [
+            {
+              "kind": "IF",
+              "expression": "@HasPending = 0",
+              "source": {
+                "file": "sql_sources/05_RegisterOperationAfterCheck.sql",
+                "line": 11
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "triggers": [
+    {
+      "name": "dbo.trg_Operations_ValidateAmount",
+      "object_type": "trigger",
+      "source": {
+        "file": "sql_sources/01_ValidateAmount.sql",
+        "line": 2,
+        "ast_file": "sql_sources/01_ValidateAmount.sql.ast.json"
+      },
+      "parameters": [],
+      "operations": [
+        {
+          "operation": "SELECT",
+          "tables": [
+            "inserted"
+          ],
+          "source": {
+            "file": "sql_sources/01_ValidateAmount.sql",
+            "line": 7
+          },
+          "condition_context": [],
+          "where_conditions": [
+            {
+              "kind": "WHERE",
+              "expression": "Amount <= 0",
+              "source": {
+                "file": "sql_sources/01_ValidateAmount.sql",
+                "line": 7
+              }
+            }
+          ],
+          "effects": {}
+        },
+        {
+          "operation": "THROW",
+          "source": {
+            "file": "sql_sources/01_ValidateAmount.sql",
+            "line": 9
+          },
+          "condition_context": [
+            {
+              "kind": "IF",
+              "expression": "EXISTS (SELECT 1 FROM inserted WHERE Amount <= 0)",
+              "source": {
+                "file": "sql_sources/01_ValidateAmount.sql",
+                "line": 7
+              }
+            }
+          ],
+          "effects": {
+            "statement": "THROW 50001, 'Amount must be greater than zero', 1"
+          }
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "IF",
+          "expression": "EXISTS (SELECT 1 FROM inserted WHERE Amount <= 0)",
+          "source": {
+            "file": "sql_sources/01_ValidateAmount.sql",
+            "line": 7
+          }
+        },
+        {
+          "kind": "WHERE",
+          "expression": "Amount <= 0",
+          "source": {
+            "file": "sql_sources/01_ValidateAmount.sql",
+            "line": 7
+          }
+        }
+      ],
+      "calls": [],
+      "table": "dbo.Operations",
+      "events": [
+        "INSERT",
+        "UPDATE"
+      ]
+    }
+  ]
+}

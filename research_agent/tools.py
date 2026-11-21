@@ -153,17 +153,32 @@ class ResearchTools:
         result = json.loads(path.read_text(encoding="utf-8-sig"))
         status = result.get("status")
         decision = result.get("decision") if isinstance(result.get("decision"), dict) else None
+        # A researcher's proposal is never a technically verified finding.
+        # Prefer the final (possibly revised) candidate after independent
+        # verification, while preserving its exact verification status.
+        verification_file = self.run_root / "research" / "verifications" / f"{task_id}.json"
+        technical_status = "not_yet_verified"
+        verification_ref = None
+        if verification_file.is_file() and verification_file.stat().st_size <= 2_000_000:
+            verification = json.loads(verification_file.read_text(encoding="utf-8-sig"))
+            technical_status = str(verification.get("status") or "not_yet_verified")
+            verification_ref = f"research/verifications/{task_id}.json"
+            revised = verification.get("candidate")
+            if isinstance(revised, dict):
+                decision = revised
         return {
             "tool": "get_research_finding", "status": "found" if decision else "not_ready",
             "task_id": task_id, "result_file": f"research/agent_runs/{path.name}",
             "research_status": status,
+            "technical_verification_status": technical_status,
+            "verification_file": verification_ref,
             "decision": ({k: decision.get(k) for k in (
                 "observed_behavior", "conditions", "effect", "classification",
                 "candidate_rule", "missing_information")}
                 if decision else None),
             "source": result.get("task_evidence"),
             "evidence_status": (result.get("evidence_check") or {}).get("status"),
-            "note": "An earlier agent proposal is not verified evidence; inspect its SQL source before relying on its conclusions.",
+            "note": "An agent proposal is not primary SQL evidence. An unresolved dependency must not be treated as technically verified; inspect the caller and callee source.",
         }
 
     def execute(self, action: dict[str, Any]) -> dict[str, Any]:
@@ -176,6 +191,9 @@ class ResearchTools:
             return self.inspect_source_fragment(args["source_file"], args["start_line"], args["end_line"])
         if name == "get_research_finding":
             return self.get_research_finding(args["task_id"])
+        if name == "retrieve_evidence":
+            from rag_tools.initializer import retrieve_evidence
+            return retrieve_evidence(self.run_root, args["query"], args["top_k"])
         return {"status": "unsupported_action", "action": name}
 
     def source_file(self, relative: str) -> Path:

@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "note": "Reference template ONLY. Have domain experts review and label 20-30 representative cases before using accuracy figures.",
+  "cases": [
+    {
+      "task_id": "TASK-REPLACE-WITH-RUN-TASK-ID",
+      "object_name": "dbo.RegisterOperationAfterCheck",
+      "reviewed": false,
+      "reviewed_by": null,
+      "classification": "candidate_business_rule",
+      "expected_conditions": ["@HasPending = 0"],
+      "required_effect_terms": ["RegisterOperation"],
+      "escalation_required": true,
+      "expected_dependencies": ["dbo.HasPendingOperationCheck", "dbo.RegisterOperation"]
+    }
+  ]
+}

@@ -61,6 +61,20 @@ def _source_policy_actions(task: dict[str, Any], tools: ResearchTools) -> list[d
                 column = match.group(1).replace("[", "").replace("]", "")
                 if _short_name(column) not in available:
                     continue
+                known_tables = [str(step.get("target_table") or ""),
+                                *(str(t) for t in step.get("read_tables", []))]
+                known_tables = [t for t in known_tables if t]
+                # Do not interpret OperationChecks.Status using the unrelated
+                # Operations.Status catalog merely because names coincide.
+                candidate_catalogs = [c for c in tools.catalogs if
+                    _short_name(str(c.get("key_column", ""))) == _short_name(column)]
+                explicit_scopes = [c for c in candidate_catalogs if c.get("applies_to")]
+                if known_tables and explicit_scopes and not any(
+                    _identifier(str(t)) == _identifier(str(scope))
+                    for t in known_tables for c in explicit_scopes
+                    for scope in c.get("applies_to", [])
+                ):
+                    continue
                 value: Any = match.group(2) if match.group(2) is not None else int(match.group(3))
                 candidates.append({"name": "lookup_catalog_value", "arguments": {"column": column, "value": value}})
     # The graph lets us safely discover triggers that are relevant to this DML.

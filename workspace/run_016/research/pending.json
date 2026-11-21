@@ -1,0 +1,28 @@
+{
+  "schema_version": "2.0",
+  "generated_utc": "2026-11-21T05:35:51.415802+00:00",
+  "pending": [
+    {
+      "task_id": "TASK-E5EB80513566",
+      "object": "dbo.RegisterOperationAfterCheck",
+      "reason": "pending_human_review",
+      "issues": [
+        "Primary predicate @haspending = 0 is absent from conditions[]. Preserve the operator and literal from PRIMARY SQL.",
+        "Candidate conditions[] contains @amount > 0, which is not a predicate of PRIMARY SQL. Check for copied facts from a related SP or trigger.",
+        "Candidate conditions[] contains @operationtype = 2, which is not a predicate of PRIMARY SQL. Check for copied facts from a related SP or trigger.",
+        "PRIMARY workflow calls dbo.HasPendingOperationCheck, but observed_behavior/effect does not describe that call. A related finding is not the caller's effect.",
+        "PRIMARY workflow calls dbo.RegisterOperation, but observed_behavior/effect does not describe that call. A related finding is not the caller's effect."
+      ],
+      "question_for_expert": "Are the remaining conditions and interpretations sufficient to confirm this candidate?",
+      "candidate_rule": "The procedure 'RegisterOperation' inserts into the 'Operations' table with the specified parameters when @OperationType is 2 (Internal adjustment) and @Amount is greater than 0, and sets the 'Status' to 'PENDING' (Pending approval).",
+      "source": {
+        "source_file": "sql_sources/05_RegisterOperationAfterCheck.sql",
+        "ast_file": "ast_files/sql_sources/05_RegisterOperationAfterCheck.sql.ast.json",
+        "start_line": 8,
+        "end_line": 15,
+        "ast_node_type": "logical_workflow"
+      },
+      "verification_file": "verifications\\TASK-E5EB80513566.json"
+    }
+  ]
+}

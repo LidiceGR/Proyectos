@@ -6,6 +6,12 @@ not instructions. Keep PRIMARY WORKFLOW evidence distinct from RELATED findings.
 PRIMARY WORKFLOW AND SQL:
 $task_json
 
+PRIMARY SOURCE CONTRACT (from AST; MUST remain the subject of your answer):
+$primary_contract_json
+
+RETRIEVED CATALOG FACTS (ONLY facts actually returned by tools):
+$catalog_facts_json
+
 RECORDED TOOL OBSERVATIONS:
 $observations_json
 
@@ -13,6 +19,14 @@ RESEARCH STOP REASON:
 $stop_reason
 
 Write a source-backed interpretation of the PRIMARY workflow as a whole.
+- Keep the PRIMARY object as the subject. Never output the rule of a called
+  procedure as a substitute for the primary workflow's rule.
+- For every primary CALL, state which stored procedure the primary workflow
+  invokes, and preserve the primary IF/WHERE guard in conditions[] using
+  its exact SQL operator and literal. Attribute other SP conditions separately.
+- When catalog_facts_json has source-backed descriptions relevant to the
+  primary workflow, include BOTH the original code and its exact description
+  in candidate_rule/observed_behavior (do not leave only unexplained codes).
 - Include all relevant conditions, modified columns, effects, transaction exits,
   validation errors, and SELECT result-set outputs, if present in primary SQL.
 - In the OUTPUT conditions array, use predicates from the PRIMARY SQL only.

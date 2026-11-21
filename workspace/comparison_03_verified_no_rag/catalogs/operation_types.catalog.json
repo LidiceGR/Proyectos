@@ -1,0 +1,24 @@
+{
+  "type": "catalog",
+  "name": "Operation types",
+  "table": "dbo.OperationTypes",
+  "key_column": "OperationType",
+  "description_column": "Description",
+  "values": [
+    {
+      "code": 1,
+      "description": "External payment"
+    },
+    {
+      "code": 2,
+      "description": "Internal adjustment"
+    },
+    {
+      "code": 3,
+      "description": "Account-to-account transfer"
+    }
+  ],
+  "applies_to": [
+    "dbo.Operations"
+  ]
+}

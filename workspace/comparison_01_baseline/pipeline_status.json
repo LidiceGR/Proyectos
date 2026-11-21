@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0",
+  "run_id": "comparison_01_baseline",
+  "created_utc": "2026-11-21T05:47:14.623690+00:00",
+  "updated_utc": "2026-11-21T05:49:20.958197+00:00",
+  "status": "completed_with_warnings",
+  "settings": {
+    "source_config": "D:\\Proyectos\\CMUAgent\\Proyectos\\config\\mock_req_dummy_system1.json",
+    "initialize_rag": false,
+    "research_mode": "batch"
+  },
+  "stages": [
+    {
+      "name": "source_extraction",
+      "status": "ok",
+      "started_utc": "2026-11-21T05:47:14.623690+00:00",
+      "finished_utc": "2026-11-21T05:47:15.421695+00:00"
+    },
+    {
+      "name": "sql_ast_parsing",
+      "status": "ok",
+      "started_utc": "2026-11-21T05:47:15.429956+00:00",
+      "finished_utc": "2026-11-21T05:47:20.229138+00:00"
+    },
+    {
+      "name": "inventory_building",
+      "status": "ok",
+      "started_utc": "2026-11-21T05:47:20.237131+00:00",
+      "finished_utc": "2026-11-21T05:47:20.980824+00:00"
+    },
+    {
+      "name": "task_initialization",
+      "status": "ok",
+      "started_utc": "2026-11-21T05:47:21.002976+00:00",
+      "finished_utc": "2026-11-21T05:47:21.616051+00:00"
+    },
+    {
+      "name": "research_batch",
+      "status": "completed_with_warnings",
+      "started_utc": "2026-11-21T05:47:21.641808+00:00",
+      "summary": {
+        "total_pending": 5,
+        "selected": 5,
+        "processed": 5,
+        "valid_json": 3,
+        "invalid_response": 0,
+        "evidence_incomplete": 2,
+        "execution_error": 0,
+        "not_selected": 0,
+        "candidate_rules_proposed": 3,
+        "requested_actions_proposed": 0
+      },
+      "finished_utc": "2026-11-21T05:49:20.952275+00:00",
+      "warning": "Some baseline candidates have insufficient evidence; outputs remain unverified"
+    }
+  ],
+  "artifacts": {
+    "source_extraction": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\comparison_01_baseline\\sources_manifest.json",
+    "sql_ast_parsing": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\comparison_01_baseline\\ast_files\\ast_manifest.json",
+    "inventory_building": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\comparison_01_baseline\\metadata\\inventory.json",
+    "task_initialization": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\comparison_01_baseline\\research\\research_tasks.json",
+    "research_batch": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\comparison_01_baseline\\research\\agent_runs\\batch_summary.json"
+  },
+  "finished_utc": "2026-11-21T05:49:20.958197+00:00"
+}

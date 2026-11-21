@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "generated_utc": "2026-11-21T06:13:41.864265+00:00",
+  "model_id": "Qwen/Qwen3-0.6B",
+  "counts": {
+    "verifier_calls": 9,
+    "researcher_revisions": 4,
+    "deterministic_catalog_annotations": 2,
+    "technically_evidenced": 4,
+    "feedback_tools_executed": 2,
+    "pending_human_review": 1
+  },
+  "initial_tasks": 5,
+  "processed_tasks": 5,
+  "rules_technically_evidenced": 4,
+  "pending_human_review": 1,
+  "wall_seconds": 511.263,
+  "not_measured": [
+    "ground_truth_correctness",
+    "semantic_groundedness",
+    "classification_accuracy"
+  ],
+  "note": "Actual accuracy requires an expert-reviewed benchmark; these are execution statistics only."
+}

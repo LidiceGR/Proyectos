@@ -1,0 +1,949 @@
+{
+  "schema_version": "1.0",
+  "source_file": "sql_sources/05_RegisterOperationAfterCheck.sql",
+  "source_type": "procedure",
+  "source_objects": [
+    {
+      "type": "procedure",
+      "name": "dbo.RegisterOperationAfterCheck",
+      "line": 3
+    }
+  ],
+  "parser": "SQLFluff (tsql)",
+  "tree_type": "syntactic_segment_tree",
+  "status": "ok",
+  "parse_errors": [],
+  "unparsed_regions": [],
+  "tree": {
+    "type": "file",
+    "line": 1,
+    "column": 1,
+    "children": [
+      {
+        "type": "comment",
+        "line": 1,
+        "column": 1,
+        "text": "-- Example of a cross-procedure rule: block registration when a check is pending."
+      },
+      {
+        "type": "newline",
+        "line": 1,
+        "column": 82,
+        "text": "\n"
+      },
+      {
+        "type": "comment",
+        "line": 2,
+        "column": 1,
+        "text": "-- The called RegisterOperation still enforces its own OperationType/Amount guard."
+      },
+      {
+        "type": "newline",
+        "line": 2,
+        "column": 83,
+        "text": "\n"
+      },
+      {
+        "type": "batch",
+        "line": 3,
+        "column": 1,
+        "children": [
+          {
+            "type": "create_procedure_statement",
+            "line": 3,
+            "column": 1,
+            "children": [
+              {
+                "type": "keyword",
+                "line": 3,
+                "column": 1,
+                "text": "CREATE"
+              },
+              {
+                "type": "whitespace",
+                "line": 3,
+                "column": 7,
+                "text": " "
+              },
+              {
+                "type": "keyword",
+                "line": 3,
+                "column": 8,
+                "text": "PROCEDURE"
+              },
+              {
+                "type": "whitespace",
+                "line": 3,
+                "column": 17,
+                "text": " "
+              },
+              {
+                "type": "object_reference",
+                "line": 3,
+                "column": 18,
+                "children": [
+                  {
+                    "type": "identifier",
+                    "line": 3,
+                    "column": 18,
+                    "text": "dbo"
+                  },
+                  {
+                    "type": "symbol",
+                    "line": 3,
+                    "column": 21,
+                    "text": "."
+                  },
+                  {
+                    "type": "identifier",
+                    "line": 3,
+                    "column": 22,
+                    "text": "RegisterOperationAfterCheck"
+                  }
+                ]
+              },
+              {
+                "type": "indent",
+                "line": 3,
+                "column": 49,
+                "text": ""
+              },
+              {
+                "type": "newline",
+                "line": 3,
+                "column": 49,
+                "text": "\n"
+              },
+              {
+                "type": "whitespace",
+                "line": 4,
+                "column": 1,
+                "text": "    "
+              },
+              {
+                "type": "procedure_parameter_list",
+                "line": 4,
+                "column": 5,
+                "children": [
+                  {
+                    "type": "raw",
+                    "line": 4,
+                    "column": 5,
+                    "text": "@OperationId"
+                  },
+                  {
+                    "type": "whitespace",
+                    "line": 4,
+                    "column": 17,
+                    "text": " "
+                  },
+                  {
+                    "type": "data_type",
+                    "line": 4,
+                    "column": 18,
+                    "children": [
+                      {
+                        "type": "raw",
+                        "line": 4,
+                        "column": 18,
+                        "text": "INT"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "symbol",
+                    "line": 4,
+                    "column": 21,
+                    "text": ","
+                  },
+                  {
+                    "type": "newline",
+                    "line": 4,
+                    "column": 22,
+                    "text": "\n"
+                  },
+                  {
+                    "type": "whitespace",
+                    "line": 5,
+                    "column": 1,
+                    "text": "    "
+                  },
+                  {
+                    "type": "raw",
+                    "line": 5,
+                    "column": 5,
+                    "text": "@OperationType"
+                  },
+                  {
+                    "type": "whitespace",
+                    "line": 5,
+                    "column": 19,
+                    "text": " "
+                  },
+                  {
+                    "type": "data_type",
+                    "line": 5,
+                    "column": 20,
+                    "children": [
+                      {
+                        "type": "raw",
+                        "line": 5,
+                        "column": 20,
+                        "text": "INT"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "symbol",
+                    "line": 5,
+                    "column": 23,
+                    "text": ","
+                  },
+                  {
+                    "type": "newline",
+                    "line": 5,
+                    "column": 24,
+                    "text": "\n"
+                  },
+                  {
+                    "type": "whitespace",
+                    "line": 6,
+                    "column": 1,
+                    "text": "    "
+                  },
+                  {
+                    "type": "raw",
+                    "line": 6,
+                    "column": 5,
+                    "text": "@Amount"
+                  },
+                  {
+                    "type": "whitespace",
+                    "line": 6,
+                    "column": 12,
+                    "text": " "
+                  },
+                  {
+                    "type": "data_type",
+                    "line": 6,
+                    "column": 13,
+                    "children": [
+                      {
+                        "type": "raw",
+                        "line": 6,
+                        "column": 13,
+                        "text": "DECIMAL"
+                      },
+                      {
+                        "type": "bracketed_arguments",
+                        "line": 6,
+                        "column": 20,
+                        "children": [
+                          {
+                            "type": "bracketed",
+                            "line": 6,
+                            "column": 20,
+                            "children": [
+                              {
+                                "type": "symbol",
+                                "line": 6,
+                                "column": 20,
+                                "text": "("
+                              },
+                              {
+                                "type": "indent",
+                                "line": 6,
+                                "column": 21,
+                                "text": ""
+                              },
+                              {
+                                "type": "expression",
+                                "line": 6,
+                                "column": 21,
+                                "children": [
+                                  {
+                                    "type": "literal",
+                                    "line": 6,
+                                    "column": 21,
+                                    "text": "18"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "symbol",
+                                "line": 6,
+                                "column": 23,
+                                "text": ","
+                              },
+                              {
+                                "type": "whitespace",
+                                "line": 6,
+                                "column": 24,
+                                "text": " "
+                              },
+                              {
+                                "type": "expression",
+                                "line": 6,
+                                "column": 25,
+                                "children": [
+                                  {
+                                    "type": "literal",
+                                    "line": 6,
+                                    "column": 25,
+                                    "text": "2"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "dedent",
+                                "line": 6,
+                                "column": 26,
+                                "text": ""
+                              },
+                              {
+                                "type": "symbol",
+                                "line": 6,
+                                "column": 26,
+                                "text": ")"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "newline",
+                "line": 6,
+                "column": 27,
+                "text": "\n"
+              },
+              {
+                "type": "dedent",
+                "line": 7,
+                "column": 1,
+                "text": ""
+              },
+              {
+                "type": "keyword",
+                "line": 7,
+                "column": 1,
+                "text": "AS"
+              },
+              {
+                "type": "newline",
+                "line": 7,
+                "column": 3,
+                "text": "\n"
+              },
+              {
+                "type": "procedure_statement",
+                "line": 8,
+                "column": 1,
+                "children": [
+                  {
+                    "type": "statement",
+                    "line": 8,
+                    "column": 1,
+                    "children": [
+                      {
+                        "type": "begin_end_block",
+                        "line": 8,
+                        "column": 1,
+                        "children": [
+                          {
+                            "type": "keyword",
+                            "line": 8,
+                            "column": 1,
+                            "text": "BEGIN"
+                          },
+                          {
+                            "type": "indent",
+                            "line": 8,
+                            "column": 6,
+                            "text": ""
+                          },
+                          {
+                            "type": "newline",
+                            "line": 8,
+                            "column": 6,
+                            "text": "\n"
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 9,
+                            "column": 1,
+                            "text": "    "
+                          },
+                          {
+                            "type": "statement",
+                            "line": 9,
+                            "column": 5,
+                            "children": [
+                              {
+                                "type": "declare_segment",
+                                "line": 9,
+                                "column": 5,
+                                "children": [
+                                  {
+                                    "type": "keyword",
+                                    "line": 9,
+                                    "column": 5,
+                                    "text": "DECLARE"
+                                  },
+                                  {
+                                    "type": "indent",
+                                    "line": 9,
+                                    "column": 12,
+                                    "text": ""
+                                  },
+                                  {
+                                    "type": "whitespace",
+                                    "line": 9,
+                                    "column": 12,
+                                    "text": " "
+                                  },
+                                  {
+                                    "type": "raw",
+                                    "line": 9,
+                                    "column": 13,
+                                    "text": "@HasPending"
+                                  },
+                                  {
+                                    "type": "whitespace",
+                                    "line": 9,
+                                    "column": 24,
+                                    "text": " "
+                                  },
+                                  {
+                                    "type": "data_type",
+                                    "line": 9,
+                                    "column": 25,
+                                    "children": [
+                                      {
+                                        "type": "raw",
+                                        "line": 9,
+                                        "column": 25,
+                                        "text": "BIT"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "dedent",
+                                    "line": 9,
+                                    "column": 28,
+                                    "text": ""
+                                  },
+                                  {
+                                    "type": "symbol",
+                                    "line": 9,
+                                    "column": 28,
+                                    "text": ";"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "newline",
+                            "line": 9,
+                            "column": 29,
+                            "text": "\n"
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 10,
+                            "column": 1,
+                            "text": "    "
+                          },
+                          {
+                            "type": "statement",
+                            "line": 10,
+                            "column": 5,
+                            "children": [
+                              {
+                                "type": "execute_script_statement",
+                                "line": 10,
+                                "column": 5,
+                                "children": [
+                                  {
+                                    "type": "keyword",
+                                    "line": 10,
+                                    "column": 5,
+                                    "text": "EXEC"
+                                  },
+                                  {
+                                    "type": "whitespace",
+                                    "line": 10,
+                                    "column": 9,
+                                    "text": " "
+                                  },
+                                  {
+                                    "type": "object_reference",
+                                    "line": 10,
+                                    "column": 10,
+                                    "children": [
+                                      {
+                                        "type": "identifier",
+                                        "line": 10,
+                                        "column": 10,
+                                        "text": "dbo"
+                                      },
+                                      {
+                                        "type": "symbol",
+                                        "line": 10,
+                                        "column": 13,
+                                        "text": "."
+                                      },
+                                      {
+                                        "type": "identifier",
+                                        "line": 10,
+                                        "column": 14,
+                                        "text": "HasPendingOperationCheck"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "indent",
+                                    "line": 10,
+                                    "column": 38,
+                                    "text": ""
+                                  },
+                                  {
+                                    "type": "whitespace",
+                                    "line": 10,
+                                    "column": 38,
+                                    "text": " "
+                                  },
+                                  {
+                                    "type": "raw",
+                                    "line": 10,
+                                    "column": 39,
+                                    "text": "@OperationId"
+                                  },
+                                  {
+                                    "type": "symbol",
+                                    "line": 10,
+                                    "column": 51,
+                                    "text": ","
+                                  },
+                                  {
+                                    "type": "whitespace",
+                                    "line": 10,
+                                    "column": 52,
+                                    "text": " "
+                                  },
+                                  {
+                                    "type": "raw",
+                                    "line": 10,
+                                    "column": 53,
+                                    "text": "@HasPending"
+                                  },
+                                  {
+                                    "type": "whitespace",
+                                    "line": 10,
+                                    "column": 64,
+                                    "text": " "
+                                  },
+                                  {
+                                    "type": "identifier",
+                                    "line": 10,
+                                    "column": 65,
+                                    "text": "OUTPUT"
+                                  },
+                                  {
+                                    "type": "dedent",
+                                    "line": 10,
+                                    "column": 71,
+                                    "text": ""
+                                  },
+                                  {
+                                    "type": "symbol",
+                                    "line": 10,
+                                    "column": 71,
+                                    "text": ";"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "newline",
+                            "line": 10,
+                            "column": 72,
+                            "text": "\n"
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 11,
+                            "column": 1,
+                            "text": "    "
+                          },
+                          {
+                            "type": "statement",
+                            "line": 11,
+                            "column": 5,
+                            "children": [
+                              {
+                                "type": "if_then_statement",
+                                "line": 11,
+                                "column": 5,
+                                "children": [
+                                  {
+                                    "type": "if_clause",
+                                    "line": 11,
+                                    "column": 5,
+                                    "children": [
+                                      {
+                                        "type": "keyword",
+                                        "line": 11,
+                                        "column": 5,
+                                        "text": "IF"
+                                      },
+                                      {
+                                        "type": "indent",
+                                        "line": 11,
+                                        "column": 7,
+                                        "text": ""
+                                      },
+                                      {
+                                        "type": "whitespace",
+                                        "line": 11,
+                                        "column": 7,
+                                        "text": " "
+                                      },
+                                      {
+                                        "type": "expression",
+                                        "line": 11,
+                                        "column": 8,
+                                        "children": [
+                                          {
+                                            "type": "raw",
+                                            "line": 11,
+                                            "column": 8,
+                                            "text": "@HasPending"
+                                          },
+                                          {
+                                            "type": "whitespace",
+                                            "line": 11,
+                                            "column": 19,
+                                            "text": " "
+                                          },
+                                          {
+                                            "type": "comparison_operator",
+                                            "line": 11,
+                                            "column": 20,
+                                            "children": [
+                                              {
+                                                "type": "symbol",
+                                                "line": 11,
+                                                "column": 20,
+                                                "text": "="
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "whitespace",
+                                            "line": 11,
+                                            "column": 21,
+                                            "text": " "
+                                          },
+                                          {
+                                            "type": "literal",
+                                            "line": 11,
+                                            "column": 22,
+                                            "text": "0"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "dedent",
+                                        "line": 11,
+                                        "column": 23,
+                                        "text": ""
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "indent",
+                                    "line": 11,
+                                    "column": 23,
+                                    "text": ""
+                                  },
+                                  {
+                                    "type": "newline",
+                                    "line": 11,
+                                    "column": 23,
+                                    "text": "\n"
+                                  },
+                                  {
+                                    "type": "whitespace",
+                                    "line": 12,
+                                    "column": 1,
+                                    "text": "    "
+                                  },
+                                  {
+                                    "type": "statement",
+                                    "line": 12,
+                                    "column": 5,
+                                    "children": [
+                                      {
+                                        "type": "begin_end_block",
+                                        "line": 12,
+                                        "column": 5,
+                                        "children": [
+                                          {
+                                            "type": "keyword",
+                                            "line": 12,
+                                            "column": 5,
+                                            "text": "BEGIN"
+                                          },
+                                          {
+                                            "type": "indent",
+                                            "line": 12,
+                                            "column": 10,
+                                            "text": ""
+                                          },
+                                          {
+                                            "type": "newline",
+                                            "line": 12,
+                                            "column": 10,
+                                            "text": "\n"
+                                          },
+                                          {
+                                            "type": "whitespace",
+                                            "line": 13,
+                                            "column": 1,
+                                            "text": "        "
+                                          },
+                                          {
+                                            "type": "statement",
+                                            "line": 13,
+                                            "column": 9,
+                                            "children": [
+                                              {
+                                                "type": "execute_script_statement",
+                                                "line": 13,
+                                                "column": 9,
+                                                "children": [
+                                                  {
+                                                    "type": "keyword",
+                                                    "line": 13,
+                                                    "column": 9,
+                                                    "text": "EXEC"
+                                                  },
+                                                  {
+                                                    "type": "whitespace",
+                                                    "line": 13,
+                                                    "column": 13,
+                                                    "text": " "
+                                                  },
+                                                  {
+                                                    "type": "object_reference",
+                                                    "line": 13,
+                                                    "column": 14,
+                                                    "children": [
+                                                      {
+                                                        "type": "identifier",
+                                                        "line": 13,
+                                                        "column": 14,
+                                                        "text": "dbo"
+                                                      },
+                                                      {
+                                                        "type": "symbol",
+                                                        "line": 13,
+                                                        "column": 17,
+                                                        "text": "."
+                                                      },
+                                                      {
+                                                        "type": "identifier",
+                                                        "line": 13,
+                                                        "column": 18,
+                                                        "text": "RegisterOperation"
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "type": "indent",
+                                                    "line": 13,
+                                                    "column": 35,
+                                                    "text": ""
+                                                  },
+                                                  {
+                                                    "type": "whitespace",
+                                                    "line": 13,
+                                                    "column": 35,
+                                                    "text": " "
+                                                  },
+                                                  {
+                                                    "type": "raw",
+                                                    "line": 13,
+                                                    "column": 36,
+                                                    "text": "@OperationId"
+                                                  },
+                                                  {
+                                                    "type": "symbol",
+                                                    "line": 13,
+                                                    "column": 48,
+                                                    "text": ","
+                                                  },
+                                                  {
+                                                    "type": "whitespace",
+                                                    "line": 13,
+                                                    "column": 49,
+                                                    "text": " "
+                                                  },
+                                                  {
+                                                    "type": "raw",
+                                                    "line": 13,
+                                                    "column": 50,
+                                                    "text": "@OperationType"
+                                                  },
+                                                  {
+                                                    "type": "symbol",
+                                                    "line": 13,
+                                                    "column": 64,
+                                                    "text": ","
+                                                  },
+                                                  {
+                                                    "type": "whitespace",
+                                                    "line": 13,
+                                                    "column": 65,
+                                                    "text": " "
+                                                  },
+                                                  {
+                                                    "type": "raw",
+                                                    "line": 13,
+                                                    "column": 66,
+                                                    "text": "@Amount"
+                                                  },
+                                                  {
+                                                    "type": "dedent",
+                                                    "line": 13,
+                                                    "column": 73,
+                                                    "text": ""
+                                                  },
+                                                  {
+                                                    "type": "symbol",
+                                                    "line": 13,
+                                                    "column": 73,
+                                                    "text": ";"
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "newline",
+                                            "line": 13,
+                                            "column": 74,
+                                            "text": "\n"
+                                          },
+                                          {
+                                            "type": "whitespace",
+                                            "line": 14,
+                                            "column": 1,
+                                            "text": "    "
+                                          },
+                                          {
+                                            "type": "dedent",
+                                            "line": 14,
+                                            "column": 5,
+                                            "text": ""
+                                          },
+                                          {
+                                            "type": "keyword",
+                                            "line": 14,
+                                            "column": 5,
+                                            "text": "END"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "symbol",
+                                    "line": 14,
+                                    "column": 8,
+                                    "text": ";"
+                                  },
+                                  {
+                                    "type": "dedent",
+                                    "line": 14,
+                                    "column": 9,
+                                    "text": ""
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "newline",
+                            "line": 14,
+                            "column": 9,
+                            "text": "\n"
+                          },
+                          {
+                            "type": "dedent",
+                            "line": 15,
+                            "column": 1,
+                            "text": ""
+                          },
+                          {
+                            "type": "keyword",
+                            "line": 15,
+                            "column": 1,
+                            "text": "END"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "symbol",
+                    "line": 15,
+                    "column": 4,
+                    "text": ";"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "newline",
+        "line": 15,
+        "column": 5,
+        "text": "\n"
+      },
+      {
+        "type": "go_statement",
+        "line": 16,
+        "column": 1,
+        "children": [
+          {
+            "type": "keyword",
+            "line": 16,
+            "column": 1,
+            "text": "GO"
+          }
+        ]
+      },
+      {
+        "type": "newline",
+        "line": 16,
+        "column": 3,
+        "text": "\n"
+      },
+      {
+        "type": "end_of_file",
+        "line": 17,
+        "column": 1,
+        "text": ""
+      }
+    ]
+  }
+}

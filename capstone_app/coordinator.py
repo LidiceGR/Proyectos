@@ -97,19 +97,23 @@ class PipelineCoordinator:
             "single": "research_single",
             "batch": "research_batch",
             "react": "research_react",
+            "multiagent": "research_multiagent",
         }[mode]
         command = [sys.executable, "-m", "research_agent", "--tasks", str(research_tasks)]
-        if mode in {"batch", "react"}:
-            command += ["--react" if mode == "react" else "--batch",
+        if mode in {"batch", "react", "multiagent"}:
+            command += ["--multiagent" if mode == "multiagent" else "--react" if mode == "react" else "--batch",
                         "--model-id", self.config.model_id,
                         "--max-tasks", str(self.config.max_tasks)]
-            if mode == "react":
+            if mode in {"react", "multiagent"}:
                 command += ["--max-actions", str(self.config.max_actions),
                             "--max-derived-tasks", str(self.config.max_derived_tasks),
                             "--max-depth", str(self.config.max_depth)]
                 command += ["--react-strategy", self.config.react_strategy]
                 if self.config.policy_fallback:
                     command.append("--policy-fallback")
+                if mode == "multiagent":
+                    command += ["--max-verification-rounds", str(self.config.max_verification_rounds),
+                                "--max-feedback-actions", str(self.config.max_feedback_actions)]
         else:
             if self.config.task_id:
                 command += ["--task-id", self.config.task_id]
@@ -123,27 +127,46 @@ class PipelineCoordinator:
         self.status["stages"].append(stage)
         try:
             exit_code = self.executor(command, self.project_root)
-            if mode in {"batch", "react"}:
-                summary_name = "react_summary.json" if mode == "react" else "batch_summary.json"
-                summary_path = research_tasks.parent / "agent_runs" / summary_name
-                if summary_path.exists():
-                    summary = _read_json(summary_path)
-                    stage["summary"] = summary.get("counts", {})
-                    self.status["artifacts"][name] = str(summary_path)
-                    if summary.get("status") != "completed" and exit_code == 0:
-                        raise RuntimeError("Research batch summary reports incomplete or failed processing")
-                else:
+            completed_with_warnings = False
+            if mode in {"batch", "react", "multiagent"}:
+                summary_name = "multiagent_summary.json" if mode == "multiagent" else "react_summary.json" if mode == "react" else "batch_summary.json"
+                summary_path = (research_tasks.parent if mode == "multiagent" else research_tasks.parent / "agent_runs") / summary_name
+                if not summary_path.exists():
                     raise RuntimeError("Research batch summary is missing")
-            if exit_code != 0:
+                summary = _read_json(summary_path)
+                counts = summary.get("counts") or {}
+                stage["summary"] = counts
+                self.status["artifacts"][name] = str(summary_path)
+                # An evidence-incomplete baseline is a valid OBSERVATION for an
+                # ablation experiment, never a verified business rule. This
+                # exception is opt-in and disallows model/JSON execution failures.
+                completed_with_warnings = (
+                    mode == "batch"
+                    and self.config.allow_incomplete_batch
+                    and summary.get("status") == "completed_with_errors"
+                    and counts.get("selected", 0) > 0
+                    and counts.get("processed") == counts.get("selected")
+                    and counts.get("valid_json", 0) + counts.get("evidence_incomplete", 0) == counts.get("processed")
+                    and counts.get("evidence_incomplete", 0) > 0
+                    and counts.get("invalid_response") == 0
+                    and counts.get("execution_error") == 0
+                    and exit_code == 1
+                )
+                if summary.get("status") != "completed" and not completed_with_warnings:
+                    raise RuntimeError("Research batch summary reports incomplete or failed processing")
+            if exit_code != 0 and not completed_with_warnings:
                 raise RuntimeError(f"Research stage exited with code {exit_code}")
-            stage.update({"status": "ok", "finished_utc": _now()})
+            stage.update({"status": "completed_with_warnings" if completed_with_warnings else "ok",
+                          "finished_utc": _now()})
+            if completed_with_warnings:
+                stage["warning"] = "Some baseline candidates have insufficient evidence; outputs remain unverified"
             if mode not in {"batch", "react"}:
                 self.status["artifacts"][name] = (
                     str(research_tasks.parent / "agent_runs")
                     if mode == "single" else "prompt_preview_only"
                 )
             self._save()
-            print(f"[pipeline_stage_completed] stage={name} status=ok", flush=True)
+            print(f"[pipeline_stage_completed] stage={name} status={stage['status']}", flush=True)
         except Exception as exc:
             stage.update({"status": "error", "finished_utc": _now(), "error": str(exc)})
             self.status.update({"status": "error", "error": str(exc)})
@@ -209,15 +232,10 @@ class PipelineCoordinator:
             for name, command, artifact in commands:
                 print(f"[pipeline_planned_stage] stage={name} output={artifact}")
                 print("  " + subprocess.list2cmdline(command))
-            print(f"[pipeline_rag] initialize={str(self.config.initialize_rag).lower()} implemented=false")
+            print(f"[pipeline_rag] initialize={str(self.config.initialize_rag).lower()} backend=lexical_bm25")
             print(f"[pipeline_research] mode={self.config.research_mode}")
             return {"status": "dry_run", "run_directory": str(self.run_dir)}
 
-        if self.config.initialize_rag:
-            from rag_tools.initializer import initialize_rag_index, rag_is_implemented
-            # Fail before extraction while this placeholder remains unavailable.
-            if not rag_is_implemented():
-                initialize_rag_index(self.run_dir)
 
         try:
             for name, command, output in commands:
@@ -251,14 +269,15 @@ class PipelineCoordinator:
                     validator = None
                 self._stage(name, command, output, validate=validator)
             if self.config.initialize_rag:
-                # Once implemented, indexing runs after source preparation.
                 self._rag_stage()
             if self.config.research_mode != "none":
                 self._research(self.config.research_mode, self.run_dir / "research" / "research_tasks.json")
-            self.status["status"] = "completed"
+            self.status["status"] = ("completed_with_warnings" if any(
+                item.get("status") == "completed_with_warnings" for item in self.status["stages"]
+            ) else "completed")
             self.status["finished_utc"] = _now()
             self._save()
-            print(f"[pipeline_completed] run_id={self.config.run_id} research_mode={self.config.research_mode}", flush=True)
+            print(f"[pipeline_completed] run_id={self.config.run_id} research_mode={self.config.research_mode} status={self.status['status']}", flush=True)
             print(f"[pipeline_status_file] path={self.run_dir / 'pipeline_status.json'}", flush=True)
             return self.status
         except Exception:

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Capstone · Artifact Explorer v0.8 Multi-Run</title>
+<style>
+:root{color-scheme:light;--bg:#f2f6f7;--ink:#233748;--muted:#718497;--line:#dce6ea;--teal:#12877b;--navy:#173247;--paper:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.55 Segoe UI,Arial,sans-serif}button,input,select{font:inherit}button{cursor:pointer;border:1px solid var(--line);background:#fff;border-radius:8px;padding:9px 12px;color:var(--ink)}button:hover{border-color:#78b9b1}.app{display:grid;grid-template-columns:290px 1fr;min-height:100vh}.side{background:#fff;border-right:1px solid var(--line);padding:23px 15px;overflow:auto;height:100vh;position:sticky;top:0}.brand{font-size:21px;font-weight:800;letter-spacing:-.8px;margin-bottom:4px}.brand b{color:var(--teal)}.tiny{font-size:11px;color:var(--muted)}.upload{background:var(--navy);color:white;border:0;width:100%;font-weight:700;margin:20px 0 10px}.side input[type=search]{width:100%;border:1px solid var(--line);border-radius:9px;padding:11px;margin:12px 0}.cat{font-size:10px;text-transform:uppercase;color:#8196a7;letter-spacing:1.2px;font-weight:800;margin:20px 10px 7px}.file{display:flex;align-items:flex-start;gap:7px;border:0;text-align:left;width:100%;padding:8px;border-radius:7px;background:transparent;font-family:Consolas,monospace;font-size:10.5px;overflow-wrap:anywhere}.file:hover,.file.sel{background:#e9f6f3;color:#087b6f}.file span{flex:1}.main{padding:26px 32px;max-width:1600px;width:100%;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:22px}.top h1{font-size:28px;letter-spacing:-1px;margin:0}.chip{border:1px solid #cce5dd;background:#f0fbf7;padding:6px 11px;border-radius:20px;font-size:11px;color:#34756c}.overview{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-bottom:20px}.stat,.panel{background:var(--paper);border:1px solid var(--line);border-radius:12px;box-shadow:0 3px 13px rgba(12,34,44,.025)}.stat{padding:17px}.stat strong{font-size:26px;display:block}.stat span{color:var(--muted);font-size:11px}.panes{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(250px,.75fr);gap:14px}.panel{padding:20px;margin-bottom:15px;min-width:0}.panel h2{font-size:16px;margin:0 0 13px}.muted{color:var(--muted)}.code{font:11.5px/1.5 Consolas,monospace;background:#172b3e;color:#e5f5f8;border-radius:9px;padding:15px;overflow:auto;max-height:75vh;white-space:pre-wrap;overflow-wrap:anywhere}.entry{border-bottom:1px solid #eef2f4;padding:10px 0;overflow-wrap:anywhere}.entry:last-child{border-bottom:0}.name{font-weight:700}.label{display:inline-block;border-radius:8px;background:#e9f6f3;color:#117e70;padding:2px 7px;font-size:10px;font-weight:750}.warn{background:#fff3e3;color:#a27024}.row{display:flex;justify-content:space-between;align-items:center;gap:9px}.navhint{background:#edf7f5;border-radius:9px;padding:14px;color:#316d64}.no{background:#f8fafb;padding:16px;border:1px dashed var(--line);border-radius:9px;color:var(--muted)}.compact{font-size:11px}.btnlink{border:0;background:transparent;padding:0;text-align:left;color:#087f77;font-size:11px;overflow-wrap:anywhere}.btnlink:hover{text-decoration:underline}@media(max-width:1100px){.panes{grid-template-columns:1fr}.overview{grid-template-columns:repeat(2,1fr)}}@media(max-width:750px){.app{grid-template-columns:1fr}.side{position:static;height:auto;max-height:270px}.main{padding:15px}}
+
+#runSelect{min-width:150px;border:1px solid var(--line);border-radius:8px;padding:7px;background:#fff;margin:0 10px}
+.overview-candidates{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.candidate-card{border:1px solid var(--line);background:#fbfcfd;border-radius:10px;padding:13px}
+.candidate-text{margin:10px 0;font-size:12px;line-height:1.55}
+.pending-note,.warning-note{background:#fff3e5;color:#87581e;border-radius:8px;padding:10px;margin:10px 0}
+.compare-box{border:1px solid #e4e9ee;border-left:3px solid #a2b1c3;padding:10px;margin:9px 0;border-radius:6px;font-size:12px;overflow-wrap:anywhere}
+.compare-box p{margin:7px 0 0}.compare-box.corrected{border-left-color:var(--teal);background:#eff9f6}
+.subheading{font-weight:700;font-size:12px;margin:13px 0 4px}
+</style></head><body>
+<div class="app"><aside class="side"><div class="brand">CAPSTONE <b>Evidence</b></div><div class="tiny">Artifact Explorer v0.8 · local y sin servidor</div><button class="upload" id="choose">📂 Abrir carpeta de una ejecución</button><input directory="" hidden="" id="files" multiple="" type="file" webkitdirectory=""/><div class="tiny">Selecciona workspace/run_014. Se leen archivos locales solo en tu navegador.</div><input id="filter" placeholder="Buscar archivo o carpeta..." type="search"/><div id="tree"></div></aside><main class="main"><div class="top"><div><div class="tiny">RESEARCH WORKSPACE / ARCHIVOS Y TRAZAS</div><h1 id="title">Explorador de evidencias</h1></div><label class="tiny" for="runSelect">Ejecución</label> <select disabled="" id="runSelect"><option>Selecciona una carpeta</option></select><span class="chip" id="source">Sin archivos cargados</span></div><div class="overview" id="stats"><div class="stat"><strong>—</strong><span>Archivos</span></div><div class="stat"><strong>—</strong><span>Tareas</span></div><div class="stat"><strong>—</strong><span>Hallazgos</span></div><div class="stat"><strong>—</strong><span>Pendientes</span></div></div><section class="panel" id="preview"><h2>Resultados finales</h2><p class="muted">Selecciona una carpeta para ver hallazgos.</p></section><div class="panes"><div><section class="panel"><div class="row"><h2 id="filename">Selecciona una carpeta</h2><span class="label" id="filetype">JSON / SQL</span></div><p class="muted compact" id="meta">El explorador conserva las rutas originales y muestra el contenido íntegro de todos los archivos cargados.</p><pre class="code" id="raw">Abre una carpeta de workspace para navegar fuentes, AST, metadatos, tareas, trazas ReAct, verificaciones, hallazgos y registros.</pre></section></div><aside><section class="panel"><h2>Vista estructurada</h2><div class="no" id="details">Al seleccionar un archivo JSON, aquí se mostrarán sus campos y relaciones principales.</div></section><section class="panel"><h2>Etapas del sistema</h2><div class="entry">01 · Obtención de fuentes</div><div class="entry">02 · AST + inventario</div><div class="entry">03 · Investigación ReAct</div><div class="entry">04 · Evidence Verifier</div><div class="entry">05 · Revisión humana</div><div class="entry tiny">Las reglas candidatas no se consideran aprobadas hasta la confirmación de un especialista.</div></section></aside></div></main></div>
+<script>
+'use strict';
+let entries=[], activeRun='', selected=null;
+const el=id=>document.getElementById(id);
+const make=(tag,value='',cls='')=>{const n=document.createElement(tag);n.textContent=value??'';if(cls)n.className=cls;return n;};
+const norm=p=>String(p||'').replaceAll('\\','/').replace(/^\/+/, '');
+const data=f=>{try{return f?JSON.parse(f.text):null}catch{return null}};
+function runOf(path){
+ const pieces=norm(path).split('/');
+ const idx=pieces.findIndex((x,i)=>i>0&&['research','rag','metadata','sql_sources','ast_files','catalogs'].includes(x));
+ if(idx>0)return pieces[idx-1];
+ const byName=pieces.find(p=>/^(?:run_\w+|comparison_\w+)$/i.test(p));
+ if(byName)return byName;
+ return pieces.length>1?pieces[pieces.length-2]:'selected';
+}
+const current=()=>entries.filter(f=>f.run===activeRun);
+const lookup=name=>current().find(f=>f.path.endsWith('/'+name)||f.path===name);
+const research=name=>current().find(f=>f.path.endsWith('/research/'+name));
+const src=file=>{const normalized=norm(file);return current().find(f=>f.path.endsWith('/'+normalized))};
+function item(parent,title,value,cls=''){const box=make('div','','entry');box.append(make('div',title,'tiny'));box.append(make('div',typeof value==='string'?value:JSON.stringify(value??''),cls||'name'));parent.append(box);}
+function anchor(parent,text,file){const b=make('button',text,'btnlink');b.onclick=()=>file?openFile(file):undefined;parent.append(b);}
+function klass(path){if(/\/verifications\//.test(path))return 'Verificaciones';if(/\/agent_runs\//.test(path))return 'Investigación ReAct';if(/\/research\//.test(path))return 'Tareas y resultados';if(/\/rag\//.test(path))return 'Recuperación RAG';if(/\/metadata\//.test(path))return 'Inventario y relaciones';if(/\/ast_files\//.test(path))return 'AST';if(/\/sql_sources\//.test(path))return 'Fuentes SQL';if(/\/catalogs\//.test(path))return 'Catálogos';return 'Resumen y otros';}
+function renderTree(){
+ const target=el('tree');target.replaceChildren();const s=el('filter').value.toLowerCase();const groups=new Map();
+ for(const f of current()){
+  if(s&&!f.path.toLowerCase().includes(s))continue;
+  const group=klass('/'+f.path);if(!groups.has(group))groups.set(group,[]);groups.get(group).push(f);
+ }
+ for(const [name,files] of groups){target.append(make('div',`${name} · ${files.length}`,'cat'));for(const f of files){
+  const b=make('button','', 'file'+(selected===f?' sel':''));b.append(make('span',f.path.split('/').pop()));b.title=f.path;b.onclick=()=>openFile(f);target.append(b);
+ }}
+}
+function facts(parent,aug){
+ if(!aug)return;
+ const h=make('div','Enriquecimiento por catálogos','subheading');parent.append(h);
+ const before=make('div','','compare-box');before.append(make('strong','ANTES · respuesta original'));before.append(make('p',aug.before_candidate_rule||'No disponible'));parent.append(before);
+ const after=make('div','','compare-box corrected');after.append(make('strong','DESPUÉS · regla anotada por el controlador'));after.append(make('p',aug.after_candidate_rule||'No disponible'));parent.append(after);
+ for(const f of aug.facts_applied||[]){item(parent,`${f.column} = ${String(f.code)} → ${f.description}`,`${f.source_file||f.catalog||''} · ${f.origin||'catalog lookup'}`);}
+ item(parent,'Quién añadió el significado',aug.origin||'No declarado');
+}
+function showFinding(f){const doc=research('findings.json');if(doc)openFile(doc);else selected=f;}
+function summary(){
+ const fs=data(research('findings.json')),pn=data(research('pending.json')),tasks=data(research('research_tasks.json'));
+ const all=current();const stats=[all.length,tasks?.tasks?.length??0,fs?.findings?.length??0,pn?.pending?.length??0];
+ el('stats').replaceChildren(...stats.map((n,i)=>{const box=make('div','','stat');box.append(make('strong',String(n)),make('span',['Archivos','Tareas iniciales','Candidatas sustentadas','Investigaciones pendientes'][i]));return box}));
+ const preview=el('preview');preview.replaceChildren();const title=make('div','','row');title.append(make('h2','Resultados finales de '+activeRun));preview.append(title);
+ if(!fs?.findings){preview.append(make('div','Esta ejecución no tiene findings.json. Puede ser una prueba sin verificador o una ejecución incompleta. Los archivos que existan siguen disponibles en el panel izquierdo.','no'));return;}
+ const note=make('p','Se muestran las propuestas técnicamente sustentadas, NO reglas aprobadas por el negocio. Las respuestas iniciales del LLM se consultan en agent_runs.','muted compact');preview.append(note);
+ const cards=make('div','','overview-candidates');
+ for(const f of fs.findings){const box=make('div','','candidate-card');const headline=make('div','','row');headline.append(make('strong',f.object||f.task_id||'Regla'));headline.append(make('span',f.technical_status||'technically_evidenced','label'));box.append(headline);box.append(make('div',f.candidate_rule||'Sin regla','candidate-text'));if(f.catalog_augmentation){box.append(make('div',`Catálogo: ${f.catalog_augmentation.facts_applied?.map(x=>x.description).join(' · ')||'anotación registrada'}`,'tiny'));}
+ const btn=make('button','Abrir evidencia y verificación','btnlink');btn.onclick=()=>{const vf=src('research/'+norm(f.verification_file||''))||current().find(x=>x.path.endsWith('/verifications/'+f.task_id+'.json'));openFile(vf||research('findings.json'));};box.append(btn);cards.append(box)}
+ preview.append(cards);
+ if(pn?.pending?.length){const p=make('div',`${pn.pending.length} caso(s) pendiente(s): ${pn.pending.map(x=>x.object).join(', ')}`,'pending-note');preview.append(p)}
+}
+function openFile(f){if(!f)return;selected=f;renderTree();el('filename').textContent=f.path;el('title').textContent=f.path.split('/').pop();el('filetype').textContent=(f.path.split('.').pop()||'').toUpperCase();el('meta').textContent=f.text.length.toLocaleString('es-MX')+' caracteres · '+f.path;
+ const j=data(f);el('raw').textContent=j?JSON.stringify(j,null,2):f.text;const p=el('details');p.replaceChildren();if(!j){p.append(make('div','Fuente textual. Contenido completo disponible a la izquierda.','no'));return;}
+ if(j.task_id)item(p,'Task ID',j.task_id);
+ if(j.target)item(p,'Objeto principal',j.target.object_name||j.target.name||j.target);
+ if(j.status)item(p,'Estado',j.status);
+ if(j.mode)item(p,'Modo',j.mode);
+ if(j.stage==='react_v05_two_phase' || /\/agent_runs\/TASK-/.test('/'+f.path)){
+  p.append(make('div','BORRADOR HISTÓRICO DEL LLM · no representa necesariamente la regla final','warning-note'));
+  item(p,'Propuesta original',j.decision?.candidate_rule||'Sin propuesta');
+  const findings=data(research('findings.json'))?.findings||[];
+  const match=findings.find(x=>x.task_id===j.task_id);
+  if(match){item(p,'Regla FINAL (findings.json)',match.candidate_rule);facts(p,match.catalog_augmentation);}
+  else if(data(research('pending.json'))?.pending?.some(x=>x.task_id===j.task_id))item(p,'Resultado final','Pendiente de investigación. No existe una regla técnicamente sustentada para esta tarea.');
+ }
+ if(j.catalog_augmentation)facts(p,j.catalog_augmentation);
+ if(j.candidate && !/\/agent_runs\/TASK-/.test('/'+f.path)){item(p,'Regla evaluada',j.candidate.candidate_rule);item(p,'Condiciones',j.candidate.conditions||[]);}
+ if(j.verification?.decision){item(p,'Decisión del verificador LLM',j.verification.decision.verification_status||'Sin decisión');}
+ if(j.deterministic_gates){item(p,'Resultado de controles determinísticos',j.deterministic_gates.status);item(p,'Problemas',j.deterministic_gates.issues||[]);}
+ if(Array.isArray(j.rounds)){
+  item(p,'Eventos de verificación',j.rounds.length);
+  for(const r of j.rounds){const ph=r.phase||'round';const x=r.action?.name||r.tool_action?.name||r.gates?.status||r.status||'';item(p,`Ronda ${r.round||'-'} · ${ph}`,x||Object.keys(r).join(', '));}
+ }
+ if(Array.isArray(j.observations) && j.observations.length){item(p,'Herramientas ejecutadas',j.observations.map(x=>`${x.origin||x.action_origin||'unknown'}: ${x.action?.name||x.name||'tool'} → ${x.observation?.status||x.result?.status||'observación'}`));}
+ if(j.decision && j.stage!=='react_v05_two_phase'){item(p,'Regla candidata',j.decision.candidate_rule||'Sin propuesta');}
+ if(Array.isArray(j.findings)){item(p,'Candidatas sustentadas',j.findings.length);for(const f2 of j.findings)item(p,f2.object||f2.task_id||'Regla',f2.candidate_rule||'');}
+ if(Array.isArray(j.pending)){item(p,'Investigaciones pendientes',j.pending.length);for(const f2 of j.pending)item(p,f2.object||f2.task_id||'Caso',f2.issues||[]);}
+ if(Array.isArray(j.tasks))item(p,'Tareas',j.tasks.length);
+ if(j.chunk_count!=null)item(p,'Fragmentos RAG',j.chunk_count);
+ if(j.counts)item(p,'Contadores',j.counts);
+ const sourceFile=j.source?.source_file||j.task_evidence?.source_file;
+ if(sourceFile){item(p,'SQL original',sourceFile);const s=src(sourceFile);if(s)anchor(p,'Abrir archivo SQL',s);}
+ const vfile=j.verification_file;
+ if(vfile){const related=src('research/'+norm(vfile))||current().find(x=>x.path.endsWith('/'+norm(vfile)));if(related)anchor(p,'Abrir verificación',related);}
+ if(!p.children.length)item(p,'Claves disponibles',Object.keys(j));
+}
+function setRun(run){activeRun=run;selected=null;el('runSelect').value=run;el('source').textContent=current().length+' archivos · '+run;summary();renderTree();openFile(research('findings.json')||research('multiagent_summary.json')||current()[0]);}
+async function load(files){
+ entries=[];for(const file of files){if(file.size>8e6||!/\.(json|sql|md|txt)$/i.test(file.name))continue;const path=norm(file.webkitRelativePath||file.name);entries.push({path,text:await file.text(),run:runOf(path)});}
+ entries.sort((a,b)=>a.path.localeCompare(b.path,undefined,{numeric:true}));const runs=[...new Set(entries.map(x=>x.run))].sort((a,b)=>b.localeCompare(a,undefined,{numeric:true}));
+ const sel=el('runSelect');sel.replaceChildren(...runs.map(r=>{const opt=document.createElement('option');opt.value=r;opt.textContent=r;return opt}));sel.disabled=runs.length<=1; if(runs.length)setRun(runs[0]);else {el('source').textContent='Sin archivos';el('tree').replaceChildren();el('preview').replaceChildren();}
+}
+el('choose').onclick=()=>el('files').click();el('files').onchange=e=>load([...e.target.files]);el('filter').oninput=renderTree;el('runSelect').onchange=e=>setRun(e.target.value);
+</script></body></html>

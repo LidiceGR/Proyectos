@@ -1,0 +1,109 @@
+{
+  "schema_version": "2.0",
+  "generated_utc": "2026-11-21T02:29:46.760683+00:00",
+  "review_status": "unapproved",
+  "findings": [
+    {
+      "id": "RULE-272C2288A360",
+      "task_id": "TASK-272C2288A360",
+      "object": "dbo.trg_Operations_ValidateAmount",
+      "candidate_rule": "The amount must be greater than zero",
+      "observed_behavior": "Amount must be greater than zero",
+      "conditions": [
+        "Amount <= 0"
+      ],
+      "effect": "THROW 50001, 'Amount must be greater than zero', 1",
+      "missing_information": [],
+      "source": {
+        "source_file": "sql_sources/01_ValidateAmount.sql",
+        "ast_file": "ast_files/sql_sources/01_ValidateAmount.sql.ast.json",
+        "start_line": 6,
+        "end_line": 11,
+        "ast_node_type": "logical_workflow"
+      },
+      "related_objects": [
+        {
+          "relation": "READS",
+          "type": "table",
+          "name": "inserted",
+          "sql_server_pseudotable": true
+        },
+        {
+          "relation": "TRIGGERS_ON",
+          "type": "table",
+          "name": "dbo.Operations",
+          "definition_in_inventory": true
+        }
+      ],
+      "verification_file": "verifications\\TASK-272C2288A360.json",
+      "technical_status": "technically_evidenced",
+      "human_status": "pending_human_review"
+    },
+    {
+      "id": "RULE-4D9C830B0699",
+      "task_id": "TASK-4D9C830B0699",
+      "object": "dbo.HasPendingOperationCheck",
+      "candidate_rule": "If an operation check with the specified operation ID and status 'PENDING' exists, set @HasPending to 1.",
+      "observed_behavior": "SET @HasPending = 0;\nIF EXISTS (\n    SELECT 1\n    FROM dbo.OperationChecks\n    WHERE OperationId = @OperationId\n    AND Status = 'PENDING'\n) BEGIN\n    SET @HasPending = 1;\nEND;",
+      "conditions": [
+        "OperationId = @OperationId",
+        "Status = 'PENDING'"
+      ],
+      "effect": "SET @HasPending = 1;",
+      "missing_information": [],
+      "source": {
+        "source_file": "sql_sources/04_HasPendingOperationCheck.sql",
+        "ast_file": "ast_files/sql_sources/04_HasPendingOperationCheck.sql.ast.json",
+        "start_line": 6,
+        "end_line": 17,
+        "ast_node_type": "logical_workflow"
+      },
+      "related_objects": [
+        {
+          "relation": "READS",
+          "type": "table",
+          "name": "dbo.OperationChecks",
+          "definition_in_inventory": true
+        }
+      ],
+      "verification_file": "verifications\\TASK-4D9C830B0699.json",
+      "technical_status": "technically_evidenced",
+      "human_status": "pending_human_review"
+    },
+    {
+      "id": "RULE-E5EB80513566",
+      "task_id": "TASK-E5EB80513566",
+      "object": "dbo.RegisterOperationAfterCheck",
+      "candidate_rule": "If an operation check with the specified operation ID and status 'PENDING' exists, set @HasPending to 1.",
+      "observed_behavior": "IF @HasPending = 0\nBEGIN\n    EXEC dbo.RegisterOperation @OperationId, @OperationType, @Amount;\nEND;",
+      "conditions": [
+        "OperationId = @OperationId",
+        "Status = 'PENDING'"
+      ],
+      "effect": "SET @HasPending = 1;",
+      "missing_information": [],
+      "source": {
+        "source_file": "sql_sources/05_RegisterOperationAfterCheck.sql",
+        "ast_file": "ast_files/sql_sources/05_RegisterOperationAfterCheck.sql.ast.json",
+        "start_line": 8,
+        "end_line": 15,
+        "ast_node_type": "logical_workflow"
+      },
+      "related_objects": [
+        {
+          "relation": "CALLS",
+          "type": "procedure",
+          "name": "dbo.HasPendingOperationCheck"
+        },
+        {
+          "relation": "CALLS",
+          "type": "procedure",
+          "name": "dbo.RegisterOperation"
+        }
+      ],
+      "verification_file": "verifications\\TASK-E5EB80513566.json",
+      "technical_status": "technically_evidenced",
+      "human_status": "pending_human_review"
+    }
+  ]
+}

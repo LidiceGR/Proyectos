@@ -1,0 +1,30 @@
+{
+  "schema_version": "2.0",
+  "generated_utc": "2026-11-21T06:24:07.346793+00:00",
+  "pending": [
+    {
+      "task_id": "TASK-E5EB80513566",
+      "object": "dbo.RegisterOperationAfterCheck",
+      "reason": "pending_human_review",
+      "issues": [
+        "Primary predicate @haspending = 0 is absent from conditions[]. Preserve the operator and literal from PRIMARY SQL.",
+        "Candidate conditions[] contains @amount > 0, which is not a predicate of PRIMARY SQL. Check for copied facts from a related SP or trigger.",
+        "Candidate conditions[] contains @operationtype = 2, which is not a predicate of PRIMARY SQL. Check for copied facts from a related SP or trigger.",
+        "Candidate conditions[] contains status = pending, which is not a predicate of PRIMARY SQL. Check for copied facts from a related SP or trigger.",
+        "PRIMARY workflow calls dbo.HasPendingOperationCheck, but observed_behavior/effect does not describe that call. A related finding is not the caller's effect.",
+        "PRIMARY workflow calls dbo.RegisterOperation, but observed_behavior/effect does not describe that call. A related finding is not the caller's effect.",
+        "A source-guarded call to dbo.RegisterOperation must be accounted for in candidate_rule; currently the rule may describe only the called SP."
+      ],
+      "question_for_expert": "Are the remaining conditions and interpretations sufficient to confirm this candidate?",
+      "candidate_rule": "The '@HasPending' variable is set to 1 if a pending operation is found in the 'OperationChecks' table with the specified 'OperationId' and 'Status' 'PENDING'.",
+      "source": {
+        "source_file": "sql_sources/05_RegisterOperationAfterCheck.sql",
+        "ast_file": "ast_files/sql_sources/05_RegisterOperationAfterCheck.sql.ast.json",
+        "start_line": 8,
+        "end_line": 15,
+        "ast_node_type": "logical_workflow"
+      },
+      "verification_file": "verifications\\TASK-E5EB80513566.json"
+    }
+  ]
+}

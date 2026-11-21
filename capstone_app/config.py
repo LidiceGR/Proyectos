@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any
 
 _RUN_ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$")
-_ALLOWED_RESEARCH = frozenset({"none", "preview", "single", "batch", "react"})
+_ALLOWED_RESEARCH = frozenset({"none", "preview", "single", "batch", "react", "multiagent"})
 
 
 @dataclass(frozen=True)
@@ -29,6 +29,9 @@ class PipelineConfig:
     max_depth: int = 1
     react_strategy: str = "v04"
     policy_fallback: bool = False
+    max_verification_rounds: int = 2
+    max_feedback_actions: int = 3
+    allow_incomplete_batch: bool = False
 
     @property
     def run_directory(self) -> Path:
@@ -79,10 +82,10 @@ def load_config(config_file: Path, project_root: Path) -> PipelineConfig:
     max_tasks = research.get("max_tasks", 0)
     if type(max_tasks) is not int or max_tasks < 0:
         raise ValueError("'research.max_tasks' must be an integer greater than or equal to zero")
-    if mode in {"batch", "react"} and task_id is not None:
-        raise ValueError("'research.task_id' must be null when research.mode is batch or react")
+    if mode in {"batch", "react", "multiagent"} and task_id is not None:
+        raise ValueError("'research.task_id' must be null when research.mode is batch, react or multiagent")
     limits = {}
-    for key, default in (("max_actions", 3), ("max_derived_tasks", 4), ("max_depth", 1)):
+    for key, default in (("max_actions", 3), ("max_derived_tasks", 4), ("max_depth", 1), ("max_verification_rounds", 2), ("max_feedback_actions", 3)):
         val = research.get(key, default)
         if type(val) is not int or val < 0:
             raise ValueError(f"research.{key} must be a nonnegative integer")
@@ -90,6 +93,11 @@ def load_config(config_file: Path, project_root: Path) -> PipelineConfig:
     strategy = research.get("react_strategy", "v04")
     if strategy not in {"v04", "v05"}:
         raise ValueError("research.react_strategy must be v04 or v05")
+    allow_incomplete_batch = research.get("allow_incomplete_batch", False)
+    if type(allow_incomplete_batch) is not bool:
+        raise ValueError("research.allow_incomplete_batch must be a boolean")
+    if allow_incomplete_batch and mode != "batch":
+        raise ValueError("research.allow_incomplete_batch is only supported for batch mode")
     fallback = research.get("policy_fallback", False)
     if type(fallback) is not bool:
         raise ValueError("research.policy_fallback must be boolean")
@@ -104,6 +112,7 @@ def load_config(config_file: Path, project_root: Path) -> PipelineConfig:
         max_tasks=max_tasks,
         react_strategy=strategy,
         policy_fallback=fallback,
+        allow_incomplete_batch=allow_incomplete_batch,
         **limits,
     )
 
@@ -126,6 +135,6 @@ def apply_overrides(
         if research_mode not in _ALLOWED_RESEARCH:
             raise ValueError("Invalid --research-mode")
         config = replace(config, research_mode=research_mode)
-    if config.research_mode in {"batch", "react"} and config.task_id is not None:
+    if config.research_mode in {"batch", "react", "multiagent"} and config.task_id is not None:
         raise ValueError("Batch/React mode requires research.task_id to be null")
     return config

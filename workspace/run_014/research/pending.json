@@ -1,0 +1,60 @@
+{
+  "schema_version": "2.0",
+  "generated_utc": "2026-11-21T02:29:46.766684+00:00",
+  "pending": [
+    {
+      "task_id": "TASK-D3FBA04B682D",
+      "object": "dbo.ApproveOperation",
+      "reason": "pending_human_review",
+      "issues": [
+        {
+          "catalog": "Operation statuses",
+          "code": "PENDING",
+          "description": "Pending approval"
+        },
+        {
+          "catalog": "Operation statuses",
+          "code": "APPROVED",
+          "description": "Approved operation"
+        }
+      ],
+      "question_for_expert": "Are the remaining conditions and interpretations sufficient to confirm this candidate?",
+      "candidate_rule": "The procedure 'ApproveOperation' updates the 'Status' column of the 'Operations' table to 'APPROVED' for a 'PENDING' operation with an amount greater than 0.",
+      "source": {
+        "source_file": "sql_sources/01_ApproveOperation.sql",
+        "ast_file": "ast_files/sql_sources/01_ApproveOperation.sql.ast.json",
+        "start_line": 5,
+        "end_line": 11,
+        "ast_node_type": "logical_workflow"
+      },
+      "verification_file": "verifications\\TASK-D3FBA04B682D.json"
+    },
+    {
+      "task_id": "TASK-3FAB90CBBFA4",
+      "object": "dbo.RegisterOperation",
+      "reason": "pending_human_review",
+      "issues": [
+        {
+          "catalog": "Operation types",
+          "code": 2,
+          "description": "Internal adjustment"
+        },
+        {
+          "catalog": "Operation statuses",
+          "code": "PENDING",
+          "description": "Pending approval"
+        }
+      ],
+      "question_for_expert": "Are the remaining conditions and interpretations sufficient to confirm this candidate?",
+      "candidate_rule": "A procedure is executed when @OperationType is 2 and @Amount is greater than 0, inserting the operation into the Operations table with the status 'PENDING'.",
+      "source": {
+        "source_file": "sql_sources/02_RegisterOperation.sql",
+        "ast_file": "ast_files/sql_sources/02_RegisterOperation.sql.ast.json",
+        "start_line": 7,
+        "end_line": 13,
+        "ast_node_type": "logical_workflow"
+      },
+      "verification_file": "verifications\\TASK-3FAB90CBBFA4.json"
+    }
+  ]
+}

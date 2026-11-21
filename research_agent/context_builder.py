@@ -35,6 +35,10 @@ def _step_summary(step: dict[str, Any]) -> dict[str, Any]:
     }
     if step.get("target_table"):
         result["target_table"] = step["target_table"]
+    if step.get("called_object"):
+        result["called_object"] = step["called_object"]
+    if step.get("read_tables"):
+        result["read_tables"] = step["read_tables"]
     conditions = _conditions(step)
     if conditions:
         result["conditions"] = conditions

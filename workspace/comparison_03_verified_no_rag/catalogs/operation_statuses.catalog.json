@@ -1,0 +1,24 @@
+{
+  "type": "catalog",
+  "name": "Operation statuses",
+  "table": "dbo.OperationStatuses",
+  "key_column": "Status",
+  "description_column": "Description",
+  "values": [
+    {
+      "code": "PENDING",
+      "description": "Pending approval"
+    },
+    {
+      "code": "APPROVED",
+      "description": "Approved operation"
+    },
+    {
+      "code": "REJECTED",
+      "description": "Rejected operation"
+    }
+  ],
+  "applies_to": [
+    "dbo.Operations"
+  ]
+}

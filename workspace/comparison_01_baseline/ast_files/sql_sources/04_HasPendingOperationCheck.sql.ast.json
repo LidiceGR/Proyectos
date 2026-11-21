@@ -1,0 +1,1029 @@
+{
+  "schema_version": "1.0",
+  "source_file": "sql_sources/04_HasPendingOperationCheck.sql",
+  "source_type": "procedure",
+  "source_objects": [
+    {
+      "type": "procedure",
+      "name": "dbo.HasPendingOperationCheck",
+      "line": 2
+    }
+  ],
+  "parser": "SQLFluff (tsql)",
+  "tree_type": "syntactic_segment_tree",
+  "status": "ok",
+  "parse_errors": [],
+  "unparsed_regions": [],
+  "tree": {
+    "type": "file",
+    "line": 1,
+    "column": 1,
+    "children": [
+      {
+        "type": "comment",
+        "line": 1,
+        "column": 1,
+        "text": "-- A helper procedure exposes a pending-check flag to callers."
+      },
+      {
+        "type": "newline",
+        "line": 1,
+        "column": 63,
+        "text": "\n"
+      },
+      {
+        "type": "batch",
+        "line": 2,
+        "column": 1,
+        "children": [
+          {
+            "type": "create_procedure_statement",
+            "line": 2,
+            "column": 1,
+            "children": [
+              {
+                "type": "keyword",
+                "line": 2,
+                "column": 1,
+                "text": "CREATE"
+              },
+              {
+                "type": "whitespace",
+                "line": 2,
+                "column": 7,
+                "text": " "
+              },
+              {
+                "type": "keyword",
+                "line": 2,
+                "column": 8,
+                "text": "PROCEDURE"
+              },
+              {
+                "type": "whitespace",
+                "line": 2,
+                "column": 17,
+                "text": " "
+              },
+              {
+                "type": "object_reference",
+                "line": 2,
+                "column": 18,
+                "children": [
+                  {
+                    "type": "identifier",
+                    "line": 2,
+                    "column": 18,
+                    "text": "dbo"
+                  },
+                  {
+                    "type": "symbol",
+                    "line": 2,
+                    "column": 21,
+                    "text": "."
+                  },
+                  {
+                    "type": "identifier",
+                    "line": 2,
+                    "column": 22,
+                    "text": "HasPendingOperationCheck"
+                  }
+                ]
+              },
+              {
+                "type": "indent",
+                "line": 2,
+                "column": 46,
+                "text": ""
+              },
+              {
+                "type": "newline",
+                "line": 2,
+                "column": 46,
+                "text": "\n"
+              },
+              {
+                "type": "whitespace",
+                "line": 3,
+                "column": 1,
+                "text": "    "
+              },
+              {
+                "type": "procedure_parameter_list",
+                "line": 3,
+                "column": 5,
+                "children": [
+                  {
+                    "type": "raw",
+                    "line": 3,
+                    "column": 5,
+                    "text": "@OperationId"
+                  },
+                  {
+                    "type": "whitespace",
+                    "line": 3,
+                    "column": 17,
+                    "text": " "
+                  },
+                  {
+                    "type": "data_type",
+                    "line": 3,
+                    "column": 18,
+                    "children": [
+                      {
+                        "type": "raw",
+                        "line": 3,
+                        "column": 18,
+                        "text": "INT"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "symbol",
+                    "line": 3,
+                    "column": 21,
+                    "text": ","
+                  },
+                  {
+                    "type": "newline",
+                    "line": 3,
+                    "column": 22,
+                    "text": "\n"
+                  },
+                  {
+                    "type": "whitespace",
+                    "line": 4,
+                    "column": 1,
+                    "text": "    "
+                  },
+                  {
+                    "type": "raw",
+                    "line": 4,
+                    "column": 5,
+                    "text": "@HasPending"
+                  },
+                  {
+                    "type": "whitespace",
+                    "line": 4,
+                    "column": 16,
+                    "text": " "
+                  },
+                  {
+                    "type": "data_type",
+                    "line": 4,
+                    "column": 17,
+                    "children": [
+                      {
+                        "type": "raw",
+                        "line": 4,
+                        "column": 17,
+                        "text": "BIT"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "whitespace",
+                    "line": 4,
+                    "column": 20,
+                    "text": " "
+                  },
+                  {
+                    "type": "keyword",
+                    "line": 4,
+                    "column": 21,
+                    "text": "OUTPUT"
+                  }
+                ]
+              },
+              {
+                "type": "newline",
+                "line": 4,
+                "column": 27,
+                "text": "\n"
+              },
+              {
+                "type": "dedent",
+                "line": 5,
+                "column": 1,
+                "text": ""
+              },
+              {
+                "type": "keyword",
+                "line": 5,
+                "column": 1,
+                "text": "AS"
+              },
+              {
+                "type": "newline",
+                "line": 5,
+                "column": 3,
+                "text": "\n"
+              },
+              {
+                "type": "procedure_statement",
+                "line": 6,
+                "column": 1,
+                "children": [
+                  {
+                    "type": "statement",
+                    "line": 6,
+                    "column": 1,
+                    "children": [
+                      {
+                        "type": "begin_end_block",
+                        "line": 6,
+                        "column": 1,
+                        "children": [
+                          {
+                            "type": "keyword",
+                            "line": 6,
+                            "column": 1,
+                            "text": "BEGIN"
+                          },
+                          {
+                            "type": "indent",
+                            "line": 6,
+                            "column": 6,
+                            "text": ""
+                          },
+                          {
+                            "type": "newline",
+                            "line": 6,
+                            "column": 6,
+                            "text": "\n"
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 7,
+                            "column": 1,
+                            "text": "    "
+                          },
+                          {
+                            "type": "statement",
+                            "line": 7,
+                            "column": 5,
+                            "children": [
+                              {
+                                "type": "set_segment",
+                                "line": 7,
+                                "column": 5,
+                                "children": [
+                                  {
+                                    "type": "keyword",
+                                    "line": 7,
+                                    "column": 5,
+                                    "text": "SET"
+                                  },
+                                  {
+                                    "type": "indent",
+                                    "line": 7,
+                                    "column": 8,
+                                    "text": ""
+                                  },
+                                  {
+                                    "type": "whitespace",
+                                    "line": 7,
+                                    "column": 8,
+                                    "text": " "
+                                  },
+                                  {
+                                    "type": "raw",
+                                    "line": 7,
+                                    "column": 9,
+                                    "text": "@HasPending"
+                                  },
+                                  {
+                                    "type": "whitespace",
+                                    "line": 7,
+                                    "column": 20,
+                                    "text": " "
+                                  },
+                                  {
+                                    "type": "assignment_operator",
+                                    "line": 7,
+                                    "column": 21,
+                                    "children": [
+                                      {
+                                        "type": "symbol",
+                                        "line": 7,
+                                        "column": 21,
+                                        "text": "="
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "whitespace",
+                                    "line": 7,
+                                    "column": 22,
+                                    "text": " "
+                                  },
+                                  {
+                                    "type": "expression",
+                                    "line": 7,
+                                    "column": 23,
+                                    "children": [
+                                      {
+                                        "type": "literal",
+                                        "line": 7,
+                                        "column": 23,
+                                        "text": "0"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "dedent",
+                                    "line": 7,
+                                    "column": 24,
+                                    "text": ""
+                                  },
+                                  {
+                                    "type": "symbol",
+                                    "line": 7,
+                                    "column": 24,
+                                    "text": ";"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "newline",
+                            "line": 7,
+                            "column": 25,
+                            "text": "\n"
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 8,
+                            "column": 1,
+                            "text": "    "
+                          },
+                          {
+                            "type": "statement",
+                            "line": 8,
+                            "column": 5,
+                            "children": [
+                              {
+                                "type": "if_then_statement",
+                                "line": 8,
+                                "column": 5,
+                                "children": [
+                                  {
+                                    "type": "if_clause",
+                                    "line": 8,
+                                    "column": 5,
+                                    "children": [
+                                      {
+                                        "type": "keyword",
+                                        "line": 8,
+                                        "column": 5,
+                                        "text": "IF"
+                                      },
+                                      {
+                                        "type": "indent",
+                                        "line": 8,
+                                        "column": 7,
+                                        "text": ""
+                                      },
+                                      {
+                                        "type": "whitespace",
+                                        "line": 8,
+                                        "column": 7,
+                                        "text": " "
+                                      },
+                                      {
+                                        "type": "expression",
+                                        "line": 8,
+                                        "column": 8,
+                                        "children": [
+                                          {
+                                            "type": "keyword",
+                                            "line": 8,
+                                            "column": 8,
+                                            "text": "EXISTS"
+                                          },
+                                          {
+                                            "type": "whitespace",
+                                            "line": 8,
+                                            "column": 14,
+                                            "text": " "
+                                          },
+                                          {
+                                            "type": "bracketed",
+                                            "line": 8,
+                                            "column": 15,
+                                            "children": [
+                                              {
+                                                "type": "symbol",
+                                                "line": 8,
+                                                "column": 15,
+                                                "text": "("
+                                              },
+                                              {
+                                                "type": "indent",
+                                                "line": 8,
+                                                "column": 16,
+                                                "text": ""
+                                              },
+                                              {
+                                                "type": "newline",
+                                                "line": 8,
+                                                "column": 16,
+                                                "text": "\n"
+                                              },
+                                              {
+                                                "type": "whitespace",
+                                                "line": 9,
+                                                "column": 1,
+                                                "text": "        "
+                                              },
+                                              {
+                                                "type": "select_statement",
+                                                "line": 9,
+                                                "column": 9,
+                                                "children": [
+                                                  {
+                                                    "type": "select_clause",
+                                                    "line": 9,
+                                                    "column": 9,
+                                                    "children": [
+                                                      {
+                                                        "type": "keyword",
+                                                        "line": 9,
+                                                        "column": 9,
+                                                        "text": "SELECT"
+                                                      },
+                                                      {
+                                                        "type": "indent",
+                                                        "line": 9,
+                                                        "column": 15,
+                                                        "text": ""
+                                                      },
+                                                      {
+                                                        "type": "whitespace",
+                                                        "line": 9,
+                                                        "column": 15,
+                                                        "text": " "
+                                                      },
+                                                      {
+                                                        "type": "select_clause_element",
+                                                        "line": 9,
+                                                        "column": 16,
+                                                        "children": [
+                                                          {
+                                                            "type": "literal",
+                                                            "line": 9,
+                                                            "column": 16,
+                                                            "text": "1"
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "dedent",
+                                                        "line": 9,
+                                                        "column": 17,
+                                                        "text": ""
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "type": "newline",
+                                                    "line": 9,
+                                                    "column": 17,
+                                                    "text": "\n"
+                                                  },
+                                                  {
+                                                    "type": "whitespace",
+                                                    "line": 10,
+                                                    "column": 1,
+                                                    "text": "        "
+                                                  },
+                                                  {
+                                                    "type": "from_clause",
+                                                    "line": 10,
+                                                    "column": 9,
+                                                    "children": [
+                                                      {
+                                                        "type": "keyword",
+                                                        "line": 10,
+                                                        "column": 9,
+                                                        "text": "FROM"
+                                                      },
+                                                      {
+                                                        "type": "whitespace",
+                                                        "line": 10,
+                                                        "column": 13,
+                                                        "text": " "
+                                                      },
+                                                      {
+                                                        "type": "from_expression",
+                                                        "line": 10,
+                                                        "column": 14,
+                                                        "children": [
+                                                          {
+                                                            "type": "indent",
+                                                            "line": 10,
+                                                            "column": 14,
+                                                            "text": ""
+                                                          },
+                                                          {
+                                                            "type": "from_expression_element",
+                                                            "line": 10,
+                                                            "column": 14,
+                                                            "children": [
+                                                              {
+                                                                "type": "table_expression",
+                                                                "line": 10,
+                                                                "column": 14,
+                                                                "children": [
+                                                                  {
+                                                                    "type": "table_reference",
+                                                                    "line": 10,
+                                                                    "column": 14,
+                                                                    "children": [
+                                                                      {
+                                                                        "type": "identifier",
+                                                                        "line": 10,
+                                                                        "column": 14,
+                                                                        "text": "dbo"
+                                                                      },
+                                                                      {
+                                                                        "type": "symbol",
+                                                                        "line": 10,
+                                                                        "column": 17,
+                                                                        "text": "."
+                                                                      },
+                                                                      {
+                                                                        "type": "identifier",
+                                                                        "line": 10,
+                                                                        "column": 18,
+                                                                        "text": "OperationChecks"
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "type": "dedent",
+                                                            "line": 10,
+                                                            "column": 33,
+                                                            "text": ""
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "type": "newline",
+                                                    "line": 10,
+                                                    "column": 33,
+                                                    "text": "\n"
+                                                  },
+                                                  {
+                                                    "type": "whitespace",
+                                                    "line": 11,
+                                                    "column": 1,
+                                                    "text": "        "
+                                                  },
+                                                  {
+                                                    "type": "where_clause",
+                                                    "line": 11,
+                                                    "column": 9,
+                                                    "children": [
+                                                      {
+                                                        "type": "keyword",
+                                                        "line": 11,
+                                                        "column": 9,
+                                                        "text": "WHERE"
+                                                      },
+                                                      {
+                                                        "type": "indent",
+                                                        "line": 11,
+                                                        "column": 14,
+                                                        "text": ""
+                                                      },
+                                                      {
+                                                        "type": "whitespace",
+                                                        "line": 11,
+                                                        "column": 14,
+                                                        "text": " "
+                                                      },
+                                                      {
+                                                        "type": "expression",
+                                                        "line": 11,
+                                                        "column": 15,
+                                                        "children": [
+                                                          {
+                                                            "type": "column_reference",
+                                                            "line": 11,
+                                                            "column": 15,
+                                                            "children": [
+                                                              {
+                                                                "type": "identifier",
+                                                                "line": 11,
+                                                                "column": 15,
+                                                                "text": "OperationId"
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "type": "whitespace",
+                                                            "line": 11,
+                                                            "column": 26,
+                                                            "text": " "
+                                                          },
+                                                          {
+                                                            "type": "comparison_operator",
+                                                            "line": 11,
+                                                            "column": 27,
+                                                            "children": [
+                                                              {
+                                                                "type": "symbol",
+                                                                "line": 11,
+                                                                "column": 27,
+                                                                "text": "="
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "type": "whitespace",
+                                                            "line": 11,
+                                                            "column": 28,
+                                                            "text": " "
+                                                          },
+                                                          {
+                                                            "type": "raw",
+                                                            "line": 11,
+                                                            "column": 29,
+                                                            "text": "@OperationId"
+                                                          },
+                                                          {
+                                                            "type": "newline",
+                                                            "line": 11,
+                                                            "column": 41,
+                                                            "text": "\n"
+                                                          },
+                                                          {
+                                                            "type": "whitespace",
+                                                            "line": 12,
+                                                            "column": 1,
+                                                            "text": "          "
+                                                          },
+                                                          {
+                                                            "type": "binary_operator",
+                                                            "line": 12,
+                                                            "column": 11,
+                                                            "text": "AND"
+                                                          },
+                                                          {
+                                                            "type": "whitespace",
+                                                            "line": 12,
+                                                            "column": 14,
+                                                            "text": " "
+                                                          },
+                                                          {
+                                                            "type": "column_reference",
+                                                            "line": 12,
+                                                            "column": 15,
+                                                            "children": [
+                                                              {
+                                                                "type": "identifier",
+                                                                "line": 12,
+                                                                "column": 15,
+                                                                "text": "Status"
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "type": "whitespace",
+                                                            "line": 12,
+                                                            "column": 21,
+                                                            "text": " "
+                                                          },
+                                                          {
+                                                            "type": "comparison_operator",
+                                                            "line": 12,
+                                                            "column": 22,
+                                                            "children": [
+                                                              {
+                                                                "type": "symbol",
+                                                                "line": 12,
+                                                                "column": 22,
+                                                                "text": "="
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "type": "whitespace",
+                                                            "line": 12,
+                                                            "column": 23,
+                                                            "text": " "
+                                                          },
+                                                          {
+                                                            "type": "literal",
+                                                            "line": 12,
+                                                            "column": 24,
+                                                            "text": "'PENDING'"
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "type": "dedent",
+                                                        "line": 12,
+                                                        "column": 33,
+                                                        "text": ""
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "type": "newline",
+                                                "line": 12,
+                                                "column": 33,
+                                                "text": "\n"
+                                              },
+                                              {
+                                                "type": "whitespace",
+                                                "line": 13,
+                                                "column": 1,
+                                                "text": "    "
+                                              },
+                                              {
+                                                "type": "dedent",
+                                                "line": 13,
+                                                "column": 5,
+                                                "text": ""
+                                              },
+                                              {
+                                                "type": "symbol",
+                                                "line": 13,
+                                                "column": 5,
+                                                "text": ")"
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "dedent",
+                                        "line": 13,
+                                        "column": 6,
+                                        "text": ""
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "indent",
+                                    "line": 13,
+                                    "column": 6,
+                                    "text": ""
+                                  },
+                                  {
+                                    "type": "newline",
+                                    "line": 13,
+                                    "column": 6,
+                                    "text": "\n"
+                                  },
+                                  {
+                                    "type": "whitespace",
+                                    "line": 14,
+                                    "column": 1,
+                                    "text": "    "
+                                  },
+                                  {
+                                    "type": "statement",
+                                    "line": 14,
+                                    "column": 5,
+                                    "children": [
+                                      {
+                                        "type": "begin_end_block",
+                                        "line": 14,
+                                        "column": 5,
+                                        "children": [
+                                          {
+                                            "type": "keyword",
+                                            "line": 14,
+                                            "column": 5,
+                                            "text": "BEGIN"
+                                          },
+                                          {
+                                            "type": "indent",
+                                            "line": 14,
+                                            "column": 10,
+                                            "text": ""
+                                          },
+                                          {
+                                            "type": "newline",
+                                            "line": 14,
+                                            "column": 10,
+                                            "text": "\n"
+                                          },
+                                          {
+                                            "type": "whitespace",
+                                            "line": 15,
+                                            "column": 1,
+                                            "text": "        "
+                                          },
+                                          {
+                                            "type": "statement",
+                                            "line": 15,
+                                            "column": 9,
+                                            "children": [
+                                              {
+                                                "type": "set_segment",
+                                                "line": 15,
+                                                "column": 9,
+                                                "children": [
+                                                  {
+                                                    "type": "keyword",
+                                                    "line": 15,
+                                                    "column": 9,
+                                                    "text": "SET"
+                                                  },
+                                                  {
+                                                    "type": "indent",
+                                                    "line": 15,
+                                                    "column": 12,
+                                                    "text": ""
+                                                  },
+                                                  {
+                                                    "type": "whitespace",
+                                                    "line": 15,
+                                                    "column": 12,
+                                                    "text": " "
+                                                  },
+                                                  {
+                                                    "type": "raw",
+                                                    "line": 15,
+                                                    "column": 13,
+                                                    "text": "@HasPending"
+                                                  },
+                                                  {
+                                                    "type": "whitespace",
+                                                    "line": 15,
+                                                    "column": 24,
+                                                    "text": " "
+                                                  },
+                                                  {
+                                                    "type": "assignment_operator",
+                                                    "line": 15,
+                                                    "column": 25,
+                                                    "children": [
+                                                      {
+                                                        "type": "symbol",
+                                                        "line": 15,
+                                                        "column": 25,
+                                                        "text": "="
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "type": "whitespace",
+                                                    "line": 15,
+                                                    "column": 26,
+                                                    "text": " "
+                                                  },
+                                                  {
+                                                    "type": "expression",
+                                                    "line": 15,
+                                                    "column": 27,
+                                                    "children": [
+                                                      {
+                                                        "type": "literal",
+                                                        "line": 15,
+                                                        "column": 27,
+                                                        "text": "1"
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "type": "dedent",
+                                                    "line": 15,
+                                                    "column": 28,
+                                                    "text": ""
+                                                  },
+                                                  {
+                                                    "type": "symbol",
+                                                    "line": 15,
+                                                    "column": 28,
+                                                    "text": ";"
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "newline",
+                                            "line": 15,
+                                            "column": 29,
+                                            "text": "\n"
+                                          },
+                                          {
+                                            "type": "whitespace",
+                                            "line": 16,
+                                            "column": 1,
+                                            "text": "    "
+                                          },
+                                          {
+                                            "type": "dedent",
+                                            "line": 16,
+                                            "column": 5,
+                                            "text": ""
+                                          },
+                                          {
+                                            "type": "keyword",
+                                            "line": 16,
+                                            "column": 5,
+                                            "text": "END"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "symbol",
+                                    "line": 16,
+                                    "column": 8,
+                                    "text": ";"
+                                  },
+                                  {
+                                    "type": "dedent",
+                                    "line": 16,
+                                    "column": 9,
+                                    "text": ""
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "newline",
+                            "line": 16,
+                            "column": 9,
+                            "text": "\n"
+                          },
+                          {
+                            "type": "dedent",
+                            "line": 17,
+                            "column": 1,
+                            "text": ""
+                          },
+                          {
+                            "type": "keyword",
+                            "line": 17,
+                            "column": 1,
+                            "text": "END"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "symbol",
+                    "line": 17,
+                    "column": 4,
+                    "text": ";"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "newline",
+        "line": 17,
+        "column": 5,
+        "text": "\n"
+      },
+      {
+        "type": "go_statement",
+        "line": 18,
+        "column": 1,
+        "children": [
+          {
+            "type": "keyword",
+            "line": 18,
+            "column": 1,
+            "text": "GO"
+          }
+        ]
+      },
+      {
+        "type": "newline",
+        "line": 18,
+        "column": 3,
+        "text": "\n"
+      },
+      {
+        "type": "end_of_file",
+        "line": 19,
+        "column": 1,
+        "text": ""
+      }
+    ]
+  }
+}

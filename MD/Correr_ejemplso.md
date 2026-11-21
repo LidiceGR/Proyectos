@@ -47,3 +47,26 @@
 ## Nuevo particionadro de tareas  le manda un worflow para analizar un SP completo  y no solo una instrucción SQl
 
 & "D:\devenv\Anaconda32024.02\Scripts\conda.exe" run --no-capture-output -n cmu-llm python -m research_agent --tasks workspace\run_007\research_v02\research_tasks.json --task-id TASK-8630EC5C6C6A
+
+
+
+
+& "D:\devenv\Anaconda32024.02\Scripts\conda.exe" run --no-capture-output -n cmu-llm python -m capstone_app --config config\capstone_pipeline.react.system1.run_012.json
+
+& "D:\devenv\Anaconda32024.02\Scripts\conda.exe" run --no-capture-output -n cmu-llm python -m capstone_app --config config\capstone_pipeline.react.system2.run_013.json
+
+
+
+# 1. Qwen sin herramientas
+python -m capstone_app --config config\capstone_pipeline.comparison_01_baseline.json
+
+# 2. ReAct con herramientas, sin verificador
+& "D:\devenv\Anaconda32024.02\Scripts\conda.exe" run --no-capture-output -n cmu-llm python -m capstone_app --config config\capstone_pipeline.comparison_02_tools_only.json
+
+# 3. Multiagente, sin RAG
+& "D:\devenv\Anaconda32024.02\Scripts\conda.exe" run --no-capture-output -n cmu-llm python -m capstone_app --config config\capstone_pipeline.comparison_03_verified_no_rag.json
+
+# 4. Multiagente con índice RAG disponible
+& "D:\devenv\Anaconda32024.02\Scripts\conda.exe" run --no-capture-output -n cmu-llm python -m capstone_app --config config\capstone_pipeline.comparison_04_verified_with_rag.json
+
+& "D:\devenv\Anaconda32024.02\Scripts\conda.exe" run --no-capture-output -n cmu-llm python compare_capstone_runs.py --workspace workspace --object dbo.RegisterOperation

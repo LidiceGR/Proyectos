@@ -1,0 +1,517 @@
+{
+  "schema_version": "1.0",
+  "source_file": "sql_sources/03_operation_checks_schema.sql",
+  "source_type": "schema",
+  "source_objects": [
+    {
+      "type": "table",
+      "name": "dbo.OperationChecks",
+      "line": 3
+    }
+  ],
+  "parser": "SQLFluff (tsql)",
+  "tree_type": "syntactic_segment_tree",
+  "status": "ok",
+  "parse_errors": [],
+  "unparsed_regions": [],
+  "tree": {
+    "type": "file",
+    "line": 1,
+    "column": 1,
+    "children": [
+      {
+        "type": "comment",
+        "line": 1,
+        "column": 1,
+        "text": "-- Demonstration table for cross-procedure registration checks."
+      },
+      {
+        "type": "newline",
+        "line": 1,
+        "column": 64,
+        "text": "\n"
+      },
+      {
+        "type": "comment",
+        "line": 2,
+        "column": 1,
+        "text": "-- This example is synthetic, not a statement of actual business policy."
+      },
+      {
+        "type": "newline",
+        "line": 2,
+        "column": 73,
+        "text": "\n"
+      },
+      {
+        "type": "batch",
+        "line": 3,
+        "column": 1,
+        "children": [
+          {
+            "type": "statement",
+            "line": 3,
+            "column": 1,
+            "children": [
+              {
+                "type": "create_table_statement",
+                "line": 3,
+                "column": 1,
+                "children": [
+                  {
+                    "type": "keyword",
+                    "line": 3,
+                    "column": 1,
+                    "text": "CREATE"
+                  },
+                  {
+                    "type": "whitespace",
+                    "line": 3,
+                    "column": 7,
+                    "text": " "
+                  },
+                  {
+                    "type": "keyword",
+                    "line": 3,
+                    "column": 8,
+                    "text": "TABLE"
+                  },
+                  {
+                    "type": "whitespace",
+                    "line": 3,
+                    "column": 13,
+                    "text": " "
+                  },
+                  {
+                    "type": "table_reference",
+                    "line": 3,
+                    "column": 14,
+                    "children": [
+                      {
+                        "type": "identifier",
+                        "line": 3,
+                        "column": 14,
+                        "text": "dbo"
+                      },
+                      {
+                        "type": "symbol",
+                        "line": 3,
+                        "column": 17,
+                        "text": "."
+                      },
+                      {
+                        "type": "identifier",
+                        "line": 3,
+                        "column": 18,
+                        "text": "OperationChecks"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "whitespace",
+                    "line": 3,
+                    "column": 33,
+                    "text": " "
+                  },
+                  {
+                    "type": "bracketed",
+                    "line": 3,
+                    "column": 34,
+                    "children": [
+                      {
+                        "type": "symbol",
+                        "line": 3,
+                        "column": 34,
+                        "text": "("
+                      },
+                      {
+                        "type": "indent",
+                        "line": 3,
+                        "column": 35,
+                        "text": ""
+                      },
+                      {
+                        "type": "newline",
+                        "line": 3,
+                        "column": 35,
+                        "text": "\n"
+                      },
+                      {
+                        "type": "whitespace",
+                        "line": 4,
+                        "column": 1,
+                        "text": "    "
+                      },
+                      {
+                        "type": "column_definition",
+                        "line": 4,
+                        "column": 5,
+                        "children": [
+                          {
+                            "type": "identifier",
+                            "line": 4,
+                            "column": 5,
+                            "text": "CheckId"
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 4,
+                            "column": 12,
+                            "text": " "
+                          },
+                          {
+                            "type": "data_type",
+                            "line": 4,
+                            "column": 13,
+                            "children": [
+                              {
+                                "type": "raw",
+                                "line": 4,
+                                "column": 13,
+                                "text": "INT"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 4,
+                            "column": 16,
+                            "text": " "
+                          },
+                          {
+                            "type": "column_constraint_segment",
+                            "line": 4,
+                            "column": 17,
+                            "children": [
+                              {
+                                "type": "keyword",
+                                "line": 4,
+                                "column": 17,
+                                "text": "NOT"
+                              },
+                              {
+                                "type": "whitespace",
+                                "line": 4,
+                                "column": 20,
+                                "text": " "
+                              },
+                              {
+                                "type": "keyword",
+                                "line": 4,
+                                "column": 21,
+                                "text": "NULL"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 4,
+                            "column": 25,
+                            "text": " "
+                          },
+                          {
+                            "type": "column_constraint_segment",
+                            "line": 4,
+                            "column": 26,
+                            "children": [
+                              {
+                                "type": "keyword",
+                                "line": 4,
+                                "column": 26,
+                                "text": "PRIMARY"
+                              },
+                              {
+                                "type": "whitespace",
+                                "line": 4,
+                                "column": 33,
+                                "text": " "
+                              },
+                              {
+                                "type": "keyword",
+                                "line": 4,
+                                "column": 34,
+                                "text": "KEY"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "symbol",
+                        "line": 4,
+                        "column": 37,
+                        "text": ","
+                      },
+                      {
+                        "type": "newline",
+                        "line": 4,
+                        "column": 38,
+                        "text": "\n"
+                      },
+                      {
+                        "type": "whitespace",
+                        "line": 5,
+                        "column": 1,
+                        "text": "    "
+                      },
+                      {
+                        "type": "column_definition",
+                        "line": 5,
+                        "column": 5,
+                        "children": [
+                          {
+                            "type": "identifier",
+                            "line": 5,
+                            "column": 5,
+                            "text": "OperationId"
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 5,
+                            "column": 16,
+                            "text": " "
+                          },
+                          {
+                            "type": "data_type",
+                            "line": 5,
+                            "column": 17,
+                            "children": [
+                              {
+                                "type": "raw",
+                                "line": 5,
+                                "column": 17,
+                                "text": "INT"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 5,
+                            "column": 20,
+                            "text": " "
+                          },
+                          {
+                            "type": "column_constraint_segment",
+                            "line": 5,
+                            "column": 21,
+                            "children": [
+                              {
+                                "type": "keyword",
+                                "line": 5,
+                                "column": 21,
+                                "text": "NOT"
+                              },
+                              {
+                                "type": "whitespace",
+                                "line": 5,
+                                "column": 24,
+                                "text": " "
+                              },
+                              {
+                                "type": "keyword",
+                                "line": 5,
+                                "column": 25,
+                                "text": "NULL"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "symbol",
+                        "line": 5,
+                        "column": 29,
+                        "text": ","
+                      },
+                      {
+                        "type": "newline",
+                        "line": 5,
+                        "column": 30,
+                        "text": "\n"
+                      },
+                      {
+                        "type": "whitespace",
+                        "line": 6,
+                        "column": 1,
+                        "text": "    "
+                      },
+                      {
+                        "type": "column_definition",
+                        "line": 6,
+                        "column": 5,
+                        "children": [
+                          {
+                            "type": "identifier",
+                            "line": 6,
+                            "column": 5,
+                            "text": "Status"
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 6,
+                            "column": 11,
+                            "text": " "
+                          },
+                          {
+                            "type": "data_type",
+                            "line": 6,
+                            "column": 12,
+                            "children": [
+                              {
+                                "type": "raw",
+                                "line": 6,
+                                "column": 12,
+                                "text": "VARCHAR"
+                              },
+                              {
+                                "type": "bracketed_arguments",
+                                "line": 6,
+                                "column": 19,
+                                "children": [
+                                  {
+                                    "type": "bracketed",
+                                    "line": 6,
+                                    "column": 19,
+                                    "children": [
+                                      {
+                                        "type": "symbol",
+                                        "line": 6,
+                                        "column": 19,
+                                        "text": "("
+                                      },
+                                      {
+                                        "type": "indent",
+                                        "line": 6,
+                                        "column": 20,
+                                        "text": ""
+                                      },
+                                      {
+                                        "type": "expression",
+                                        "line": 6,
+                                        "column": 20,
+                                        "children": [
+                                          {
+                                            "type": "literal",
+                                            "line": 6,
+                                            "column": 20,
+                                            "text": "20"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "dedent",
+                                        "line": 6,
+                                        "column": 22,
+                                        "text": ""
+                                      },
+                                      {
+                                        "type": "symbol",
+                                        "line": 6,
+                                        "column": 22,
+                                        "text": ")"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "whitespace",
+                            "line": 6,
+                            "column": 23,
+                            "text": " "
+                          },
+                          {
+                            "type": "column_constraint_segment",
+                            "line": 6,
+                            "column": 24,
+                            "children": [
+                              {
+                                "type": "keyword",
+                                "line": 6,
+                                "column": 24,
+                                "text": "NOT"
+                              },
+                              {
+                                "type": "whitespace",
+                                "line": 6,
+                                "column": 27,
+                                "text": " "
+                              },
+                              {
+                                "type": "keyword",
+                                "line": 6,
+                                "column": 28,
+                                "text": "NULL"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "newline",
+                        "line": 6,
+                        "column": 32,
+                        "text": "\n"
+                      },
+                      {
+                        "type": "dedent",
+                        "line": 7,
+                        "column": 1,
+                        "text": ""
+                      },
+                      {
+                        "type": "symbol",
+                        "line": 7,
+                        "column": 1,
+                        "text": ")"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "symbol",
+                    "line": 7,
+                    "column": 2,
+                    "text": ";"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "newline",
+        "line": 7,
+        "column": 3,
+        "text": "\n"
+      },
+      {
+        "type": "go_statement",
+        "line": 8,
+        "column": 1,
+        "children": [
+          {
+            "type": "keyword",
+            "line": 8,
+            "column": 1,
+            "text": "GO"
+          }
+        ]
+      },
+      {
+        "type": "newline",
+        "line": 8,
+        "column": 3,
+        "text": "\n"
+      },
+      {
+        "type": "end_of_file",
+        "line": 9,
+        "column": 1,
+        "text": ""
+      }
+    ]
+  }
+}

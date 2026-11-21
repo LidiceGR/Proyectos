@@ -23,6 +23,7 @@ from .batch import _read_pending, _validate_selected_task, _write_checkpoint
 from .context_builder import compact_workflow_context
 from .derived_tasks import _linked_to_current, discover_affected_triggers, register_investigation
 from .evidence_checker import check_evidence
+from .workflow_contract import source_contract
 from .react import _action_key, _now, _source_policy_actions
 from .tools import ResearchTools, _identifier
 from .validator import extract_json_object, validate_decision
@@ -41,6 +42,7 @@ VALID_ACTIONS = {
     "inspect_source_fragment": frozenset(("source_file", "start_line", "end_line")),
     "get_research_finding": frozenset(("task_id",)),
     "enqueue_research_task": frozenset(("object_name", "research_question", "reason")),
+    "retrieve_evidence": frozenset(("query", "top_k")),
 }
 
 
@@ -81,6 +83,11 @@ def _research_hints(task: dict[str, Any], tools: ResearchTools,
     hints = _source_policy_actions(task, tools)
     for related in _related_tasks(task, tools, known, derived):
         hints.append({"name": "get_research_finding", "arguments": {"task_id": related["task_id"]}})
+    # Calls are explicit dependencies, not mere related tables.
+    if (tools.run_root / "rag" / "index.json").exists():
+        name = str((task.get("target") or {}).get("object_name", ""))
+        hints.append({"name": "retrieve_evidence", "arguments": {
+            "query": f"{name} related constraints business validation", "top_k": 5}})
     source = (task.get("evidence") or {}).get("source_file")
     begin = (task.get("evidence") or {}).get("start_line")
     end = (task.get("evidence") or {}).get("end_line")
@@ -105,8 +112,26 @@ def render_research_decision_prompt(task: dict[str, Any], observations: list[dic
 def render_final_prompt(task: dict[str, Any], observations: list[dict[str, Any]],
                         stop_reason: str) -> str:
     template = Template(FINAL_PROMPT_FILE.read_text(encoding="utf-8"))
+    catalog_facts = []
+    for entry in observations:
+        if not isinstance(entry, dict):
+            continue
+        action, response = entry.get('action') or {}, entry.get('observation') or {}
+        if (action.get('name') == 'lookup_catalog_value'
+                and response.get('status') == 'found'):
+            for match in response.get('matches') or []:
+                if isinstance(match, dict) and match.get('description'):
+                    catalog_facts.append({
+                        'code': match.get('code'),
+                        'description': match.get('description'),
+                        'catalog': match.get('catalog'),
+                        'table': match.get('table'),
+                        'column': match.get('key_column'),
+                    })
     return template.substitute(
         task_json=json.dumps(_compact_task(task), ensure_ascii=False, indent=2),
+        primary_contract_json=json.dumps(source_contract(task), ensure_ascii=False, indent=2),
+        catalog_facts_json=json.dumps(catalog_facts, ensure_ascii=False, indent=2),
         observations_json=json.dumps(observations, ensure_ascii=False, indent=2),
         stop_reason=stop_reason,
     )
@@ -144,6 +169,11 @@ def _validate_action(action: Any, tools: ResearchTools, task: dict[str, Any],
                 permitted_sources.add(str((other.get("evidence") or {}).get("source_file", "")))
         if args["source_file"] not in permitted_sources:
             return ["Requested source file is not from the task or a registered related task"]
+    elif name == "retrieve_evidence":
+        if (not isinstance(args["query"], str) or not args["query"].strip()
+                or len(args["query"]) > 500 or type(args["top_k"]) is not int
+                or not 1 <= args["top_k"] <= 10):
+            return ["retrieve_evidence requires a bounded query and top_k 1..10"]
     elif name == "get_research_finding":
         if not isinstance(args["task_id"], str):
             return ["get_research_finding requires a task_id string"]
@@ -374,7 +404,8 @@ def run_react_batch_v05(
     initial = _read_pending(path)
     selected = initial if max_tasks == 0 else initial[:max_tasks]
     known = json.loads(path.read_text(encoding="utf-8-sig"))["tasks"]
-    tools = ResearchTools.from_tasks_file(path)
+    from resource_acquisition.agent import ResourceAcquisitionAgent
+    tools = ResourceAcquisitionAgent.from_tasks_file(path)
     destination = Path(output_directory).resolve() if output_directory else path.parent / "agent_runs"
     summary_path = destination / "react_summary.json"
     derived_path = path.parent / "derived_tasks.json"

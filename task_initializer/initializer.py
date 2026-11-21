@@ -30,6 +30,8 @@ AST_NODE_TYPES: dict[str, set[str]] = {
     "RETURN": {"return_segment", "return_statement"},
     "SELECT": {"select_statement"},
     "TRANSACTION": {"transaction_statement"},
+    "SET": {"set_statement", "set_clause", "set_clause_element"},
+    "CALL": {"execute_statement", "execute_script_segment", "execute_procedure_statement", "exec_statement", "execute_segment", "execute_script_statement", "execute_command"},
 }
 
 
@@ -209,6 +211,8 @@ def initialize_tasks(
                     "operation": kind,
                     "source_line": line,
                     "target_table": op.get("target_table"),
+                    "called_object": op.get("called_object"),
+                    "read_tables": copy.deepcopy(op.get("tables", [])),
                     "condition_context": copy.deepcopy(op.get("condition_context", [])),
                     "where_conditions": copy.deepcopy(op.get("where_conditions", [])),
                     "effects": copy.deepcopy(op.get("effects", {})),

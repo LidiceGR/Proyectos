@@ -389,6 +389,14 @@ def _routine(node: dict[str, Any], kind: str, file: str, ast_file: str,
             entity["calls"].append({"procedure": called, "resolution": resolution,
                                     "expression": sql, "source": _source(file, segment.get("line")),
                                     "condition_context": list(context)})
+            # Preserve static procedure invocation as an ordered workflow step.
+            # This is essential for tracing business rules split across procedures.
+            entity["operations"].append({
+                "operation": "CALL", "called_object": called,
+                "resolution": resolution, "source": _source(file, segment.get("line")),
+                "condition_context": list(context),
+                "effects": {"statement": sql, "called_object": called},
+            })
             if called:
                 relationships.append({
                     "from": {"type": kind, "name": name},
@@ -412,6 +420,50 @@ def _routine(node: dict[str, Any], kind: str, file: str, ast_file: str,
     for body in bodies:
         visit(body, [])
     return entity
+
+
+def _augment_static_calls_from_source(entity: dict[str, Any], sql: str, file: str,
+                                      relationships: list[dict[str, Any]]) -> None:
+    """Safeguard for SQLFluff dialect differences around static EXEC statements.
+
+    The AST remains primary. This conservative fallback records only literal
+    EXEC names on their own source line. It never executes the statement.
+    """
+    known_lines = {entry['source']['line'] for entry in entity.get('calls', [])
+                   if isinstance(entry.get('source'), dict) and isinstance(entry['source'].get('line'), int)}
+    for line, text in enumerate(sql.splitlines(), 1):
+        if line in known_lines:
+            continue
+        if not re.match(r'(?i)^\s*EXEC(?:UTE)?\s+', text):
+            continue
+        called, resolution = _parse_exec(text.strip())
+        if called is None or resolution != 'static':
+            continue
+        source = _source(file, line)
+        entity['calls'].append({'procedure': called, 'resolution': 'static_source_fallback',
+                                'expression': text.strip(), 'source': source,
+                                'condition_context': []})
+        entity['operations'].append({'operation':'CALL', 'called_object':called,
+                                     'resolution':'static_source_fallback', 'source':source,
+                                     'condition_context':[],
+                                     'effects':{'statement':text.strip(), 'called_object':called}})
+        relationships.append({'from':{'type':entity['object_type'],'name':entity['name']},
+                              'to':{'type':'procedure','name':called},
+                              'type':'CALLS','source':source,'condition_context':[]})
+    # Preserve simple variable assignments even if the AST's SET dialect node
+    # is not recognized; these values control calls and final decisions.
+    set_lines = {((op.get('source') or {}).get('line')) for op in entity['operations']
+                 if op.get('operation') == 'SET'}
+    for line, text in enumerate(sql.splitlines(), 1):
+        if line in set_lines:
+            continue
+        m = re.match(r'(?i)^\s*SET\s+(@\w+)\s*=\s*(.+?)\s*;?\s*$', text)
+        if m:
+            entity['operations'].append({'operation':'SET', 'source':_source(file,line),
+                'condition_context':[],
+                'effects':{'variable_assignments':[{'variable':m.group(1),
+                    'expression':m.group(2).rstrip(';').strip(),'line':line}]}})
+    entity['operations'].sort(key=lambda op:(op.get('source') or {}).get('line') or 0)
 
 
 def build_inventory(ast_manifest_path: str | Path, source_manifest_path: str | Path,
@@ -493,6 +545,8 @@ def build_inventory(ast_manifest_path: str | Path, source_manifest_path: str | P
             for proc_node in _find(node, "create_procedure_statement"):
                 result = _routine(proc_node, "procedure", file, ast_file, relationships, issues)
                 if result:
+                    _augment_static_calls_from_source(result, sql_path.read_text(encoding='utf-8-sig'),
+                                                      file, relationships)
                     inventory["procedures"].append(result)
             for trigger_node in _find(node, "create_trigger"):
                 result = _routine(trigger_node, "trigger", file, ast_file, relationships, issues)
@@ -525,6 +579,7 @@ def build_inventory(ast_manifest_path: str | Path, source_manifest_path: str | P
                 "key_column": document.get("key_column"),
                 "description_column": document.get("description_column"),
                 "values": document["values"], "source_file": relative,
+                "applies_to": document.get("applies_to", []),
                 "record_count": len(document["values"]),
             })
             if on_event:

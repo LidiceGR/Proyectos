@@ -1,0 +1,200 @@
+{
+  "schema_version": "2.0",
+  "generated_utc": "2026-11-21T05:35:51.407837+00:00",
+  "review_status": "unapproved",
+  "findings": [
+    {
+      "id": "RULE-D3FBA04B682D",
+      "task_id": "TASK-D3FBA04B682D",
+      "object": "dbo.ApproveOperation",
+      "candidate_rule": "The 'Status' column of the 'Operations' table is updated to 'APPROVED' (Approved operation) for the specified 'OperationId' where the 'Amount' is greater than 0. Catalog context (source-backed): Status=PENDING means Pending approval.",
+      "observed_behavior": "The primary workflow correctly updates the 'Status' column of the 'Operations' table to 'APPROVED' where the 'OperationId' matches the provided 'OperationId' and the 'Amount' is greater than 0. The source evidence supports the required procedure and its behavior.",
+      "conditions": [
+        "OperationId = @OperationId AND Status = 'PENDING' AND Amount > 0"
+      ],
+      "effect": "The 'Status' column of the 'Operations' table is updated to 'APPROVED' for the specified 'OperationId' where the 'Amount' is greater than 0.",
+      "missing_information": [],
+      "source": {
+        "source_file": "sql_sources/01_ApproveOperation.sql",
+        "ast_file": "ast_files/sql_sources/01_ApproveOperation.sql.ast.json",
+        "start_line": 5,
+        "end_line": 11,
+        "ast_node_type": "logical_workflow"
+      },
+      "related_objects": [
+        {
+          "relation": "UPDATES",
+          "type": "table",
+          "name": "dbo.Operations",
+          "definition_in_inventory": true
+        }
+      ],
+      "verification_file": "verifications\\TASK-D3FBA04B682D.json",
+      "technical_status": "technically_evidenced",
+      "human_status": "pending_human_review",
+      "catalog_augmentation": {
+        "before_candidate_rule": "The 'Status' column of the 'Operations' table is updated to 'APPROVED' for the specified 'OperationId' where the 'Amount' is greater than 0.",
+        "after_candidate_rule": "The 'Status' column of the 'Operations' table is updated to 'APPROVED' (Approved operation) for the specified 'OperationId' where the 'Amount' is greater than 0. Catalog context (source-backed): Status=PENDING means Pending approval.",
+        "facts_applied": [
+          {
+            "column": "Status",
+            "code": "PENDING",
+            "description": "Pending approval",
+            "catalog": "Operation statuses",
+            "source_file": "catalogs/operation_statuses.catalog.json",
+            "source_tables": [
+              "dbo.operations"
+            ],
+            "origin": "lookup_catalog_value",
+            "presentation": "catalog_context"
+          },
+          {
+            "column": "Status",
+            "code": "APPROVED",
+            "description": "Approved operation",
+            "catalog": "Operation statuses",
+            "source_file": "catalogs/operation_statuses.catalog.json",
+            "source_tables": [
+              "dbo.operations"
+            ],
+            "origin": "lookup_catalog_value",
+            "presentation": "inline"
+          }
+        ],
+        "origin": "deterministic_catalog_grounding",
+        "limitation": "The controller added only exact catalog meanings returned by authentic read-only tool calls. It did not perform LLM reasoning, infer a rule, or independently establish semantic correctness."
+      }
+    },
+    {
+      "id": "RULE-272C2288A360",
+      "task_id": "TASK-272C2288A360",
+      "object": "dbo.trg_Operations_ValidateAmount",
+      "candidate_rule": "The 'Amount' column in the 'inserted' table must be greater than zero to prevent invalid operations.",
+      "observed_behavior": "The trigger 'dbo.trg_Operations_ValidateAmount' validates the 'Amount' column in the 'inserted' table by checking if the value is less than or equal to zero. If such a value exists, it throws an error with the message 'Amount must be greater than zero'.",
+      "conditions": [
+        "Amount <= 0",
+        "EXISTS (SELECT 1 FROM inserted WHERE Amount <= 0)"
+      ],
+      "effect": "The trigger throws an error with the specified message if the 'Amount' column in the 'inserted' table has a value less than or equal to zero.",
+      "missing_information": [],
+      "source": {
+        "source_file": "sql_sources/01_ValidateAmount.sql",
+        "ast_file": "ast_files/sql_sources/01_ValidateAmount.sql.ast.json",
+        "start_line": 6,
+        "end_line": 11,
+        "ast_node_type": "logical_workflow"
+      },
+      "related_objects": [
+        {
+          "relation": "READS",
+          "type": "table",
+          "name": "inserted",
+          "sql_server_pseudotable": true
+        },
+        {
+          "relation": "TRIGGERS_ON",
+          "type": "table",
+          "name": "dbo.Operations",
+          "definition_in_inventory": true
+        }
+      ],
+      "verification_file": "verifications\\TASK-272C2288A360.json",
+      "technical_status": "technically_evidenced",
+      "human_status": "pending_human_review",
+      "catalog_augmentation": null
+    },
+    {
+      "id": "RULE-3FAB90CBBFA4",
+      "task_id": "TASK-3FAB90CBBFA4",
+      "object": "dbo.RegisterOperation",
+      "candidate_rule": "The procedure 'RegisterOperation' inserts into the 'Operations' table with the specified parameters when @OperationType is 2 (Internal adjustment) and @Amount is greater than 0, and sets the 'Status' to 'PENDING' (Pending approval).",
+      "observed_behavior": "The primary workflow correctly implements a conditional insert into the 'Operations' table for the 'RegisterOperation' procedure. The conditions are checked using an 'IF' statement with the operator '@OperationType = 2 AND @Amount > 0', and the values are inserted into the table with the specified columns and status. The behavior is valid and follows the primary SQL logic.",
+      "conditions": [
+        "IF @OperationType = 2 AND @Amount > 0"
+      ],
+      "effect": "INSERT INTO dbo.Operations (OperationId, OperationType, Amount, Status) VALUES (@OperationId, @OperationType, @Amount, 'PENDING')",
+      "missing_information": [],
+      "source": {
+        "source_file": "sql_sources/02_RegisterOperation.sql",
+        "ast_file": "ast_files/sql_sources/02_RegisterOperation.sql.ast.json",
+        "start_line": 7,
+        "end_line": 13,
+        "ast_node_type": "logical_workflow"
+      },
+      "related_objects": [
+        {
+          "relation": "INSERTS_INTO",
+          "type": "table",
+          "name": "dbo.Operations",
+          "definition_in_inventory": true
+        }
+      ],
+      "verification_file": "verifications\\TASK-3FAB90CBBFA4.json",
+      "technical_status": "technically_evidenced",
+      "human_status": "pending_human_review",
+      "catalog_augmentation": {
+        "before_candidate_rule": "The procedure 'RegisterOperation' inserts into the 'Operations' table with the specified parameters when @OperationType is 2 and @Amount is greater than 0, and sets the 'Status' to 'PENDING'.",
+        "after_candidate_rule": "The procedure 'RegisterOperation' inserts into the 'Operations' table with the specified parameters when @OperationType is 2 (Internal adjustment) and @Amount is greater than 0, and sets the 'Status' to 'PENDING' (Pending approval).",
+        "facts_applied": [
+          {
+            "column": "OperationType",
+            "code": 2,
+            "description": "Internal adjustment",
+            "catalog": "Operation types",
+            "source_file": "catalogs/operation_types.catalog.json",
+            "source_tables": [
+              "dbo.operations"
+            ],
+            "origin": "lookup_catalog_value",
+            "presentation": "inline"
+          },
+          {
+            "column": "Status",
+            "code": "PENDING",
+            "description": "Pending approval",
+            "catalog": "Operation statuses",
+            "source_file": "catalogs/operation_statuses.catalog.json",
+            "source_tables": [
+              "dbo.operations"
+            ],
+            "origin": "lookup_catalog_value",
+            "presentation": "inline"
+          }
+        ],
+        "origin": "deterministic_catalog_grounding",
+        "limitation": "The controller added only exact catalog meanings returned by authentic read-only tool calls. It did not perform LLM reasoning, infer a rule, or independently establish semantic correctness."
+      }
+    },
+    {
+      "id": "RULE-4D9C830B0699",
+      "task_id": "TASK-4D9C830B0699",
+      "object": "dbo.HasPendingOperationCheck",
+      "candidate_rule": "The '@HasPending' variable is set to 1 if a pending operation is found in the 'OperationChecks' table with the specified 'OperationId' and 'Status' 'PENDING'.",
+      "observed_behavior": "The primary workflow correctly identifies whether a pending operation exists by checking the 'OperationChecks' table for a record with the specified 'OperationId' and 'Status' 'PENDING'. The result is stored in the '@HasPending' variable.",
+      "conditions": [
+        "OperationId = @OperationId AND Status = 'PENDING'"
+      ],
+      "effect": "The '@HasPending' variable is set to 1 if a pending operation is found, and 0 otherwise.",
+      "missing_information": [],
+      "source": {
+        "source_file": "sql_sources/04_HasPendingOperationCheck.sql",
+        "ast_file": "ast_files/sql_sources/04_HasPendingOperationCheck.sql.ast.json",
+        "start_line": 6,
+        "end_line": 17,
+        "ast_node_type": "logical_workflow"
+      },
+      "related_objects": [
+        {
+          "relation": "READS",
+          "type": "table",
+          "name": "dbo.OperationChecks",
+          "definition_in_inventory": true
+        }
+      ],
+      "verification_file": "verifications\\TASK-4D9C830B0699.json",
+      "technical_status": "technically_evidenced",
+      "human_status": "pending_human_review",
+      "catalog_augmentation": null
+    }
+  ]
+}

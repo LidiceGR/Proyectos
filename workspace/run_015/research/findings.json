@@ -1,0 +1,74 @@
+{
+  "schema_version": "2.0",
+  "generated_utc": "2026-11-21T03:14:04.421871+00:00",
+  "review_status": "unapproved",
+  "findings": [
+    {
+      "id": "RULE-272C2288A360",
+      "task_id": "TASK-272C2288A360",
+      "object": "dbo.trg_Operations_ValidateAmount",
+      "candidate_rule": "The 'Amount' column in the 'inserted' table must be greater than zero to prevent invalid operations.",
+      "observed_behavior": "The trigger 'dbo.trg_Operations_ValidateAmount' validates the 'Amount' column in the 'inserted' table by checking if the value is less than or equal to zero. If such a value exists, it throws an error with the message 'Amount must be greater than zero'.",
+      "conditions": [
+        "Amount <= 0",
+        "EXISTS (SELECT 1 FROM inserted WHERE Amount <= 0)"
+      ],
+      "effect": "The trigger throws an error with the specified message if the 'Amount' column in the 'inserted' table has a value less than or equal to zero.",
+      "missing_information": [],
+      "source": {
+        "source_file": "sql_sources/01_ValidateAmount.sql",
+        "ast_file": "ast_files/sql_sources/01_ValidateAmount.sql.ast.json",
+        "start_line": 6,
+        "end_line": 11,
+        "ast_node_type": "logical_workflow"
+      },
+      "related_objects": [
+        {
+          "relation": "READS",
+          "type": "table",
+          "name": "inserted",
+          "sql_server_pseudotable": true
+        },
+        {
+          "relation": "TRIGGERS_ON",
+          "type": "table",
+          "name": "dbo.Operations",
+          "definition_in_inventory": true
+        }
+      ],
+      "verification_file": "verifications\\TASK-272C2288A360.json",
+      "technical_status": "technically_evidenced",
+      "human_status": "pending_human_review"
+    },
+    {
+      "id": "RULE-4D9C830B0699",
+      "task_id": "TASK-4D9C830B0699",
+      "object": "dbo.HasPendingOperationCheck",
+      "candidate_rule": "The '@HasPending' variable is set to 1 if a pending operation is found in the 'OperationChecks' table with the specified 'OperationId' and 'Status' 'PENDING'.",
+      "observed_behavior": "The primary workflow correctly identifies whether a pending operation exists by checking the 'OperationChecks' table for a record with the specified 'OperationId' and 'Status' 'PENDING'. The result is stored in the '@HasPending' variable.",
+      "conditions": [
+        "OperationId = @OperationId AND Status = 'PENDING'"
+      ],
+      "effect": "The '@HasPending' variable is set to 1 if a pending operation is found, and 0 otherwise.",
+      "missing_information": [],
+      "source": {
+        "source_file": "sql_sources/04_HasPendingOperationCheck.sql",
+        "ast_file": "ast_files/sql_sources/04_HasPendingOperationCheck.sql.ast.json",
+        "start_line": 6,
+        "end_line": 17,
+        "ast_node_type": "logical_workflow"
+      },
+      "related_objects": [
+        {
+          "relation": "READS",
+          "type": "table",
+          "name": "dbo.OperationChecks",
+          "definition_in_inventory": true
+        }
+      ],
+      "verification_file": "verifications\\TASK-4D9C830B0699.json",
+      "technical_status": "technically_evidenced",
+      "human_status": "pending_human_review"
+    }
+  ]
+}

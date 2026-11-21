@@ -1,0 +1,1107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Capstone · Workspace Explorer v0.7 Multi-Agent</title>
+  <style>
+:root{--ink:#18263b;--muted:#6d7e91;--line:#e4e9f1;--teal:#188a80;--teal-bg:#e8f7f3;--blue:#3b62b8;--blue-bg:#ecf2ff;--amber:#9a681e;--amber-bg:#fff5e7;--navy:#15243a;--paper:#fff;--bg:#f6f8fb;--shadow:0 13px 32px rgba(22,36,56,.035)}
+*{box-sizing:border-box}body{margin:0;color:var(--ink);font:14px/1.5 "Segoe UI",Inter,-apple-system,BlinkMacSystemFont,Arial,sans-serif;background:var(--bg)}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,select:focus-visible,input:focus-visible,.click-card:focus-visible{outline:3px solid #86cfc5;outline-offset:3px}h1,h2,h3,p{margin-top:0}h1{letter-spacing:-.052em;font-size:37px;font-weight:750;line-height:1.19;margin-bottom:12px}h2{font-size:18px;letter-spacing:-.025em}h3{font-size:15px;letter-spacing:-.02em}code,pre{font-family:Consolas,"Cascadia Code",monospace}.shell{display:flex;min-height:100vh}.sidebar{width:252px;flex:none;background:#fff;border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:100vh;position:sticky;top:0;height:100vh}.brand{display:flex;gap:10px;align-items:center;padding:31px 22px 27px}.brand strong{font-size:24px;letter-spacing:-1.3px;line-height:1.1}.brand-dot{color:#27a59c}.brand small{display:block;font-size:9px;color:var(--muted);font-weight:700;letter-spacing:2.2px}.brand-icon{width:34px;height:34px;display:grid;grid-template-columns:repeat(2,12px);grid-template-rows:repeat(2,12px);gap:3px;transform:rotate(-10deg)}.brand-icon span{border-radius:4px;background:#1b837b}.brand-icon span:nth-child(2){background:#b8e5de}.brand-icon span:nth-child(3){background:#a4d7cd}.brand-icon span:nth-child(4){background:#244967}.sidebar-section{padding:0 15px 22px}.sidebar-title,.field-label{font-size:10px;color:#8492a4;letter-spacing:1.2px;font-weight:750;padding:0 10px 11px}.folder-button{background:var(--navy);color:#fff;border-radius:10px;display:flex;align-items:center;gap:8px;padding:11px 12px;font-weight:650;cursor:pointer;font-size:12px;box-shadow:0 5px 11px rgba(25,44,68,.1)}.folder-button:hover{background:#253d59}.folder-symbol{font-size:20px;line-height:1}.demo-button{border:0;background:transparent;color:var(--teal);font-size:12px;padding:12px 7px 17px;display:flex;justify-content:space-between;width:100%;font-weight:650}.demo-button:hover{text-decoration:underline}.run-wrap{border-top:1px solid #edf0f4;padding-top:18px}.run-wrap .field-label{display:block;padding-bottom:6px}.run-wrap select{background:#f7f9fb;border:1px solid #e3e9ee;border-radius:9px;padding:10px 9px;width:100%;font-weight:650;color:#33435a}.nav-section{border-top:1px solid var(--line);padding-top:22px;flex:1}.nav-item{display:flex;align-items:center;width:100%;border:0;border-radius:9px;background:transparent;padding:10px 12px;text-align:left;gap:12px;font-weight:600;font-size:13px;color:#718096;margin-bottom:3px}.nav-item:hover{background:#f2f5f8;color:#213b54}.nav-item.active{background:#e9f6f3;color:#13776f}.nav-glyph{width:18px;text-align:center;font-size:18px;line-height:1}.nav-count{margin-left:auto;background:#edf1f5;color:#637789;border-radius:10px;padding:1px 7px;font-size:10px}.nav-item.active .nav-count{background:#d0ebe5;color:#15776f}.sidebar-bottom{margin:17px 20px 23px;padding-top:16px;border-top:1px solid var(--line);font-size:11px;font-weight:700;color:#466070}.sidebar-bottom small{font-weight:400;color:#8b9aa7}.local-dot{display:inline-block;width:7px;height:7px;background:#26ab87;border-radius:50%;margin-right:7px;box-shadow:0 0 0 3px #e1f4ec}.app-column{min-width:0;flex:1}.topbar{height:70px;background:rgba(255,255,255,.86);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 38px}.breadcrumbs{display:flex;align-items:center;gap:10px;color:#8b9bad;font-size:12px}.breadcrumbs strong{color:#364c65;font-weight:700}.crumb-arrow{font-size:20px;color:#a4b0bb}.offline-badge{font-size:11px;color:#56716e;font-weight:650;border:1px solid #dbece7;background:#f1fbf7;padding:7px 11px;border-radius:20px}main{max-width:1490px;margin:auto;padding:35px 39px 65px}.page-heading{display:flex;justify-content:space-between;gap:14px;align-items:center;margin-bottom:25px}.eyebrow{font-size:10px;font-weight:800;letter-spacing:1.6px;color:var(--teal);text-transform:uppercase;display:flex;gap:9px;align-items:center;margin-bottom:12px}.eyebrow-line{width:17px;height:2px;background:var(--teal)}.page-title{font-size:30px;letter-spacing:-1.4px;font-weight:740;margin:0 0 4px}.subtitle{font-size:13px;color:var(--muted);margin:0}.run-tag{font-family:Consolas,monospace;border:1px solid var(--line);color:#566a80;border-radius:20px;padding:7px 11px;white-space:nowrap;background:#fff;font-size:11px}.welcome{max-width:820px;margin:75px auto}.welcome h1{font-size:49px}.welcome h1 em{font-style:normal;color:#18958a}.welcome>p{max-width:670px;font-size:16px;color:#687a8f}.welcome-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:40px}.welcome-steps>div{padding:20px;background:white;border:1px solid var(--line);border-radius:13px;display:grid;gap:6px}.welcome-steps span{font-family:Consolas;color:var(--teal)}.welcome-steps strong{font-size:13px}.welcome-steps small{font-size:11px;color:var(--muted)}.welcome .tip{font-size:13px;margin-top:24px}.stats-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:13px;margin-bottom:24px}.stat{background:var(--paper);border:1px solid var(--line);border-radius:13px;padding:19px 17px;box-shadow:var(--shadow);position:relative;overflow:hidden}.stat:before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:#dde7ec}.stat:nth-child(4):before{background:#34a69a}.stat:nth-child(5):before{background:#8c9fce}.stat span{display:block;color:#8491a1;font-size:11px;font-weight:650}.stat strong{font-size:29px;letter-spacing:-1px;display:block;margin-top:5px;line-height:1.2}.stat small{color:#9ca9b5;font-size:10px}.panel{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:22px;margin-bottom:17px}.panel h2{margin-bottom:16px}.panel-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:12px}.panel-header h2{margin:0}.muted{color:var(--muted)}.section-note{color:#8391a3;font-size:12px}.workflow{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.step{background:#f7fafc;border:1px solid var(--line);border-radius:11px;padding:15px 12px;position:relative}.step .step-num{font-family:Consolas;font-size:10px;color:#a1aeba}.step h3{margin:8px 0 5px;font-size:12px}.step p{margin:0;font-size:10px;color:var(--muted)}.step.complete{background:#f3fbf8;border-color:#cce9e2}.step.complete .step-num{color:#219183}.step.missing{background:#fbfcfd}.overview-grid{display:grid;grid-template-columns:1.45fr 1fr;gap:17px;margin-top:17px}.overview-grid .panel{margin-bottom:0}.empty{padding:25px;background:#f8fafc;border:1px dashed #dce4e9;border-radius:10px;color:#7f8e9f;text-align:center;font-size:12px}.task-mini{display:flex;gap:9px;padding:12px 0;border-bottom:1px solid #eef1f4;align-items:center}.task-mini:last-child{border:0}.task-mini .task-id{font:11px Consolas,monospace;color:#6c7f90}.task-mini strong{display:block;font-size:12px}.task-mini .mini-right{margin-left:auto}.dot-op{width:8px;height:8px;border-radius:3px;background:#2f988d;flex:none}.dot-op.throw{background:#d0a14f}.label-chip{display:inline-flex;align-items:center;border-radius:20px;padding:3px 8px;font-size:10px;font-weight:750;background:#eef2f6;color:#647b8a;white-space:nowrap}.label-chip.teal{background:#e4f6f2;color:#157c73}.label-chip.blue{background:var(--blue-bg);color:var(--blue)}.label-chip.amber{background:var(--amber-bg);color:var(--amber)}.label-chip.slate{background:#f0f2f6;color:#596d83}.toolbar{display:flex;gap:9px;margin-bottom:17px}.search{border:1px solid #dde5ed;border-radius:9px;background:white;width:100%;max-width:480px;padding:11px 14px;outline-color:var(--teal);font-size:12px}.two-panel{display:grid;grid-template-columns:minmax(270px,.91fr) minmax(340px,1.15fr);gap:17px;align-items:start}.item-stack{display:grid;gap:11px}.click-card{width:100%;text-align:left;display:block;border:1px solid var(--line);border-radius:12px;background:#fff;padding:16px 17px;box-shadow:var(--shadow)}.click-card:hover{border-color:#94cfc7}.click-card.selected{border-color:#38aa9a;box-shadow:0 0 0 2px #d6f4ed}.card-line{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.card-line .right{margin-left:auto}.card-title{font-weight:750;font-size:13px;overflow-wrap:anywhere}.card-id{font:10px Consolas,monospace;color:#91a0ae;margin-top:7px}.card-sub{font-size:11px;color:#708197;margin-top:10px}.card-foot{display:flex;justify-content:space-between;align-items:center;margin-top:13px;padding-top:11px;border-top:1px solid #edf0f4;font-size:11px;color:#798ba0}.detail{position:sticky;top:86px;max-height:calc(100vh - 105px);overflow:auto}.detail-header{border-bottom:1px solid var(--line);padding-bottom:13px;margin-bottom:16px}.detail-header h2{font-size:17px;margin:9px 0 5px;overflow-wrap:anywhere}.detail-kicker{font:10px Consolas,monospace;color:#6e8190}.detail-section{margin-top:17px}.detail-section h3{font-size:11px;color:#788899;letter-spacing:.9px;text-transform:uppercase;margin:0 0 10px}.kv-row{display:grid;grid-template-columns:minmax(90px,1fr) 2fr;gap:10px;padding:7px 0;border-bottom:1px solid #f0f2f5;font-size:12px}.kv-row .key{color:#8491a0}.kv-row .val{font-weight:650;overflow-wrap:anywhere}.code{white-space:pre-wrap;overflow-wrap:anywhere;background:#16273d;color:#e8f4ff;border-radius:10px;padding:17px;margin:0;font:11.5px/1.55 Consolas,monospace;max-height:330px;overflow:auto}.code.light{background:#f2f5f8;border:1px solid #e7ebf0;color:#29435d}.condition{border-left:3px solid #55b4a8;background:#f5faf9;padding:9px 12px;margin:7px 0;font:11px/1.55 Consolas,monospace;overflow-wrap:anywhere;color:#23524e}.condition.amber{border-color:#d9a550;background:#fffaf3;color:#624a2b}.rule-box{padding:15px;border-radius:10px;background:#f0f9f7;border:1px solid #d7eee8;color:#224f48;font-size:13px;line-height:1.6}.rule-box p{margin:0}.notice{border:1px solid #e7e8ed;background:#f8f9fb;padding:11px 13px;border-radius:9px;color:#798597;font-size:11px}.notice.warn{background:#fffaf2;border-color:#f1e5cd;color:#806537}.list-simple{list-style:none;padding:0;margin:0}.list-simple li{padding:8px 0;border-bottom:1px solid #f0f2f4;font-size:12px;overflow-wrap:anywhere}.list-simple li:last-child{border:0}.model-note{font-size:11px;color:#8b9bab;margin-top:9px}.table-scroller{overflow:auto}.data-table{border-collapse:collapse;width:100%;font-size:12px}.data-table th{text-align:left;background:#f7f9fc;color:#738498;padding:11px 13px;font-size:10px;letter-spacing:.7px;text-transform:uppercase;white-space:nowrap}.data-table td{padding:11px 13px;border-bottom:1px solid #eef1f4;vertical-align:top;overflow-wrap:anywhere}.data-table tr:last-child td{border-bottom:0}.link-button{border:0;background:transparent;color:#087f77;padding:3px 0;font-weight:700;font-size:11px}.link-button:hover{text-decoration:underline}.file-name{font:11px Consolas,monospace;overflow-wrap:anywhere}.mono{font-family:Consolas,monospace;font-size:11px}.count-note{color:#8798a9;font-size:11px}.flex-spread{display:flex;justify-content:space-between;gap:10px;align-items:center}.outcome-card{border-left:3px solid #3b9f91}.outcome-card.invalid{border-left-color:#d6a74e}.empty-state{display:grid;gap:11px;justify-items:center;padding:65px 20px;text-align:center;background:#fff;border:1px dashed #dce5ec;border-radius:14px}.empty-state b{font-size:16px}.empty-state span{color:var(--muted);max-width:420px;font-size:13px}.small-caption{font-size:11px;color:var(--muted)}#toast{position:fixed;right:28px;bottom:25px;background:#193449;color:#fff;border-radius:10px;padding:11px 17px;opacity:0;transform:translateY(12px);transition:.2s;pointer-events:none;font-size:12px;max-width:400px;z-index:50}#toast.visible{opacity:1;transform:translateY(0)}.small-detail{color:#76889b;font:11px/1.6 Consolas,monospace;overflow-wrap:anywhere}.emphasized{color:#176e67;font-weight:700}.small-break{height:9px}.summary-pill{border-radius:12px;color:#4a6986;background:#edf3f8;padding:8px 11px;font-size:11px;font-weight:650}
+@media (max-width:1180px){.stats-grid{grid-template-columns:repeat(3,1fr)}.workflow{grid-template-columns:repeat(3,1fr)}.overview-grid{grid-template-columns:1fr}.two-panel{grid-template-columns:1fr}.detail{position:static;max-height:none}}
+@media (max-width:750px){.shell{display:block}.sidebar{width:100%;height:auto;position:relative;min-height:0}.brand{padding:15px 18px}.sidebar-section{padding-bottom:12px}.nav-section{padding-top:10px}.sidebar-section nav{display:flex;overflow:auto;gap:4px;padding-bottom:5px}.nav-item{flex:none;width:auto;white-space:nowrap}.nav-count{display:none}.sidebar-bottom{display:none}.topbar{height:50px;padding:0 18px}main{padding:25px 18px 45px}.stats-grid{grid-template-columns:repeat(2,1fr)}.workflow{grid-template-columns:repeat(2,1fr)}.welcome{margin:35px 0}.welcome h1{font-size:35px}.welcome-steps{grid-template-columns:1fr}.run-wrap{padding-top:8px}.page-title{font-size:25px}}
+
+.evidence-assessment > .detail-section:first-child{margin-top:0}
+/* Model execution history within a selected research task. */
+.llm-history{display:grid;gap:14px}
+.llm-history-toolbar{display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:13px;border:1px solid #dbe9e7;background:#f8fcfb;border-radius:11px}
+.llm-history-label{flex:1;min-width:210px;display:grid;gap:6px}
+.llm-picker-label{color:#526d7c;font-size:11px;font-weight:700;letter-spacing:.25px}
+.llm-history-select{width:100%;min-width:0;padding:10px 11px;border:1px solid #bedbd5;border-radius:8px;background:#fff;color:#25394d;font-size:12px;font-weight:600;line-height:1.5}
+.llm-execution-count{white-space:nowrap;color:#167c73;background:#e7f6f2;border-radius:999px;padding:5px 10px;font-size:11px;font-weight:700}
+.llm-selected-output{display:grid;gap:10px;min-width:0}
+.llm-execution-summary{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:2px}
+.llm-io-stack{display:grid;gap:11px;min-width:0}
+.llm-io-card{min-width:0;padding:14px;border:1px solid #e1e9ef;border-radius:11px;background:#fbfcfd}
+.llm-io-title{font-size:12px;color:#344f67;margin:0 0 9px;font-weight:750;letter-spacing:.15px}
+.llm-io-card .code{max-height:275px;white-space:pre-wrap;word-break:break-word;font-size:11px}
+.llm-expand{margin-top:8px;min-width:0}
+.llm-expand:first-of-type{margin-top:0}
+.llm-expand>summary{cursor:pointer;color:#287e75;font-size:11px;font-weight:700;padding:4px 0 9px}
+.llm-expand:not([open])>summary{padding-bottom:4px}
+.llm-metadata{border:1px solid #edf1f4;border-radius:9px;padding:6px 12px;background:#fcfdfd}
+.llm-metadata .kv-row{grid-template-columns:minmax(105px,1fr) minmax(0,2fr)}
+@media(max-width:750px){.llm-history-toolbar{align-items:stretch}.llm-history-label{min-width:0}.llm-execution-count{align-self:flex-start}.llm-io-card{padding:11px}}
+
+/* Multi-agent v0.7 extensions preserve the existing ReAct inspection UI. */
+.sidebar-section.nav-section{min-height:0;overflow-y:auto;scrollbar-width:thin}
+.sidebar-bottom{flex:none}
+.stats-grid{grid-template-columns:repeat(auto-fit,minmax(155px,1fr))}
+.multiagent-banner{padding:14px 16px;border:1px solid #cbe5e0;background:#f1faf8;border-radius:11px;margin:0 0 18px;font-size:12px;color:#375a60}
+.review-status{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.viewer-long{white-space:pre-wrap;overflow-wrap:anywhere;font:11.5px/1.55 Consolas,monospace}
+.viewer-round{border:1px solid #e2e9ee;border-radius:10px;padding:12px;background:#fbfcfd;margin:8px 0}
+.viewer-round>summary{cursor:pointer;font-size:12px;font-weight:700;color:#3b6174}
+.viewer-path{overflow-wrap:anywhere;font-family:Consolas,monospace;font-size:10px;color:#657a8e}
+.viewer-search{width:100%;border:1px solid #dbe4eb;border-radius:9px;padding:10px;font-size:12px;margin-bottom:11px}
+@media(max-width:750px){.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+  
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+        <div><strong>Capstone<span class="brand-dot">.</span></strong><small>WORKSPACE EXPLORER</small></div>
+      </div>
+      <div class="sidebar-section"><div class="sidebar-title">WORKSPACE</div>
+        <label class="folder-button" for="folderPicker"><span class="folder-symbol">⌁</span><span>Choose workspace folder</span></label>
+        <input id="folderPicker" type="file" webkitdirectory directory multiple aria-label="Choose workspace folder" hidden>
+        <button class="demo-button" id="demoButton" type="button">Explore sample data <span>↗</span></button>
+        <div class="run-wrap"><label for="runSelect" class="field-label">CURRENT EXECUTION</label><select id="runSelect" aria-label="Current execution" disabled><option>No runs loaded</option></select></div>
+      </div>
+      <div class="sidebar-section nav-section"><div class="sidebar-title">EXPLORE</div>
+        <nav id="navigation" aria-label="Workspace sections">
+          <button class="nav-item active" data-view="overview"><span class="nav-glyph">◫</span> Overview</button>
+          <button class="nav-item" data-view="tasks"><span class="nav-glyph">☷</span> Research tasks <span class="nav-count" id="navTaskCount">—</span></button>
+          <button class="nav-item" data-view="outputs"><span class="nav-glyph">✳</span> Model outputs <span class="nav-count" id="navOutputCount">—</span></button>
+          <button class="nav-item" data-view="verifications"><span class="nav-glyph">✓</span> Verification rounds <span class="nav-count" id="navVerifyCount">—</span></button>
+          <button class="nav-item" data-view="findings"><span class="nav-glyph">✦</span> Verified candidates <span class="nav-count" id="navFindingCount">—</span></button>
+          <button class="nav-item" data-view="pending"><span class="nav-glyph">◷</span> Pending research <span class="nav-count" id="navPendingCount">—</span></button>
+          <button class="nav-item" data-view="rag"><span class="nav-glyph">⌕</span> RAG / BM25 index</button>
+          <button class="nav-item" data-view="evaluation"><span class="nav-glyph">▦</span> Run metrics</button>
+          <button class="nav-item" data-view="inventory"><span class="nav-glyph">▤</span> Inventory</button>
+          <button class="nav-item" data-view="catalogs"><span class="nav-glyph">▥</span> Catalogs</button>
+          <button class="nav-item" data-view="relationships"><span class="nav-glyph">⑂</span> Relationships</button>
+          <button class="nav-item" data-view="ast"><span class="nav-glyph">⟐</span> AST results</button>
+          <button class="nav-item" data-view="issues"><span class="nav-glyph">◇</span> Extraction issues</button>
+          <button class="nav-item" data-view="files"><span class="nav-glyph">▧</span> All workspace files</button>
+        </nav>
+      </div>
+      <div class="sidebar-bottom"><span class="local-dot"></span>Local-only viewer<br><small>No files are uploaded or modified.</small></div>
+    </aside>
+    <div class="app-column">
+      <header class="topbar">
+        <div class="breadcrumbs"><span>Workspace</span><span class="crumb-arrow">›</span><strong id="crumbRun">Not selected</strong></div>
+        <div class="topbar-right"><span class="offline-badge"><span class="local-dot"></span> Offline &amp; private</span></div>
+      </header>
+      <main id="content" tabindex="-1" aria-live="polite">
+        <section class="welcome">
+          <div class="eyebrow"><span class="eyebrow-line"></span> EXPLORATION, NOT RAW JSON</div>
+          <h1>Understand the research,<br><em>not just the files.</em></h1>
+          <p>Explore sources, SQL AST, extracted evidence, research tasks and local LLM decisions in one readable workspace.</p>
+          <div class="welcome-steps"><div><span>01</span><strong>Choose the folder</strong><small>Select your local <code>workspace</code> directory</small></div><div><span>02</span><strong>Pick an execution</strong><small>Navigate runs and processing stages</small></div><div><span>03</span><strong>Inspect each task</strong><small>Compare SQL evidence with model output</small></div></div>
+          <p class="tip">Use the button on the left to select <strong>Proyectos/workspace</strong>, or open the sample first.</p>
+        </section>
+      </main>
+    </div>
+  </div>
+  <div id="toast" role="status" aria-live="polite"></div>
+<script>
+/* Offline, read-only browser for Capstone workspace artifacts. */
+(() => {
+  "use strict";
+
+  const state = {
+    runs: new Map(), runId: null, view: "overview", selectedTask: null,
+    selectedOutput: 0, selectedObject: null, selectedFile: null, filter: "", demo: false,
+    selectedProposalByTask: new Map(), selectedVerification: null, selectedFinding: null, selectedPending: null, selectedRag: null,
+  };
+  const main = document.getElementById("content");
+  const runSelect = document.getElementById("runSelect");
+  const picker = document.getElementById("folderPicker");
+  const nav = document.getElementById("navigation");
+  const runIdPattern = /^run_[A-Za-z0-9_.-]+$/i;
+  const docLocations = {
+    "sources_manifest.json": "sources",
+    "ast_files/ast_manifest.json": "ast",
+    "metadata/inventory.json": "inventory",
+    "metadata/relationships.json": "relationships",
+    "metadata/catalogs.json": "catalogs",
+    "metadata/extraction_issues.json": "issues",
+    "research/research_tasks.json": "tasks",
+    "research/derived_tasks.json": "derived",
+    "research/agent_runs/react_summary.json": "react_summary",
+    "research/multiagent_summary.json": "multiagent_summary",
+    "research/findings.json": "findings",
+    "research/pending.json": "pending",
+    "research/evaluation_metrics.json": "evaluation",
+    "research/human_corrections.json": "human_corrections",
+    "rag/index.json": "rag",
+  };
+  // Accept versioned research directories without changing the viewer again.
+  // Examples: research, research_v02, research_v03, research_experiment.
+  const taskFilePattern = /^research(?:_[A-Za-z0-9.-]+)?\/research_tasks\.json$/i;
+  const agentOutputPattern = /^(?:research(?:_[A-Za-z0-9.-]+)?\/)?agent_runs\/[^/]+\.json$/i;
+  const verificationPattern = /^research\/verifications\/[^/]+\.json$/i;
+  function researchDirectoryRank(path) {
+    const match = path.match(/^research(?:_v(\d+))?\//i);
+    return match ? (match[1] ? Number(match[1]) : 0) : -1;
+  }
+  let toastHandle;
+
+  function element(tag, className = "", text) {
+    const node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text !== undefined && text !== null) node.textContent = String(text);
+    return node;
+  }
+  function add(parent, ...children) {
+    children.forEach(child => { if (child) parent.appendChild(child); });
+    return parent;
+  }
+  function pill(text, tone = "slate") { return element("span", `label-chip ${tone}`, text); }
+  function heading(title, subtitle) {
+    const outer = element("div", "page-heading");
+    const left = element("div");
+    add(left, element("h1", "page-title", title), element("p", "subtitle", subtitle));
+    add(outer, left, element("span", "run-tag", state.demo ? "SAMPLE / NOT YOUR FILES" : state.runId));
+    return outer;
+  }
+  function panel(title, content, note) {
+    const wrapper = element("section", "panel");
+    const header = element("div", "panel-header");
+    add(header, element("h2", "", title));
+    if (note) add(header, note instanceof Node ? note : element("span", "section-note", note));
+    add(wrapper, header, content);
+    return wrapper;
+  }
+  function notify(message) {
+    const toast = document.getElementById("toast");
+    toast.textContent = message;
+    toast.classList.add("visible");
+    clearTimeout(toastHandle);
+    toastHandle = setTimeout(() => toast.classList.remove("visible"), 4300);
+  }
+  function chosenRun() { return state.runs.get(state.runId); }
+  function documentOf(run, key) { return run?.docs[key] || {}; }
+  function tasksOf(run) {
+    const initial = documentOf(run, "tasks").tasks || [];
+    const derived = documentOf(run, "derived").tasks || [];
+    const known = new Set(initial.map(t => t.task_id));
+    return [...initial, ...derived.filter(t => !known.has(t.task_id))];
+  }
+  function outputsOf(run) { return run?.outputs || []; }
+  function verificationsOf(run) { return run?.verifications || []; }
+  function findingsOf(run) { return safeList(documentOf(run, 'findings').findings); }
+  function pendingOf(run) { return safeList(documentOf(run, 'pending').pending); }
+  function verificationFor(run, taskId) { return verificationsOf(run).find(v => v.task_id === taskId); }
+  function verificationTone(status) { return status === 'technically_evidenced' || status === 'accepted' ? 'teal' : status === 'needs_research' ? 'blue' : 'amber'; }
+  function nameOr(value, fallback = "—") { return (value === undefined || value === null || value === "") ? fallback : String(value); }
+  function numberFormat(n) { return Number(n || 0).toLocaleString("en-US"); }
+  function shortPath(value) { return nameOr(value).replaceAll("\\", "/"); }
+  function formatTime(value) {
+    if (!value) return "Unknown time";
+    const date = new Date(value);
+    return Number.isFinite(date.valueOf()) ? date.toLocaleString(undefined, {dateStyle: "medium", timeStyle: "short"}) : String(value);
+  }
+  function formatExecutionTime(value) {
+    if (!value) return "Unknown date/time";
+    const date = new Date(value);
+    return Number.isFinite(date.valueOf()) ? date.toLocaleString(undefined, {
+      year: "numeric", month: "short", day: "2-digit", hour: "2-digit", minute: "2-digit", second: "2-digit"
+    }) : String(value);
+  }
+  function timestampOf(output) {
+    const timestamp = Date.parse(output.generated_utc || "");
+    return Number.isFinite(timestamp) ? timestamp : 0;
+  }
+  function opTone(op) { return ["THROW", "RAISERROR"].includes(op) ? "amber" : ["INSERT", "UPDATE", "DELETE", "MERGE"].includes(op) ? "teal" : "blue"; }
+  function classifyTone(value) { return value === "candidate_business_rule" ? "teal" : value === "technical_logic" ? "blue" : "amber"; }
+  function safeList(value) { return Array.isArray(value) ? value : []; }
+  function empty(label, description) {
+    const box = element("div", "empty-state");
+    add(box, element("b", "", label), element("span", "", description));
+    return box;
+  }
+  function keyValue(label, value) {
+    const row = element("div", "kv-row");
+    add(row, element("span", "key", label), element("span", "val", nameOr(value)));
+    return row;
+  }
+  function detailSection(title, content) {
+    const box = element("section", "detail-section");
+    add(box, element("h3", "", title), content);
+    return box;
+  }
+  function codeBlock(text, light = false) { return element("pre", `code${light ? " light" : ""}`, nameOr(text)); }
+  function condition(value, amber = false) { return element("div", `condition${amber ? " amber" : ""}`, typeof value === "string" ? value : nameOr(value?.expression)); }
+  function ul(items) {
+    const list = element("ul", "list-simple");
+    items.forEach(item => add(list, element("li", "", String(item))));
+    return list;
+  }
+  function valueToText(obj) {
+    if (obj === null || obj === undefined) return "—";
+    return typeof obj === "object" ? JSON.stringify(obj, null, 2) : String(obj);
+  }
+  function button(text, onClick, className = "link-button") {
+    const b = element("button", className, text);
+    b.type = "button";
+    b.addEventListener("click", onClick);
+    return b;
+  }
+  function switchTo(view, selected = null) {
+    state.view = view;
+    if (view === "tasks" && selected) state.selectedTask = selected;
+    if (view === "files" && selected) state.selectedFile = selected;
+    render();
+  }
+  function metrics(run) {
+    const src = documentOf(run, "sources");
+    const ast = documentOf(run, "ast");
+    const inventory = documentOf(run, "inventory");
+    return [
+      {name: "Sources", value: safeList(src.files).length, note: src.mode ? `${src.mode} source` : "SQL / JSON"},
+      {name: "AST files", value: safeList(ast.files).length, note: ast.summary?.error ? "Check parse errors" : "SQL parsed"},
+      {name: "Objects", value: safeList(inventory.tables).length + safeList(inventory.procedures).length + safeList(inventory.triggers).length, note: "Tables / procedures / triggers"},
+      {name: "Initial tasks", value: tasksOf(run).length, note: "Structural investigations"},
+      {name: "LLM outputs", value: outputsOf(run).length, note: "Researcher proposals"},
+      {name: "Verification files", value: verificationsOf(run).length, note: "Independent reviews"},
+      {name: "Verified candidates", value: findingsOf(run).length, note: "Not human-approved"},
+      {name: "Pending review", value: pendingOf(run).length, note: "Open investigations"},
+    ];
+  }
+  function stats(run) {
+    const container = element("div", "stats-grid");
+    metrics(run).forEach(m => {
+      const card = element("div", "stat");
+      add(card, element("span", "", m.name), element("strong", "", numberFormat(m.value)), element("small", "", m.note));
+      add(container, card);
+    });
+    return container;
+  }
+  function currentTaskOutputs(run, taskId) {
+    return outputsOf(run).filter(output => output.task_id === taskId)
+      .sort((a, b) => timestampOf(b) - timestampOf(a) ||
+        String(b.generated_utc || "").localeCompare(String(a.generated_utc || "")));
+  }
+  function proposalSelectionKey(run, task) { return `${run.id}::${task.task_id}`; }
+  function reactTraceSection(output) {
+    if (!Array.isArray(output.trace) || !output.trace.length) return null;
+    const wrapper = element("div", "item-stack");
+    const top = element("div", "notice",
+      `Research strategy: ${nameOr(output.stage)} · Model ACT: ${nameOr(output.model_actions_executed, 0)} · Policy ACT: ${nameOr(output.policy_actions_executed, 0)} · Tool calls: ${nameOr(output.tool_actions_executed, 0)} · Stop: ${nameOr(output.research_stop_reason, "n/a")}.`);
+    add(wrapper, top);
+    output.trace.forEach((step, index) => {
+      const details = element("details", "llm-expand");
+      const title = step.kind === "act_observe" ?
+        `Step ${index+1} · ACT / OBSERVE · ${nameOr(step.origin)}` :
+        step.kind === "research_decision" ?
+        `Step ${index+1} · REASON · Qwen research decision${step.attempt > 1 ? " (repair)" : ""}` :
+        step.kind === "final_generation" ?
+        `Step ${index+1} · FINAL · Candidate synthesis${step.attempt > 1 ? " (repair)" : ""}` :
+        step.kind === "policy_override" ?
+        `Step ${index+1} · POLICY · Deterministic fallback (not Qwen)` :
+        `Step ${index+1} · REASON · Qwen response`;
+      add(details, element("summary", "", title));
+      if (step.kind === "act_observe") {
+        add(details, detailSection("Action", codeBlock(valueToText(step.action), true)));
+        add(details, detailSection("Tool observation", codeBlock(valueToText(step.observation), true)));
+      } else if (step.kind === "policy_override") {
+        add(details, detailSection("Model's finish decision", codeBlock(valueToText(step.source_decision), true)));
+        add(details, detailSection("Controller-selected action", codeBlock(valueToText(step.action), true)));
+      } else {
+        if (step.prompt) {
+          const prompt = element("details", "llm-expand");
+          add(prompt, element("summary", "", "Full prompt for this turn"), codeBlock(step.prompt, true));
+          add(details, prompt);
+        }
+        add(details, detailSection("Raw response", codeBlock(nameOr(step.raw_model_output, "No response"), true)));
+        if (step.parsed) add(details, detailSection("Parsed JSON", codeBlock(valueToText(step.parsed), true)));
+        if (safeList(step.validation_errors).length) add(details, detailSection("Validation errors", ul(step.validation_errors)));
+      }
+      add(wrapper, details);
+    });
+    if (safeList(output.related_task_links).length)
+      add(wrapper, detailSection("Related research tasks", codeBlock(valueToText(output.related_task_links), true)));
+    return wrapper;
+  }
+  function appendModelProposal(container, output) {
+    const d = output.decision || {};
+    const summary = element("div", "llm-execution-summary");
+    add(summary,
+      pill(d.classification || "No classification", classifyTone(d.classification)),
+      pill(output.status || "unknown", output.status === "valid_json" ? "teal" : "amber"),
+      element("span", "small-caption", "JSON validity ≠ verified business rule")
+    );
+    add(container, summary);
+
+    // Display actual prompts and raw model text, preserving whitespace and wording.
+    const io = element("div", "llm-io-stack");
+    const promptGroup = element("div", "llm-io-card");
+    add(promptGroup, element("h4", "llm-io-title", "Prompt sent to the model"));
+    if (output.user_prompt) {
+      const userPrompt = element("details", "llm-expand");
+      userPrompt.open = true;
+      add(userPrompt, element("summary", "", "User prompt · complete text"), codeBlock(output.user_prompt, true));
+      add(promptGroup, userPrompt);
+    } else {
+      add(promptGroup, element("div", "notice", "This execution did not store the user prompt."));
+    }
+    if (output.system_prompt) {
+      const systemPrompt = element("details", "llm-expand");
+      add(systemPrompt, element("summary", "", "System prompt"), codeBlock(output.system_prompt, true));
+      add(promptGroup, systemPrompt);
+    }
+    add(io, promptGroup);
+
+    const responseGroup = element("div", "llm-io-card");
+    add(responseGroup, element("h4", "llm-io-title", "LLM response · original text"));
+    add(responseGroup, output.raw_model_output !== undefined && output.raw_model_output !== null ?
+      codeBlock(output.raw_model_output) :
+      element("div", "notice", "Raw model text is not present in this execution."));
+    add(io, responseGroup);
+    add(container, io);
+
+    if (d.observed_behavior) add(container, detailSection("Observed SQL Behavior", condition(d.observed_behavior)));
+    add(container, detailSection("Candidate Business Rule", d.candidate_rule ?
+      element("div", "rule-box", d.candidate_rule) :
+      element("div", "notice", "No tentative business rule was returned.")));
+    if (safeList(d.conditions).length) {
+      add(container, detailSection("Model-reported conditions", ul(d.conditions)));
+    }
+    if (d.effect) add(container, detailSection("Model-reported effect", condition(d.effect)));
+    const assessment = element("div", "evidence-assessment");
+    add(assessment, detailSection("Missing information", safeList(d.missing_information).length ?
+      ul(d.missing_information) : element("div", "notice", "No missing information was reported.")));
+    add(assessment, detailSection(output.stage === "react_v05_two_phase" ? "Final-phase tool request" : "Requested action · not executed", d.requested_action ?
+      codeBlock(valueToText(d.requested_action), true) :
+      element("div", "notice", output.stage === "react_v05_two_phase" ? "Final synthesis requests no new tools; see the ReAct trace for completed actions." : "No additional action was requested.")));
+    if (safeList(output.validation_errors).length) {
+      add(assessment, detailSection("JSON validation errors", ul(output.validation_errors)));
+    }
+    if (output.evidence_check) {
+      add(assessment, detailSection("Evidence coverage check", element("div", "notice", "Status: " + nameOr(output.evidence_check.status))));
+      if (safeList(output.evidence_check.issues).length)
+        add(assessment, detailSection("Evidence coverage issues", ul(output.evidence_check.issues)));
+      if (safeList(output.evidence_check.warnings).length)
+        add(assessment, detailSection("Unverified evidence warnings", ul(output.evidence_check.warnings)));
+    }
+    add(container, detailSection("Evidence Assessment", assessment));
+    if (Array.isArray(output.trace) && output.trace.length)
+      add(container, detailSection("ReAct investigation trace", reactTraceSection(output)));
+    const extras = Object.fromEntries(Object.entries(d).filter(([key]) =>
+      !["classification", "observed_behavior", "candidate_rule", "conditions", "effect", "missing_information", "requested_action"].includes(key)));
+    if (Object.keys(extras).length) {
+      add(container, detailSection("Other generated decision fields", codeBlock(valueToText(extras), true)));
+    }
+    const metadata = element("div", "llm-metadata");
+    add(metadata, keyValue("Model", output.model_id), keyValue("Device", output.device),
+      keyValue("Duration", `${nameOr(output.elapsed_seconds)} seconds`),
+      keyValue("Generated", formatExecutionTime(output.generated_utc)),
+      keyValue("Pipeline stage", output.stage),
+      keyValue("Research task", output.task_id));
+    if (output.task_evidence?.source_file) {
+      add(metadata, keyValue("Source evidence", `${output.task_evidence.source_file}:${nameOr(output.task_evidence.start_line)}`));
+    }
+    if (output.note) add(metadata, keyValue("Processing note", output.note));
+    add(container, detailSection("Execution details", metadata),
+      element("p", "model-note", "The displayed proposal has not been independently verified or approved."));
+  }
+  function renderTaskProposal(task, run, outputs) {
+    const container = element("div", "llm-history");
+    const key = proposalSelectionKey(run, task);
+    const stored = state.selectedProposalByTask.get(key);
+    const initial = Number.isInteger(stored) && stored >= 0 && stored < outputs.length ? stored : 0;
+    const selectorWrap = element("div", "llm-history-toolbar");
+    const labelWrap = element("div", "llm-history-label");
+    const label = element("label", "llm-picker-label", "Execution date and time");
+    const select = element("select", "llm-history-select");
+    const selectId = `llm-history-${task.task_id.replace(/[^\w-]/g, "-")}`;
+    select.id = selectId;
+    label.htmlFor = selectId;
+    outputs.forEach((output, index) => {
+      const marker = index === 0 ? " · latest" : "";
+      const option = element("option", "", `${formatExecutionTime(output.generated_utc)} · ${nameOr(output.model_id, "Model")} · ${nameOr(output.status, "unknown")}${marker}`);
+      option.value = String(index);
+      select.appendChild(option);
+    });
+    select.value = String(initial);
+    add(labelWrap, label, select);
+    add(selectorWrap, labelWrap, element("span", "llm-execution-count", `${outputs.length} execution${outputs.length === 1 ? "" : "s"}`));
+    const selectedBody = element("div", "llm-selected-output");
+    const showSelected = () => {
+      const index = Number(select.value);
+      state.selectedProposalByTask.set(key, index);
+      selectedBody.replaceChildren();
+      appendModelProposal(selectedBody, outputs[index]);
+    };
+    select.addEventListener("change", showSelected);
+    add(container, selectorWrap, selectedBody);
+    showSelected();
+    return container;
+  }
+  function miniTask(task, run) {
+    const row = element("div", "task-mini");
+    const dot = element("span", `dot-op${task.fragment?.operation === "THROW" ? " throw" : ""}`);
+    const content = element("div");
+    add(content, element("strong", "", nameOr(task.target?.object_name)), element("div", "task-id", task.task_id));
+    const right = element("div", "mini-right");
+    add(right, pill(task.fragment?.operation || "OBJECT", opTone(task.fragment?.operation)));
+    add(row, dot, content, right);
+    return row;
+  }
+  function renderOverview(run) {
+    add(main, heading("Pipeline overview", "From collected SQL to traceable research findings."), stats(run));
+    const flow = element("div", "workflow");
+    const source = documentOf(run, "sources");
+    const ast = documentOf(run, "ast");
+    const inventory = documentOf(run, "inventory");
+    const stages = [
+      ["Source extraction", safeList(source.files).length ? `${source.files.length} artifacts` : "Not available", safeList(source.files).length],
+      ["SQL AST parsing", safeList(ast.files).length ? `${ast.files.length} analyzed` : "Not available", safeList(ast.files).length],
+      ["Inventory builder", ["tables", "procedures", "triggers"].some(k => Array.isArray(inventory[k])) ? "Metadata available" : "Not available", !!Object.keys(inventory).length],
+      ["Task initialization", tasksOf(run).length ? `${tasksOf(run).length} initial tasks` : "Not available", tasksOf(run).length],
+      ["Model analysis", outputsOf(run).length ? `${outputsOf(run).length} recorded outputs` : "Not yet recorded", outputsOf(run).length],
+    ];
+    stages.forEach(([name, label, available], index) => {
+      const step = element("div", `step ${available ? "complete" : "missing"}`);
+      add(step, element("span", "step-num", `0${index + 1} ${available ? "• AVAILABLE" : "• PENDING"}`), element("h3", "", name), element("p", "", label));
+      flow.appendChild(step);
+    });
+    add(main, panel("Processing stages", flow, "Read-only artifacts"));
+    const grid = element("div", "overview-grid");
+    const recent = element("div");
+    tasksOf(run).slice(0,6).forEach(task => {
+      const clickable = button("", () => switchTo("tasks", task.task_id), "overview-task-button");
+      clickable.style.cssText = "display:block;background:none;border:0;padding:0;width:100%;text-align:left;";
+      add(clickable, miniTask(task,run));
+      add(recent, clickable);
+    });
+    if (!tasksOf(run).length) add(recent, empty("No tasks found", "The task initializer has not produced research_tasks.json for this run."));
+    add(grid, panel("Research queue", recent, button("View all", () => switchTo("tasks"))));
+    const right = element("div");
+    const newest = outputsOf(run)[0];
+    if (newest) {
+      const d = newest.decision || {};
+      add(right, pill(d.classification || newest.status, classifyTone(d.classification)), element("div", "small-break"));
+      add(right, element("h3", "", nameOr(newest.task_id)), element("p", "muted", nameOr(d.candidate_rule,"No candidate rule returned.")));
+      add(right, button("Inspect model output", () => switchTo("outputs")));
+      add(right, element("p", "model-note", "Model-generated interpretation. Not verified or approved."));
+    } else {
+      add(right, empty("No model outputs yet", "Execute a research_agent task to see the LLM's decision beside its original evidence."));
+    }
+    add(grid, panel("Latest model output", right));
+    add(main, grid);
+    if (state.demo) add(main, element("p", "small-caption", "Sample content is illustrative and does not represent your selected workspace."));
+  }
+
+  function taskCard(task, run) {
+    const card = element("button", `click-card${state.selectedTask === task.task_id ? " selected" : ""}`);
+    card.type = "button";
+    const top = element("div", "card-line");
+    add(top, pill(task.fragment?.operation || "OBJECT", opTone(task.fragment?.operation)), pill(task.status || "unknown", "slate"));
+    if (currentTaskOutputs(run, task.task_id).length) add(top, pill("LLM output available", "teal"));
+    add(card, top, element("div", "card-id", task.task_id), element("div", "card-title", nameOr(task.target?.object_name)));
+    const context = safeList(task.fragment?.condition_context).concat(safeList(task.fragment?.where_conditions));
+    add(card, element("div", "card-sub", context.length ? nameOr(context[0].expression) : task.fragment?.target_table ? `Target: ${task.fragment.target_table}` : "Object-level inspection"));
+    const foot = element("div", "card-foot");
+    add(foot, element("span", "", `Line ${nameOr(task.evidence?.start_line)}`), element("span", "", "Inspect →"));
+    add(card, foot);
+    card.addEventListener("click", () => { state.selectedTask = task.task_id; render(); });
+    return card;
+  }
+  function taskDetail(task, run) {
+    if (!task) return panel("Task details", empty("Choose a task", "Select a research task to inspect its SQL and model response."));
+    const content = element("div");
+    const header = element("div", "detail-header");
+    add(header, element("span", "detail-kicker", task.task_id));
+    add(header, element("h2", "", nameOr(task.target?.object_name)), pill(task.target?.object_type || "object"), pill(task.status || "pending"));
+    add(content, header);
+    if (task.fragment) {
+      add(content, detailSection("SQL fragment", codeBlock(task.fragment.sql)));
+      const filters = [...safeList(task.fragment.condition_context), ...safeList(task.fragment.where_conditions)];
+      if (filters.length) {
+        const group = element("div");
+        filters.forEach(c => add(group, condition(c)));
+        add(content, detailSection("Observed conditions", group));
+      }
+      if (task.fragment.effects && Object.keys(task.fragment.effects).length) {
+        add(content, detailSection("Observed effects (extracted)", codeBlock(JSON.stringify(task.fragment.effects, null, 2), true)));
+      }
+    }
+    const ev = task.evidence || {};
+    const evidence = element("div");
+    add(evidence, keyValue("Source", ev.source_file), keyValue("Lines", `${nameOr(ev.start_line)}–${nameOr(ev.end_line)}`), keyValue("AST node", ev.ast_node_type));
+    const sourceButton = button("View original SQL source →", () => switchTo("files", ev.source_file));
+    add(evidence, sourceButton);
+    add(content, detailSection("Traceable evidence", evidence));
+    const related = safeList(task.related_objects);
+    if (related.length) {
+      add(content, detailSection("Related objects", ul(related.map(x => `${x.relation}: ${x.name}${x.sql_server_pseudotable ? " (SQL Server pseudo-table)" : x.definition_in_inventory === false ? " (definition not provided)" : ""}`))));
+    }
+    const verification = verificationFor(run, task.task_id);
+    if (verification) {
+      const info = element('div');
+      add(info, pill(verification.status || 'unknown', verificationTone(verification.status)),
+        element('p', 'section-note', 'Independent technical review. This is not human business approval.'),
+        button('Open complete verification →', () => {
+          state.selectedVerification = task.task_id;
+          switchTo('verifications');
+        }));
+      add(content, detailSection('Evidence Verification Agent', info));
+    }
+    const taskOutputs = currentTaskOutputs(run, task.task_id);
+    if (taskOutputs.length) {
+      add(content, detailSection("Latest LLM proposal", renderTaskProposal(task, run, taskOutputs)));
+    } else {
+      add(content, detailSection("LLM analysis", element("div", "notice", "No model output has been saved for this task yet. Its initial status remains pending.")));
+    }
+    return panel("Investigation detail", content);
+  }
+  function searchBar(placeholder) {
+    const bar = element("div", "toolbar");
+    const input = element("input", "search"); input.type = "search";
+    input.placeholder = placeholder; input.value = state.filter;
+    input.setAttribute("aria-label", "Filter records");
+    input.addEventListener("input", () => {
+      state.filter = input.value;
+      render();
+      const follow = main.querySelector("input.search");
+      if (follow) { follow.focus(); follow.setSelectionRange(follow.value.length, follow.value.length); }
+    });
+    add(bar, input);
+    return bar;
+  }
+  function renderTasks(run) {
+    add(main, heading("Research tasks", "Initial workflows and source-backed derived investigations."), searchBar("Search task ID, object, operation or SQL …"));
+    const tasks = tasksOf(run).filter(task => {
+      const index = [task.task_id,task.target?.object_name,task.fragment?.operation,task.fragment?.sql].filter(Boolean).join(" ").toLowerCase();
+      return index.includes(state.filter.toLowerCase());
+    });
+    if (!tasks.length) {add(main, empty("No matching tasks", "Choose another run, adjust the search or run task_initializer."));return;}
+    if (!tasks.some(t => t.task_id === state.selectedTask)) state.selectedTask = tasks[0].task_id;
+    const grid = element("div", "two-panel");
+    const list = element("div", "item-stack");tasks.forEach(t => add(list,taskCard(t,run)));
+    const detail = element("div", "detail");add(detail,taskDetail(tasks.find(t=>t.task_id===state.selectedTask),run));
+    add(grid,list,detail);add(main,grid);
+  }
+  function outputCard(output,index) {
+    const card = element("button",`click-card outcome-card${output.status!=='valid_json'?' invalid':''}${state.selectedOutput===index?' selected':''}`);
+    card.type="button";
+    add(card,element("div","card-line"));
+    add(card,pill(output.decision?.classification||"No validated decision",classifyTone(output.decision?.classification)));
+    add(card,element("div","card-id",nameOr(output.task_id)),element("div","card-title",nameOr(output.decision?.candidate_rule, output.decision?.observed_behavior || "No proposed rule")));
+    add(card,element("div","card-sub",`${nameOr(output.model_id)} · ${nameOr(output.elapsed_seconds)} s`));
+    add(card,element("div","card-foot",`${formatTime(output.generated_utc)} · ${output.status}`));
+    card.addEventListener("click",()=>{state.selectedOutput=index;render();});return card;
+  }
+  function outputDetail(output,run) {
+    if (!output) return panel("Model output",empty("No output selected","Run the research agent first."));
+    const content=element("div");const d=output.decision||{};
+    add(content,pill(output.status||"unknown",output.status==='valid_json'?'teal':'amber'),element("span","small-caption","  JSON format validation only"));
+    add(content,detailSection("Research task",element("div","small-detail",output.task_id)));
+    if(d.classification)add(content,detailSection("Model classification",pill(d.classification,classifyTone(d.classification))));
+    if(d.observed_behavior)add(content,detailSection("Observed SQL Behavior",element("div","condition",d.observed_behavior)));
+    add(content,detailSection("Candidate Business Rule",d.candidate_rule?element("div","rule-box",d.candidate_rule):element("div","notice","No candidate rule generated.")));
+    if(safeList(d.conditions).length)add(content,detailSection("Model-reported conditions",ul(d.conditions)));
+    if(d.effect)add(content,detailSection("Model-reported effect",element("div","condition",d.effect)));
+    const evidenceAssessment=element("div","evidence-assessment");
+    add(evidenceAssessment,detailSection("Missing information",safeList(d.missing_information).length?ul(d.missing_information):element("div","notice","No missing information was reported.")));
+    add(evidenceAssessment,detailSection("Requested next action",d.requested_action?codeBlock(JSON.stringify(d.requested_action,null,2),true):element("div","notice","No additional action requested.")));
+    if(safeList(output.validation_errors).length)add(evidenceAssessment,detailSection("JSON validation errors",ul(output.validation_errors)));
+    if(output.evidence_check){
+      add(evidenceAssessment,detailSection("Evidence coverage check",element("div","notice","Status: " + nameOr(output.evidence_check.status))));
+      if(safeList(output.evidence_check.issues).length)add(evidenceAssessment,detailSection("Evidence coverage issues",ul(output.evidence_check.issues)));
+      if(safeList(output.evidence_check.warnings).length)add(evidenceAssessment,detailSection("Unverified evidence warnings",ul(output.evidence_check.warnings)));
+    }
+    add(content,detailSection("Evidence Assessment",evidenceAssessment));
+    if (Array.isArray(output.trace) && output.trace.length)
+      add(content,detailSection("ReAct investigation trace",reactTraceSection(output)));
+    add(content,detailSection("Execution details",add(element("div"),keyValue("Model",output.model_id),keyValue("Device",output.device),keyValue("Time",`${nameOr(output.elapsed_seconds)} seconds`),keyValue("Created",formatTime(output.generated_utc)),keyValue("Stage",output.stage))));
+    const matching=tasksOf(run).find(t=>t.task_id===output.task_id);
+    if(matching)add(content,button("Open originating research task →",()=>switchTo("tasks",matching.task_id)));
+    else add(content,element("p","small-caption","The originating task is not present in this folder selection."));
+    add(content,element("p","model-note","Classification and JSON validity do not imply independent evidence verification or human approval."));
+    const promptDetails=element("details","detail-section");
+    add(promptDetails,element("summary","small-caption","View exact prompts sent to the model"));
+    add(promptDetails,detailSection("User prompt",output.user_prompt ? codeBlock(output.user_prompt,true) : element("div","notice","User prompt not recorded.")));
+    if(output.system_prompt)add(promptDetails,detailSection("System prompt",codeBlock(output.system_prompt,true)));
+    add(content,promptDetails);
+    const raw=element("details","detail-section");add(raw,element("summary","small-caption","Show raw response for debugging"),codeBlock(output.raw_model_output||"No raw response",true));
+    add(content,raw);
+    return panel("LLM decision",content);
+  }
+  function renderOutputs(run) {
+    add(main,heading("Model outputs","Compare Qwen proposals with the source-backed task that produced them."));
+    const outputs=outputsOf(run);
+    if(!outputs.length){add(main,empty("No LLM outputs found","Save research_agent results under research*/agent_runs/ inside the selected workspace run."));return;}
+    if(state.selectedOutput>=outputs.length)state.selectedOutput=0;
+    const grid=element("div","two-panel");const list=element("div","item-stack");
+    outputs.forEach((x,i)=>add(list,outputCard(x,i)));
+    add(grid,list,add(element("div","detail"),outputDetail(outputs[state.selectedOutput],run)));
+    add(main,grid);
+  }
+  function objectCard(o,type,index) {
+    const card=element("button",`click-card${state.selectedObject===`${type}:${index}`?' selected':''}`);
+    card.type="button";
+    add(card,pill(type, type==='trigger'?'amber':'blue'),element("div","card-title",nameOr(o.name)),element("div","card-sub",`${safeList(o.operations).length} operations · ${safeList(o.conditions).length} conditions`));
+    const foot=element("div","card-foot");add(foot,element("span","",shortPath(o.source?.file)),element("span","","View →"));add(card,foot);
+    card.addEventListener("click",()=>{state.selectedObject=`${type}:${index}`;render();});return card;
+  }
+  function renderInventory(run) {
+    add(main,heading("SQL inventory","Extracted objects, operations and references — without LLM interpretation."));
+    const inv=documentOf(run,"inventory");const items=[];
+    safeList(inv.procedures).forEach((o,i)=>items.push({type:"procedure",o,i}));
+    safeList(inv.triggers).forEach((o,i)=>items.push({type:"trigger",o,i}));
+    safeList(inv.tables).forEach((o,i)=>items.push({type:"table",o,i}));
+    if(!items.length){add(main,empty("No inventory found","Generate metadata/inventory.json first."));return;}
+    if(!items.some(x=>`${x.type}:${x.i}`===state.selectedObject))state.selectedObject=`${items[0].type}:${items[0].i}`;
+    const grid=element("div","two-panel");const list=element("div","item-stack");
+    items.forEach(x=>add(list,objectCard(x.o,x.type,x.i)));
+    const chosen=items.find(x=>`${x.type}:${x.i}`===state.selectedObject);const o=chosen.o;const body=element("div");
+    add(body,pill(chosen.type,"blue"),element("h2","",o.name));
+    if(chosen.type==='table'){
+      add(body,detailSection("Columns",ul(safeList(o.columns).map(x=>`${x.name} — ${x.data_type||'unknown'}${x.nullable===false?' · NOT NULL':''}`))));
+      if(safeList(o.foreign_keys).length)add(body,detailSection("Foreign keys",ul(o.foreign_keys.map(x=>`${x.columns?.join(', ')} → ${x.references_table}`))));
+    } else {
+      if(o.table)add(body,keyValue("Trigger on",o.table));
+      if(safeList(o.events).length)add(body,keyValue("Events",o.events.join(", ")));
+      if(safeList(o.parameters).length)add(body,detailSection("Parameters",ul(o.parameters.map(x=>`${x.name} : ${x.data_type}`))));
+      if(safeList(o.operations).length){
+        const opList=element("div");
+        o.operations.forEach(op=>{
+          const box=element("div","condition");
+          box.textContent=`${op.operation}${op.target_table?' · '+op.target_table:''} — line ${op.source?.line??'?'}\n${safeList(op.condition_context).map(c=>c.expression).concat(safeList(op.where_conditions).map(c=>c.expression)).join(' | ')}`;
+          add(opList,box);
+        });
+        add(body,detailSection("Detected operations",opList));
+      }
+    }
+    add(body,detailSection("Evidence",element("div","small-detail",`${nameOr(o.source?.file)} · line ${nameOr(o.source?.line)}`)));
+    add(grid,list,add(element("div","detail"),panel("Object detail",body)));add(main,grid);
+  }
+  function renderCatalogs(run) {
+    add(main,heading("Reference catalogs","Code-to-description values retained from source files, not inferred by Qwen."));
+    const catalogs=safeList(documentOf(run,"catalogs").catalogs);
+    if(!catalogs.length){add(main,empty("No catalogs found","The current run contains no metadata/catalogs.json values."));return;}
+    catalogs.forEach(cat=>{
+      const wrapper=element("div");
+      add(wrapper,element("p","small-caption",`${nameOr(cat.table)}  ·  ${nameOr(cat.source_file)}`));
+      const scroll=element("div","table-scroller");const table=element("table","data-table");
+      const head=element("thead");const hrow=element("tr");["CODE","DESCRIPTION"].forEach(v=>add(hrow,element("th","",v)));add(head,hrow);add(table,head);
+      const body=element("tbody");safeList(cat.values).forEach(v=>{
+        const row=element("tr");add(row,element("td","mono",nameOr(v.code??v.codigo)),element("td","",nameOr(v.description??v.descripcion)));add(body,row);
+      });add(table,body);add(scroll,table);add(wrapper,scroll);
+      add(main,panel(cat.name||cat.table||"Catalog",wrapper,`${safeList(cat.values).length} values`));
+    });
+  }
+  function renderRelationships(run) {
+    const relationships=safeList(documentOf(run,"relationships").relationships);
+    add(main,heading("Object relationships","Relations extracted from SQL with source provenance."));
+    if(!relationships.length){add(main,empty("No relationships recorded","Generate metadata/relationships.json to inspect dependencies."));return;}
+    const scroll=element("div","table-scroller"), table=element("table","data-table"), thead=element("thead"), hrow=element("tr");
+    ["FROM","RELATION","TO","EVIDENCE"].forEach(h=>add(hrow,element("th","",h)));add(thead,hrow);add(table,thead);
+    const tbody=element("tbody");relationships.forEach(r=>{
+      const row=element("tr");
+      add(row,element("td","mono",r.from?.name),element("td","",nameOr(r.type)),element("td","mono",r.to?.name),element("td","small-detail",`${shortPath(r.source?.file)}:${nameOr(r.source?.line)}`));
+      add(tbody,row);
+    });add(table,tbody);add(scroll,table);add(main,panel("Dependency graph · table view",scroll,`${relationships.length} relationships`));
+  }
+  function renderAST(run) {
+    add(main,heading("AST parsing results","SQLFluff parsing outcomes for the selected execution."));
+    const manifest=documentOf(run,"ast"),items=safeList(manifest.files);
+    if(!items.length){add(main,empty("No AST manifest found","Run sql_ast_parsers to generate ast_files/ast_manifest.json."));return;}
+    const body=element("div","item-stack");items.forEach(item=>{
+      const card=element("div","click-card");
+      add(card,element("div","flex-spread"));
+      add(card,element("div","card-line"),pill(item.status,item.status==='ok'?'teal':'amber'));
+      add(card,element("div","card-title",item.source_file),element("div","card-sub",`Object type: ${nameOr(item.source_type)}  ·  Parse errors: ${item.parse_errors || 0}  ·  Unparsed regions: ${item.unparsed_regions || 0}`));
+      add(body,card);
+    });
+    add(main,panel("Parsed SQL files",body,`Parser: ${nameOr(manifest.parser)}`));
+  }
+  async function showFile(record, container, markFrom = null, markTo = null) {
+    container.replaceChildren(element("div","notice","Reading selected local file …"));
+    try {
+      const raw = record.file ? await record.file.text() : String(record.text || "");
+      const isSQL = record.path.toLowerCase().endsWith(".sql");
+      let content = raw;
+      if (isSQL) {
+        const lines=raw.split(/\r?\n/);
+        const width=String(lines.length).length;
+        content=lines.map((line,index)=>{
+          const number=index+1;
+          const symbol=(markFrom && number>=markFrom && number<=markTo)?"▶":" ";
+          return `${symbol} ${String(number).padStart(width," ")} │ ${line}`;
+        }).join("\n");
+      }
+      const limit=200000;
+      if(content.length>limit) content=content.slice(0,limit)+"\n… Preview truncated (original file unchanged).";
+      container.replaceChildren(codeBlock(content));
+    } catch (error) {
+      container.replaceChildren(element("div","notice warn",`Cannot read selected file: ${error.message}`));
+    }
+  }
+  function renderIssues(run) {
+    add(main, heading("Extraction issues", "Warnings and limitations reported by the deterministic extraction stages."));
+    const issues=safeList(documentOf(run,"issues").issues);
+    if(!issues.length){
+      add(main,empty("No issues recorded", "The current extraction_issues.json contains no recorded issues. This does not prove all dependencies or business meanings are resolved."));
+      return;
+    }
+    const body=element("div","item-stack");
+    issues.forEach(issue=>{
+      const card=element("div","click-card");
+      add(card,pill(issue.severity||"warning",issue.severity==="error"?"amber":"blue"),element("div","card-title",nameOr(issue.code,"Issue")));
+      add(card,element("p","card-sub",nameOr(issue.message||issue.problem||issue.description,"See source context")));
+      if(issue.source_file)add(card,element("span","small-detail",issue.source_file));
+      add(body,card);
+    });
+    add(main,panel("Recorded findings",body,`${issues.length} issues`));
+  }
+
+  function renderFiles(run) {
+    add(main,heading("Workspace files","Read-only browser for SQL, AST, JSON, prompts, traces, verifier outputs, findings and metrics."));
+    const records=[...run.files.values()].filter(x=>/\.(sql|json|md|txt|log|csv)$/i.test(x.path)).sort((a,b)=>a.path.localeCompare(b.path));
+    if(!records.length){add(main,empty("No files selected","Choose the local workspace folder again."));return;}
+    if(!records.some(f=>f.path===state.selectedFile))state.selectedFile=records.find(f=>f.path.endsWith('.sql'))?.path||records[0].path;
+    const grid=element("div","two-panel"),list=element("div","item-stack");
+    records.forEach(record=>{
+      const card=element("button",`click-card${record.path===state.selectedFile?' selected':''}`);
+      card.type='button';add(card,pill(record.path.endsWith('.sql')?'SQL':'JSON',record.path.endsWith('.sql')?'teal':'blue'),element("div","file-name",record.path));
+      card.addEventListener('click',()=>{state.selectedFile=record.path;render();});add(list,card);
+    });
+    const selected=run.files.get(state.selectedFile);
+    const content=element('div');add(content,element('div','small-detail',selected.path));
+    const preview=element('div','detail-section');add(content,preview);
+    add(grid,list,add(element('div','detail'),panel('File preview',content)));add(main,grid);
+    showFile(selected,preview);
+  }
+  function multiagentIntro(run) {
+    const summary = documentOf(run, 'multiagent_summary');
+    const wrap = element('div', 'multiagent-banner');
+    const mode = summary.mode || 'No multi-agent summary loaded';
+    wrap.textContent = `Research mode: ${mode}. Technical verification is NOT approval by a business specialist. Every finding remains a candidate until human review.`;
+    return wrap;
+  }
+  function detailDisclosure(title, value, open = false) {
+    const d = element('details', 'viewer-round'); d.open = open;
+    add(d, element('summary', '', title), codeBlock(valueToText(value), true));
+    return d;
+  }
+  function issueSummary(items) {
+    const records = safeList(items);
+    if (!records.length) return element('div', 'notice', 'No issues recorded for this check.');
+    const wrap = element('div', 'item-stack');
+    records.forEach(issue => {
+      const item = element('div', 'condition amber', typeof issue === 'string' ? issue : nameOr(issue.detail || issue.message || valueToText(issue)));
+      add(wrap, item);
+    });
+    return wrap;
+  }
+  function verificationDetails(v, run) {
+    if (!v) return panel('Verification detail', empty('Choose a verification', 'Select an investigation from the list.'));
+    const body = element('div');
+    const title = element('div', 'detail-header');
+    add(title, element('span', 'detail-kicker', v.task_id),
+      element('h2', '', nameOr(v.target?.object_name)),
+      pill(v.status || 'unknown', verificationTone(v.status)),
+      pill(`Human review: ${nameOr(v.human_status)}`, 'slate'));
+    add(body, title, button('Inspect original Research Agent task →', () => switchTo('tasks', v.task_id)));
+    if (v.candidate) {
+      if (v.candidate.observed_behavior) add(body, detailSection('Observed SQL Behavior', condition(v.candidate.observed_behavior)));
+      add(body, detailSection('Candidate Business Rule', v.candidate.candidate_rule ?
+        element('div', 'rule-box', v.candidate.candidate_rule) :
+        element('div', 'notice', 'No candidate rule proposed.')));
+      if (safeList(v.candidate.conditions).length) add(body, detailSection('Conditions', ul(v.candidate.conditions)));
+      if (v.candidate.effect) add(body, detailSection('Effects', condition(v.candidate.effect)));
+    }
+    if (v.deterministic_gates) {
+      const gates=v.deterministic_gates, block=element('div');
+      add(block, pill(gates.status || 'unknown', gates.status === 'reviewable' ? 'teal' : 'amber'));
+      add(block, detailSection('Missing coverage / dependencies', issueSummary(gates.issues)));
+      if (safeList(gates.warnings).length) add(block, detailSection('Warnings', issueSummary(gates.warnings)));
+      if (safeList(gates.research_requests).length) add(block, detailDisclosure('Deterministic research requests', gates.research_requests));
+      add(body, detailSection('Deterministic Evidence Gates', block));
+    }
+    if (v.verification) {
+      const verifier=v.verification, decision=verifier.decision||{}, block=element('div');
+      add(block, pill(decision.verification_status || verifier.status || 'unknown', verificationTone(decision.verification_status)));
+      if(decision.summary) add(block, element('p', 'card-sub', decision.summary));
+      add(block, detailSection('Verifier issues', issueSummary(decision.issues)));
+      if(safeList(decision.research_requests).length) add(block, detailDisclosure('Verifier research requests',decision.research_requests,true));
+      if(safeList(verifier.validation_errors).length) add(block, detailSection('Verifier validation errors', ul(verifier.validation_errors)));
+      if(verifier.prompt) add(block, detailDisclosure('Full verifier prompt', verifier.prompt));
+      if(verifier.raw_model_output!==undefined) add(block, detailDisclosure('Raw verifier response',verifier.raw_model_output));
+      if(safeList(verifier.attempts).length>1) add(block, detailDisclosure('Format repair attempts',verifier.attempts));
+      add(body, detailSection('Evidence Verification Agent', block));
+    }
+    const rounds=safeList(v.rounds);
+    const roundList=element('div','item-stack');
+    rounds.forEach((step,i)=>{
+      const d=element('details','viewer-round'); d.open=i===0;
+      const label = step.phase === 'verify' ? 'Evidence review' :
+        step.phase === 'feedback_routing' ? 'Research requests routed' :
+        step.phase === 'act_observe' ? 'ACT / OBSERVE: tool execution' :
+        step.phase === 'researcher_revision' ? 'Researcher revision' : nameOr(step.phase);
+      add(d, element('summary','',`Round ${nameOr(step.round)} · ${label}`));
+      if(step.phase==='verify'){
+        const verdict=step.verifier?.decision?.verification_status;
+        if(verdict)add(d,pill(verdict,verificationTone(verdict)));
+        if(step.gates)add(d,detailDisclosure('Coverage checks',step.gates));
+        if(step.verifier)add(d,detailDisclosure('Verifier prompt, response and decision',step.verifier));
+      } else if(step.phase==='feedback_routing') {
+        add(d,detailSection('Approved requests',codeBlock(valueToText(step.approved_requests),true)));
+        if(safeList(step.rejected_requests).length)add(d,detailSection('Rejected requests',codeBlock(valueToText(step.rejected_requests),true)));
+      } else if(step.phase==='act_observe') {
+        add(d,pill(step.origin||'controller', 'blue'));
+        add(d,detailSection('ACT · tool and arguments',codeBlock(valueToText(step.action),true)));
+        add(d,detailSection('OBSERVE · real tool output',codeBlock(valueToText(step.observation),true)));
+      } else if(step.phase==='researcher_revision') {
+        const revision=step.revision||{};
+        if(revision.decision)add(d,detailDisclosure('Revised candidate',revision.decision,true));
+        if(revision.prompt)add(d,detailDisclosure('Researcher revision prompt',revision.prompt));
+        if(revision.raw_model_output!==undefined)add(d,detailDisclosure('Raw researcher reply',revision.raw_model_output));
+        if(safeList(revision.validation_errors).length)add(d,detailSection('Errors',ul(revision.validation_errors)));
+      } else add(d,codeBlock(valueToText(step),true));
+      add(roundList,d);
+    });
+    add(body,detailSection(`Verification / feedback rounds (${rounds.length})`,rounds.length?roundList:element('div','notice','No rounds recorded.')));
+    if(safeList(v.observations).length)add(body,detailDisclosure('All accumulated tool observations',v.observations));
+    if(safeList(v.unresolved_issues).length)add(body,detailSection('Unresolved issues',issueSummary(v.unresolved_issues)));
+    return panel('Multi-agent evidence review',body);
+  }
+  function renderVerifications(run) {
+    add(main,heading('Evidence verification','Independent review, research feedback, tool observations and revised candidates.'),multiagentIntro(run));
+    const rows=verificationsOf(run);
+    if(!rows.length){add(main,empty('No verification files found','Look under research/verifications/ after the multi-agent stage finishes. The earlier pipeline stage may have failed.'));return;}
+    if(!rows.some(v=>v.task_id===state.selectedVerification))state.selectedVerification=rows[0].task_id;
+    const grid=element('div','two-panel'),list=element('div','item-stack');
+    rows.forEach(v=>{
+      const c=element('button',`click-card${state.selectedVerification===v.task_id?' selected':''}`);
+      c.type='button';
+      add(c,pill(v.status||'unknown',verificationTone(v.status)),
+        element('div','card-title',nameOr(v.target?.object_name,v.task_id)),
+        element('div','card-id',v.task_id),
+        element('div','card-sub',`${safeList(v.rounds).filter(x=>x.phase==='verify').length} verifier turn(s) · ${safeList(v.rounds).filter(x=>x.phase==='act_observe').length} feedback tool call(s)`));
+      c.addEventListener('click',()=>{state.selectedVerification=v.task_id;render();});add(list,c);
+    });
+    add(grid,list,add(element('div','detail'),verificationDetails(rows.find(v=>v.task_id===state.selectedVerification),run)));
+    add(main,grid);
+  }
+  function renderFindings(run) {
+    add(main,heading('Technically evidenced candidates','These rules still require explicit human validation.'),multiagentIntro(run));
+    const findings=findingsOf(run);
+    if(!findings.length){add(main,empty('No technically evidenced rules yet','The verifier may not have accepted candidates, or multi-agent research may not have finished. Inspect Pending Research and Verification Rounds.'));return;}
+    if(!findings.some(f=>f.id===state.selectedFinding))state.selectedFinding=findings[0].id;
+    const grid=element('div','two-panel'),list=element('div','item-stack');
+    findings.forEach(f=>{
+      const c=element('button',`click-card${state.selectedFinding===f.id?' selected':''}`);c.type='button';
+      add(c,pill(f.technical_status||'candidate','teal'),element('div','card-title',nameOr(f.object)),element('div','card-id',f.id),element('p','card-sub',nameOr(f.candidate_rule)));
+      c.addEventListener('click',()=>{state.selectedFinding=f.id;render();});add(list,c);
+    });
+    const f=findings.find(x=>x.id===state.selectedFinding),body=element('div');
+    add(body,pill(f.human_status||'pending_human_review','amber'));
+    add(body,detailSection('Candidate Business Rule',element('div','rule-box',nameOr(f.candidate_rule))));
+    if(f.observed_behavior)add(body,detailSection('Observed SQL Behavior',condition(f.observed_behavior)));
+    if(safeList(f.conditions).length)add(body,detailSection('Conditions',ul(f.conditions)));
+    if(f.effect)add(body,detailSection('Effects',condition(f.effect)));
+    add(body,detailDisclosure('Source and related objects',{source:f.source,related_objects:f.related_objects}));
+    if(f.task_id)add(body,button('View verification and research history →',()=>{state.selectedVerification=f.task_id;switchTo('verifications');}));
+    add(grid,list,add(element('div','detail'),panel('Candidate details',body)));add(main,grid);
+  }
+  function renderPending(run) {
+    add(main,heading('Pending investigations','Unresolved evidence, contradiction and human escalation questions.'),multiagentIntro(run));
+    const items=pendingOf(run);
+    if(!items.length){add(main,empty('No pending investigation records','This does not mean every rule is approved. Check the technical verifier and review status.'));return;}
+    if(!items.some(v=>v.task_id===state.selectedPending))state.selectedPending=items[0].task_id;
+    const grid=element('div','two-panel'),list=element('div','item-stack');
+    items.forEach(v=>{
+      const c=element('button',`click-card${state.selectedPending===v.task_id?' selected':''}`);c.type='button';
+      add(c,pill(v.reason||'pending','amber'),element('div','card-title',nameOr(v.object)),element('div','card-id',v.task_id));
+      c.addEventListener('click',()=>{state.selectedPending=v.task_id;render();});add(list,c);
+    });
+    const v=items.find(x=>x.task_id===state.selectedPending),body=element('div');
+    add(body,detailSection('Candidate (not verified)',v.candidate_rule?element('div','rule-box',v.candidate_rule):element('div','notice','No rule produced.')));
+    add(body,detailSection('Unresolved issues',issueSummary(v.issues)));
+    if(v.question_for_expert)add(body,detailSection('Question for specialist',condition(v.question_for_expert)));
+    if(v.task_id)add(body,button('Open verification history →',()=>{state.selectedVerification=v.task_id;switchTo('verifications');}));
+    add(grid,list,add(element('div','detail'),panel('Pending research details',body)));add(main,grid);
+  }
+  function renderRag(run) {
+    add(main,heading('RAG · lexical BM25','AST-aligned SQL passages indexed for read-only retrieval. This is not semantic embeddings.'));
+    const index=documentOf(run,'rag'),chunks=safeList(index.chunks);
+    if(!chunks.length){add(main,empty('No indexed passages','Look for rag/index.json after RAG initialization. It may be disabled.'));return;}
+    add(main,panel('Index summary',element('div','multiagent-banner',`${chunks.length} chunks · Backend: ${nameOr(index.backend)} · Read-only local source snippets.`)));
+    if(!chunks.some(c=>c.chunk_id===state.selectedRag))state.selectedRag=chunks[0].chunk_id;
+    const grid=element('div','two-panel'),list=element('div','item-stack');
+    chunks.forEach(c=>{
+      const b=element('button',`click-card${state.selectedRag===c.chunk_id?' selected':''}`);b.type='button';
+      add(b,pill(c.chunk_id,'blue'),element('div','card-title',nameOr(c.object_name)),element('div','viewer-path',`${c.source_file}:${c.start_line}-${c.end_line}`));
+      b.addEventListener('click',()=>{state.selectedRag=c.chunk_id;render();});add(list,b);
+    });
+    const selected=chunks.find(c=>c.chunk_id===state.selectedRag),body=element('div');
+    add(body,detailSection('Original source passage',codeBlock(selected.text)));
+    add(body,keyValue('File',selected.source_file),keyValue('Lines',`${selected.start_line}–${selected.end_line}`));
+    if(run.files.has(selected.source_file))add(body,button('Open original source →',()=>switchTo('files',selected.source_file)));
+    add(grid,list,add(element('div','detail'),panel('Indexed passage',body)));add(main,grid);
+  }
+  function renderEvaluation(run) {
+    add(main,heading('Execution and evaluation metrics','Machine-observable telemetry is not a ground-truth accuracy benchmark.'),multiagentIntro(run));
+    const summary=documentOf(run,'multiagent_summary'),metrics=documentOf(run,'evaluation');
+    if(!Object.keys(summary).length&&!Object.keys(metrics).length){add(main,empty('No multi-agent metrics','Run the multi-agent pipeline and open the generated execution folder.'));return;}
+    add(main,panel('Multi-agent execution summary',codeBlock(valueToText(summary),true)));
+    if(Object.keys(metrics).length)add(main,panel('Operational metrics',codeBlock(valueToText(metrics),true)));
+    const review=documentOf(run,'human_corrections');
+    if(Object.keys(review).length)add(main,panel('Human review records (read-only)',codeBlock(valueToText(review),true)));
+  }
+  function render() {
+    const run=chosenRun();
+    document.getElementById('crumbRun').textContent=run?state.runId:'Not selected';
+    document.getElementById('navTaskCount').textContent=run?tasksOf(run).length:'—';
+    document.getElementById('navOutputCount').textContent=run?outputsOf(run).length:'—';
+    document.getElementById('navVerifyCount').textContent=run?verificationsOf(run).length:'—';
+    document.getElementById('navFindingCount').textContent=run?findingsOf(run).length:'—';
+    document.getElementById('navPendingCount').textContent=run?pendingOf(run).length:'—';
+    [...nav.querySelectorAll('button[data-view]')].forEach(button=>button.classList.toggle('active',button.dataset.view===state.view));
+    if(!run)return;
+    main.replaceChildren();
+    const view=state.view;
+    if(view==='overview')renderOverview(run);
+    else if(view==='verifications')renderVerifications(run);
+    else if(view==='findings')renderFindings(run);
+    else if(view==='pending')renderPending(run);
+    else if(view==='rag')renderRag(run);
+    else if(view==='evaluation')renderEvaluation(run);
+    else if(view==='tasks')renderTasks(run);
+    else if(view==='outputs')renderOutputs(run);
+    else if(view==='inventory')renderInventory(run);
+    else if(view==='catalogs')renderCatalogs(run);
+    else if(view==='relationships')renderRelationships(run);
+    else if(view==='ast')renderAST(run);
+    else if(view==='issues')renderIssues(run);
+    else if(view==='files')renderFiles(run);
+  }
+  function updateSelect() {
+    runSelect.replaceChildren();
+    const sorted=[...state.runs.keys()].sort((a,b)=>b.localeCompare(a));
+    sorted.forEach(id=>{const option=element('option','',id);option.value=id;runSelect.appendChild(option);});
+    runSelect.disabled=!sorted.length;
+    if(!state.runs.has(state.runId)){
+      // Open the run with the richest research evidence first.
+      const ranked=[...sorted].sort((a,b)=>{
+        const left=state.runs.get(a),right=state.runs.get(b);
+        return outputsOf(right).length-outputsOf(left).length ||
+          tasksOf(right).length-tasksOf(left).length || b.localeCompare(a);
+      });
+      state.runId=ranked[0]||null;
+    }
+    runSelect.value=state.runId||'';
+    state.selectedTask=null;state.selectedObject=null;state.selectedFile=null;state.selectedOutput=0;state.selectedVerification=null;state.selectedFinding=null;state.selectedPending=null;state.selectedRag=null;state.filter='';state.view='overview';
+    render();
+  }
+  function discoverRun(file) {
+    const raw=(file.webkitRelativePath||file.name).replaceAll('\\','/');
+    const parts=raw.split('/').filter(Boolean);
+    const index=parts.findIndex(x=>runIdPattern.test(x));
+    if(index===-1||index+1>=parts.length)return null;
+    return {id:parts[index],path:parts.slice(index+1).join('/')};
+  }
+  async function loadFolder(files) {
+    const inputFiles=[...files];
+    if(!inputFiles.length)return;
+    const runs=new Map();let invalid=0;
+    for(const file of inputFiles){
+      const found=discoverRun(file);if(!found)continue;
+      if(!runs.has(found.id))runs.set(found.id,{id:found.id,files:new Map(),docs:{},outputs:[],verifications:[],taskFiles:[]});
+      runs.get(found.id).files.set(found.path,{path:found.path,file});
+    }
+    if(!runs.size){notify('No run_### folders found. Please select the workspace folder.');return;}
+    const promises=[];
+    for(const run of runs.values()){
+      for(const [path,record] of run.files){
+        const key=docLocations[path];
+        const taskFile=taskFilePattern.test(path);
+        const agentOutput=agentOutputPattern.test(path);
+        const verificationFile=verificationPattern.test(path);
+        if(key||taskFile||agentOutput||verificationFile){
+          promises.push((async()=>{
+            try{
+              const data=JSON.parse(await record.file.text());
+              if(taskFile && data && Array.isArray(data.tasks))run.taskFiles.push({path,data});
+              else if(key && key!=='tasks')run.docs[key]=data;
+              else if(agentOutput && data && data.task_id)run.outputs.push(data);
+              else if(verificationFile && data && data.task_id)run.verifications.push(data);
+              else if(taskFile)invalid++;
+            }catch(err){invalid++;console.warn('Could not parse local file',path,err);}
+          })());
+        }
+      }
+    }
+    await Promise.all(promises);
+    for(const run of runs.values()){
+      // Prefer tasks from the newest versioned folder, if several exist.
+      // Models from all research folders remain in the execution history.
+      run.taskFiles.sort((a,b)=>researchDirectoryRank(b.path)-researchDirectoryRank(a.path) || b.path.localeCompare(a.path));
+      if(run.taskFiles.length)run.docs.tasks=run.taskFiles[0].data;
+      run.outputs.sort((a,b)=>timestampOf(b)-timestampOf(a));
+      run.verifications.sort((a,b)=>String(a.target?.object_name||a.task_id).localeCompare(String(b.target?.object_name||b.task_id)));
+    }
+    state.selectedProposalByTask.clear();
+    state.runs=runs;state.demo=false;updateSelect();
+    notify(`${runs.size} run(s) loaded locally${invalid?` · ${invalid} unreadable JSON file(s)`:''}.`);
+  }
+  function loadDemo() {
+    const id='run_001';
+    const taskBase={task_type:'analyze_sql_fragment',status:'pending',parent_task_id:null,related_objects:[],object_context:{parameters:[]}};
+    const tasks=[
+      {...taskBase,task_id:'TASK-227F0C005747',target:{object_type:'procedure',object_name:'dbo.ApproveOperation'},fragment:{operation:'UPDATE',target_table:'dbo.Operations',condition_context:[],where_conditions:[{kind:'WHERE',expression:"OperationId = @OperationId AND Status = 'PENDING' AND Amount > 0"}],effects:{assignments:[{column:'Status',operator:'=',expression:"'APPROVED'"}]},sql:"UPDATE dbo.Operations\nSET Status = 'APPROVED'\nWHERE OperationId = @OperationId\n  AND Status = 'PENDING'\n  AND Amount > 0;"},evidence:{source_file:'sql_sources/01_ApproveOperation.sql',start_line:6,end_line:10,ast_node_type:'update_statement'}},
+      {...taskBase,task_id:'TASK-C317F1D3AF9D',target:{object_type:'trigger',object_name:'dbo.trg_Operations_ValidateAmount'},fragment:{operation:'THROW',target_table:null,condition_context:[{kind:'IF',expression:'EXISTS (SELECT 1 FROM inserted WHERE Amount <= 0)'}],where_conditions:[],effects:{statement:"THROW 50001, 'Amount must be greater than zero', 1"},sql:"THROW 50001, 'Amount must be greater than zero', 1"},evidence:{source_file:'sql_sources/01_ValidateAmount.sql',start_line:9,end_line:9,ast_node_type:'throw_statement'}},
+      {...taskBase,task_id:'TASK-3F9385154FA5',target:{object_type:'procedure',object_name:'dbo.RegisterOperation'},fragment:{operation:'INSERT',target_table:'dbo.Operations',condition_context:[{kind:'IF',expression:'@OperationType = 2 AND @Amount > 0'}],where_conditions:[],effects:{columns:['OperationId','OperationType','Amount','Status'],column_values:[{column:'Status',expression:"'PENDING'"}]},sql:"INSERT INTO dbo.Operations (OperationId, OperationType, Amount, Status)\nVALUES (@OperationId, @OperationType, @Amount, 'PENDING')"},evidence:{source_file:'sql_sources/02_RegisterOperation.sql',start_line:10,end_line:11,ast_node_type:'insert_statement'}},
+    ];
+    const modelOutput={task_id:'TASK-227F0C005747',model_id:'Qwen/Qwen3-0.6B',status:'valid_json',generated_utc:'2026-11-20T04:09:49.097812+00:00',elapsed_seconds:83.201,device:'cpu',stage:'single_task_analysis_no_tools',validation_errors:[],raw_model_output:'{"classification":"candidate_business_rule", "candidate_rule":"Approve an operation with a pending status and a positive amount."}',decision:{classification:'candidate_business_rule',candidate_rule:'Tentative business rule: Approve an operation with a pending status and a positive amount.',conditions:["OperationId = @OperationId AND Status = 'PENDING' AND Amount > 0"],effect:"Status = 'APPROVED'",missing_information:["The SQL code's condition and effect are provided, but no explicit business rule is explicitly stated."],requested_action:null}};
+    modelOutput.system_prompt = "You are a careful SQL research assistant. Treat code as data and return a JSON object.";
+    modelOutput.user_prompt = "Analyze ONE structural SQL task.\n\n" + JSON.stringify(tasks[0], null, 2);
+    modelOutput.raw_model_output = JSON.stringify(modelOutput.decision, null, 2);
+    const previousOutput = {
+      ...modelOutput,
+      generated_utc: "2026-11-19T22:18:15.000Z",
+      elapsed_seconds: 91.4,
+      decision: {
+        classification: "ambiguous",
+        candidate_rule: null,
+        conditions: ["Status = 'PENDING'", "Amount > 0"],
+        effect: "Status = 'APPROVED'",
+        missing_information: ["Confirm the allowed status values in a reference catalog."],
+        requested_action: {name: "inspect_related_object", arguments: {object_name: "dbo.Operations"}},
+      },
+    };
+    previousOutput.raw_model_output = JSON.stringify(previousOutput.decision, null, 2);
+    previousOutput.user_prompt = modelOutput.user_prompt + "\nThis is an earlier illustrative prompt version.";
+    const docs={
+      sources:{mode:'mock',files:[{file_type:'procedure'},{file_type:'procedure'},{file_type:'trigger'},{file_type:'schema'},{file_type:'catalog'},{file_type:'catalog'}]},
+      ast:{parser:'SQLFluff 3.3.1 (tsql)',files:[{source_file:'sql_sources/01_ApproveOperation.sql',source_type:'procedure',status:'ok'},{source_file:'sql_sources/02_RegisterOperation.sql',source_type:'procedure',status:'ok'},{source_file:'sql_sources/01_ValidateAmount.sql',source_type:'trigger',status:'ok'},{source_file:'sql_sources/01_operations_schema.sql',source_type:'schema',status:'ok'}]},
+      inventory:{tables:[{name:'dbo.Operations',columns:[{name:'OperationId',data_type:'INT'},{name:'OperationType',data_type:'INT'},{name:'Amount',data_type:'DECIMAL(18,2)'},{name:'Status',data_type:'VARCHAR(20)'}],source:{file:'sql_sources/01_operations_schema.sql',line:9}},{name:'dbo.OperationTypes',columns:[],source:{}},{name:'dbo.OperationStatuses',columns:[],source:{}}],procedures:[{name:'dbo.ApproveOperation',parameters:[{name:'@OperationId',data_type:'INT'}],operations:[{operation:'UPDATE',target_table:'dbo.Operations',source:{line:6},where_conditions:tasks[0].fragment.where_conditions}],source:{file:tasks[0].evidence.source_file,line:2}},{name:'dbo.RegisterOperation',parameters:[],operations:[{operation:'INSERT',target_table:'dbo.Operations',source:{line:10},condition_context:tasks[2].fragment.condition_context}],source:{file:tasks[2].evidence.source_file,line:2}}],triggers:[{name:'dbo.trg_Operations_ValidateAmount',table:'dbo.Operations',events:['INSERT','UPDATE'],operations:[{operation:'THROW',source:{line:9},condition_context:tasks[1].fragment.condition_context}],source:{file:tasks[1].evidence.source_file,line:2}}]},
+      tasks:{tasks},outputs:[],catalogs:{catalogs:[{name:'Operation types',table:'dbo.OperationTypes',source_file:'catalogs/operation_types.catalog.json',values:[{code:1,description:'External payment'},{code:2,description:'Internal adjustment'},{code:3,description:'Account-to-account transfer'}]},{name:'Operation statuses',table:'dbo.OperationStatuses',source_file:'catalogs/operation_statuses.catalog.json',values:[{code:'PENDING',description:'Pending approval'},{code:'APPROVED',description:'Approved operation'},{code:'REJECTED',description:'Rejected operation'}]}]},
+      relationships:{relationships:[{type:'UPDATES',from:{name:'dbo.ApproveOperation'},to:{name:'dbo.Operations'},source:{file:'sql_sources/01_ApproveOperation.sql',line:6}},{type:'INSERTS_INTO',from:{name:'dbo.RegisterOperation'},to:{name:'dbo.Operations'},source:{file:'sql_sources/02_RegisterOperation.sql',line:10}},{type:'TRIGGERS_ON',from:{name:'dbo.trg_Operations_ValidateAmount'},to:{name:'dbo.Operations'},source:{file:'sql_sources/01_ValidateAmount.sql',line:2}}]},
+    };
+    const sql={
+      'sql_sources/01_ApproveOperation.sql':"CREATE PROCEDURE dbo.ApproveOperation @OperationId INT AS\nBEGIN\n    UPDATE dbo.Operations\n    SET Status = 'APPROVED'\n    WHERE OperationId = @OperationId AND Status = 'PENDING' AND Amount > 0;\nEND;",
+      'sql_sources/01_ValidateAmount.sql':"CREATE TRIGGER dbo.trg_Operations_ValidateAmount ON dbo.Operations\nAFTER INSERT, UPDATE AS\nBEGIN\n  IF EXISTS(SELECT 1 FROM inserted WHERE Amount <= 0)\n    THROW 50001, 'Amount must be greater than zero', 1;\nEND;",
+      'sql_sources/02_RegisterOperation.sql':"CREATE PROCEDURE dbo.RegisterOperation AS\nBEGIN\n  IF @OperationType = 2 AND @Amount > 0\n    INSERT INTO dbo.Operations (OperationId, OperationType, Amount, Status)\n    VALUES (@OperationId, @OperationType, @Amount, 'PENDING');\nEND;",
+    };
+    const files=new Map(Object.entries(sql).map(([path,text])=>[path,{path,text}]));
+    state.selectedProposalByTask.clear();
+    state.runs=new Map([[id,{id,docs,files,outputs:[modelOutput, previousOutput]}]]);
+    state.runId=id;state.demo=true;updateSelect();notify('Illustrative sample loaded. Choose your workspace folder to see real data.');
+  }
+
+  document.getElementById('demoButton').addEventListener('click',loadDemo);
+  picker.addEventListener('change',async event=>{
+    try{await loadFolder(event.target.files);}catch(error){console.error(error);notify(`Cannot load workspace: ${error.message}`);}finally{picker.value='';}
+  });
+  nav.addEventListener('click',event=>{
+    const btn=event.target.closest('button[data-view]');
+    if(btn){state.view=btn.dataset.view;state.filter='';render();}
+  });
+  runSelect.addEventListener('change',()=>{
+    state.runId=runSelect.value;state.selectedTask=null;state.selectedOutput=0;state.selectedObject=null;state.selectedFile=null;state.selectedVerification=null;state.selectedFinding=null;state.selectedPending=null;state.selectedRag=null;state.filter='';render();
+  });
+})();
+
+</script>
+</body>
+</html>

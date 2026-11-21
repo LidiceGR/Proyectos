@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0",
+  "run_id": "comparison_03_verified_no_rag",
+  "created_utc": "2026-11-21T06:05:04.429795+00:00",
+  "updated_utc": "2026-11-21T06:13:42.551775+00:00",
+  "status": "completed",
+  "settings": {
+    "source_config": "D:\\Proyectos\\CMUAgent\\Proyectos\\config\\mock_req_dummy_system1.json",
+    "initialize_rag": false,
+    "research_mode": "multiagent"
+  },
+  "stages": [
+    {
+      "name": "source_extraction",
+      "status": "ok",
+      "started_utc": "2026-11-21T06:05:04.429795+00:00",
+      "finished_utc": "2026-11-21T06:05:05.084466+00:00"
+    },
+    {
+      "name": "sql_ast_parsing",
+      "status": "ok",
+      "started_utc": "2026-11-21T06:05:05.091791+00:00",
+      "finished_utc": "2026-11-21T06:05:08.738904+00:00"
+    },
+    {
+      "name": "inventory_building",
+      "status": "ok",
+      "started_utc": "2026-11-21T06:05:08.743929+00:00",
+      "finished_utc": "2026-11-21T06:05:09.385208+00:00"
+    },
+    {
+      "name": "task_initialization",
+      "status": "ok",
+      "started_utc": "2026-11-21T06:05:09.413662+00:00",
+      "finished_utc": "2026-11-21T06:05:09.957623+00:00"
+    },
+    {
+      "name": "research_multiagent",
+      "status": "ok",
+      "started_utc": "2026-11-21T06:05:09.981380+00:00",
+      "summary": {
+        "verifier_calls": 9,
+        "researcher_revisions": 4,
+        "deterministic_catalog_annotations": 2,
+        "technically_evidenced": 4,
+        "feedback_tools_executed": 2,
+        "pending_human_review": 1
+      },
+      "finished_utc": "2026-11-21T06:13:42.546881+00:00"
+    }
+  ],
+  "artifacts": {
+    "source_extraction": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\comparison_03_verified_no_rag\\sources_manifest.json",
+    "sql_ast_parsing": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\comparison_03_verified_no_rag\\ast_files\\ast_manifest.json",
+    "inventory_building": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\comparison_03_verified_no_rag\\metadata\\inventory.json",
+    "task_initialization": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\comparison_03_verified_no_rag\\research\\research_tasks.json",
+    "research_multiagent": "prompt_preview_only"
+  },
+  "finished_utc": "2026-11-21T06:13:42.551775+00:00"
+}

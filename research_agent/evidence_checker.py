@@ -64,7 +64,7 @@ def check_evidence(task: dict[str, Any], decision: dict[str, Any]) -> dict[str, 
     steps = fragment.get("steps") if isinstance(fragment.get("steps"), list) else [fragment]
     effects = [
         s for s in steps if s.get("operation") in _EFFECT_OPERATIONS
-        or s.get("operation") == "RETURN"
+        or s.get("operation") in {"RETURN", "SET", "CALL"}
         or (s.get("operation") == "SELECT" and (
             (s.get("effects") or {}).get("variable_assignments")
             or (s.get("sql") or "").strip().lower().startswith("select ")

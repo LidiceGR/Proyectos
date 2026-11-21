@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0",
+  "run_id": "run_016",
+  "created_utc": "2026-11-21T05:28:46.937827+00:00",
+  "updated_utc": "2026-11-21T05:35:52.100131+00:00",
+  "status": "completed",
+  "settings": {
+    "source_config": "D:\\Proyectos\\CMUAgent\\Proyectos\\config\\mock_req_dummy_system1.json",
+    "initialize_rag": true,
+    "research_mode": "multiagent"
+  },
+  "stages": [
+    {
+      "name": "source_extraction",
+      "status": "ok",
+      "started_utc": "2026-11-21T05:28:46.937827+00:00",
+      "finished_utc": "2026-11-21T05:28:47.764715+00:00"
+    },
+    {
+      "name": "sql_ast_parsing",
+      "status": "ok",
+      "started_utc": "2026-11-21T05:28:47.772629+00:00",
+      "finished_utc": "2026-11-21T05:28:52.546630+00:00"
+    },
+    {
+      "name": "inventory_building",
+      "status": "ok",
+      "started_utc": "2026-11-21T05:28:52.551628+00:00",
+      "finished_utc": "2026-11-21T05:28:53.227690+00:00"
+    },
+    {
+      "name": "task_initialization",
+      "status": "ok",
+      "started_utc": "2026-11-21T05:28:54.245165+00:00",
+      "finished_utc": "2026-11-21T05:28:54.872409+00:00"
+    },
+    {
+      "name": "rag_initialization",
+      "status": "ok",
+      "started_utc": "2026-11-21T05:28:54.913640+00:00",
+      "finished_utc": "2026-11-21T05:28:54.937742+00:00"
+    },
+    {
+      "name": "research_multiagent",
+      "status": "ok",
+      "started_utc": "2026-11-21T05:28:54.959779+00:00",
+      "summary": {
+        "verifier_calls": 9,
+        "feedback_tools_executed": 6,
+        "researcher_revisions": 4,
+        "deterministic_catalog_annotations": 2,
+        "technically_evidenced": 4,
+        "pending_human_review": 1
+      },
+      "finished_utc": "2026-11-21T05:35:52.093138+00:00"
+    }
+  ],
+  "artifacts": {
+    "source_extraction": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_016\\sources_manifest.json",
+    "sql_ast_parsing": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_016\\ast_files\\ast_manifest.json",
+    "inventory_building": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_016\\metadata\\inventory.json",
+    "task_initialization": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\run_016\\research\\research_tasks.json",
+    "research_multiagent": "prompt_preview_only"
+  },
+  "finished_utc": "2026-11-21T05:35:52.100131+00:00"
+}

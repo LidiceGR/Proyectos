@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0",
+  "run_id": "comparison_02_tools_only",
+  "created_utc": "2026-11-21T06:00:49.578796+00:00",
+  "updated_utc": "2026-11-21T06:04:34.951943+00:00",
+  "status": "completed",
+  "settings": {
+    "source_config": "D:\\Proyectos\\CMUAgent\\Proyectos\\config\\mock_req_dummy_system1.json",
+    "initialize_rag": false,
+    "research_mode": "react"
+  },
+  "stages": [
+    {
+      "name": "source_extraction",
+      "status": "ok",
+      "started_utc": "2026-11-21T06:00:49.578796+00:00",
+      "finished_utc": "2026-11-21T06:00:50.231447+00:00"
+    },
+    {
+      "name": "sql_ast_parsing",
+      "status": "ok",
+      "started_utc": "2026-11-21T06:00:50.237447+00:00",
+      "finished_utc": "2026-11-21T06:00:53.823819+00:00"
+    },
+    {
+      "name": "inventory_building",
+      "status": "ok",
+      "started_utc": "2026-11-21T06:00:53.828818+00:00",
+      "finished_utc": "2026-11-21T06:00:54.464724+00:00"
+    },
+    {
+      "name": "task_initialization",
+      "status": "ok",
+      "started_utc": "2026-11-21T06:00:54.492210+00:00",
+      "finished_utc": "2026-11-21T06:00:55.075517+00:00"
+    },
+    {
+      "name": "research_react",
+      "status": "ok",
+      "started_utc": "2026-11-21T06:00:55.107854+00:00",
+      "summary": {
+        "processed": 5,
+        "initial_processed": 5,
+        "derived_created": 0,
+        "derived_processed": 0,
+        "valid_json": 5,
+        "evidence_incomplete": 0,
+        "research_incomplete": 0,
+        "invalid_response": 0,
+        "execution_error": 0,
+        "candidate_rules_proposed": 5,
+        "tool_actions_executed": 6,
+        "queue_actions_executed": 0,
+        "model_actions_executed": 0,
+        "policy_actions_executed": 6,
+        "research_decisions": 11,
+        "final_generations": 5,
+        "format_repair_attempts": 0,
+        "format_repairs_successful": 0,
+        "total_pending": 5,
+        "selected": 5,
+        "not_selected": 0
+      },
+      "finished_utc": "2026-11-21T06:04:34.951943+00:00"
+    }
+  ],
+  "artifacts": {
+    "source_extraction": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\comparison_02_tools_only\\sources_manifest.json",
+    "sql_ast_parsing": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\comparison_02_tools_only\\ast_files\\ast_manifest.json",
+    "inventory_building": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\comparison_02_tools_only\\metadata\\inventory.json",
+    "task_initialization": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\comparison_02_tools_only\\research\\research_tasks.json",
+    "research_react": "D:\\Proyectos\\CMUAgent\\Proyectos\\workspace\\comparison_02_tools_only\\research\\agent_runs\\react_summary.json"
+  },
+  "finished_utc": "2026-11-21T06:04:34.951943+00:00"
+}
